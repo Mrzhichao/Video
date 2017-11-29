@@ -11,11 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-/**
- * 鐢ㄦ埛璺敱
- */
+//后台首页
+route::get('/',function()
+	{
+		return view('Admin.index',['title'=>'后台主页']);
+	});
+
+//用户模块
 Route::resource('admin/user','Admin\UserController');
+
+
+
+
+//广告模块的增删改查
+ Route::resource('admin/ad','Admin\AdController');
+
