@@ -19,11 +19,16 @@ class AdController extends Controller
      */
     public function index()
     {
-        //查询数据库
-        $data = advertisement::where('adesc','like','%a%')->paginate(10);
-        
 
-         return view('Admin.Ad.index',['title'=>'广告预览','data'=>$data]);
+        // //获取关键字搜索
+        $namekey = empty($_GET['namekey']) ? '' : $_GET['namekey']; 
+        
+        //查询数据库
+        $data = advertisement::where('aname','like','%'.$namekey.'%')->paginate(9); 
+
+       //将查询到的用户名放进数组
+      
+        return view('Admin.Ad.index',['title'=>'广告预览','data'=>$data])->with('where',['aname'=>$namekey]);
     }
 
     /**

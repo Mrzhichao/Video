@@ -16,16 +16,22 @@
             </div>
 
             <div class="row-content am-cf">
+		<javascript>
+			
 
+		</javascript>
 
                 <div class="row">
  
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">fff</div>
+                                <div class="widget-title am-fl"></div>
                                 <div class="widget-function am-fr">
-                                    <a class="am-icon-cog" href="javascript:;"></a>
+                                <form action="{{ url('admin/ad') }}" method="get">
+                                <input style="color:#a2b;" type="text" name="namekey" placeholder="...">
+                               <button class="am-btn   am-btn-success">搜索</button>
+                                </form>
                                 </div>
                             </div>
                             <div class="widget-body  widget-body-lg am-fr">
@@ -34,7 +40,7 @@
                                     <thead>
                                         <tr>
 
-                                        	<th id="id">广告编号</th>
+                                        	
                                             <th>广告描述</th>
                                             <th>广告链接</th>
                                             <th>预览图</th>
@@ -48,12 +54,12 @@
                                     <tbody>
                                     @foreach($data as $k => $v)
                                         <tr class="gradeX">
-                                        	<td id=".id">{{ $v ->id }}</td>
+                                        	
                                             <td>{{ $v -> adesc }}</td>
                                             <td>{{ $v -> acontent }}</td>
                                             <td><img width="60" height="40" src="{{ asset('./uploads/Ad/s_') }}{{ $v->aimg }}" /></td>
                                             <td>{{ $v -> aprice }}</td>
-                                            <td>{{ $v -> uid }}</td>
+                                            <td>{{ $v -> aname }}</td>
                                             <td>{{ date('Y-m-d',$v -> startTime) }}</td>
                                             <td>{{ date('Y-m-d', $v -> endTime )}}</td>
                                             <td>
@@ -72,7 +78,7 @@
                                         <!-- more data -->
                                     </tbody>
                                 </table>
-
+								 <center>{!! $data->appends($where)->render() !!}</center>
                             </div>
                         </div>
                     </div>
@@ -88,10 +94,12 @@
 
 	var i = 0;
 	var arr = $('.id');
-
+	
 	//去除ID排序 
 	$('#id').on('click',function()
 		{
+
+
 			if(i%2 == 0){
 
 			

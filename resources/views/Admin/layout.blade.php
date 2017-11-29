@@ -17,11 +17,16 @@
     <link rel="stylesheet" href="{{asset('Admin/assets/css/amazeui.min.css')}}" />
     <link rel="stylesheet" href="{{asset('Admin/assets/css/amazeui.datatables.min.css')}}" />
     <link rel="stylesheet" href="{{asset('Admin/assets/css/app.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.min.css')}}">
+    <script type="text/javascript" src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/amazeui.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/amazeui.datatables.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/app.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    
+
 
 </head>
 

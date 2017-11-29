@@ -44,11 +44,11 @@
 								<div class="am-form-group">
                                         <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">添加者<span class="tpl-form-line-small-title"></span></label>
                                         <div class="am-u-sm-12">
-                                            <input type="text" readonly=""    id="user-name" value="{{$aname}}" class="tpl-form-input am-margin-top-xs">
+                                            <input type="text" readonly=""    id="user-name" name="aname" value="{{$aname}}" class="tpl-form-input am-margin-top-xs">
                                             
                                         </div>
                                     </div>
-                                    <input type="hidden" name="aid" value="{{ $aid }}">
+                                   
                                     <div class="am-form-group">
                                         <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">请对广告做出描述 <span class="tpl-form-line-small-title">dsec</span></label>
                                         <div class="am-u-sm-12">
