@@ -12,6 +12,7 @@
 */
 
 
+
 //后台首页
 route::get('/',function()
 	{
@@ -30,4 +31,7 @@ Route::resource('admin/user','Admin\UserController');
 
 //广告模块的增删改查
  Route::resource('admin/ad','Admin\AdController');
+
+
+Route::resource('admin/video','Admin\VideoController');
 
