@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class advertisement extends Model
 {
 	//声明数据表的名称
-   	public $table = 'data_advertisement';
+   	public $table = 'advertisement';
 
    	//声明数据表的主键
    	public $primaryKey = 'id';

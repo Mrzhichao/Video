@@ -28,24 +28,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                                    <div class="am-form-group tpl-table-list-select">
-                                        <select data-am-selected="{btnSize: 'sm'}">
-                                          <option value="option1">所有类别</option>
-                                          <option value="option2">IT业界</option>
-                                          <option value="option3">数码产品</option>
-                                          <option value="option3">笔记本电脑</option>
-                                          <option value="option3">平板电脑</option>
-                                          <option value="option3">只能手机</option>
-                                          <option value="option3">超极本</option>
-                                        </select>
-                                    </div>
-                                </div>
+                             
                                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field ">
+                                        <input type="text" name='keyword' class="am-form-field ">
                                         <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
           </span>
                                     </div>
                                 </div>
@@ -66,17 +54,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($data as $v)
                                             <tr class="gradeX">
-                                                <td>
-                                                    <img src=" {{ asset('Admin/assets/img/k.jpg') }}" class="tpl-table-line-img" alt="">
+                                               
+                                                <td class="am-text-middle">{{ $v -> uid}}</td>
+                                                <td class="am-text-middle">{{ $v -> uname}}</td>
+                                                <td class="am-text-middle">{{ $v -> sex}}</td>
+                                                 <td>
+                                                    <img src="{{ asset('./uploads/user/s_') }}{{ $v->avatar }}"  class="tpl-table-line-img" alt="">
                                                 </td>
-                                                <td class="am-text-middle">Amaze UI 模式窗口</td>
-                                                <td class="am-text-middle">张鹏飞</td>
-                                                <td class="am-text-middle">2016-09-26</td>
-                                                <td class="am-text-middle">Amaze UI 模式窗口</td>
-                                                <td class="am-text-middle">张鹏飞</td>
-                                                <td class="am-text-middle">2016-09-26</td>
-                                                <td class="am-text-middle">2016-09-26</td>
+                                                <td class="am-text-middle">{{ $v -> phone}}</td>
+                                                <td class="am-text-middle">{{ $v -> email}}</td>
+                                                <td class="am-text-middle">{{ $v -> status}}</td>
+                                                <td class="am-text-middle">{{ $v -> roleid}}</td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
                                                         <a href="javascript:;">
@@ -88,6 +78,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -102,7 +93,9 @@
                                             <li><a href="#">4</a></li>
                                             <li><a href="#">5</a></li>
                                             <li><a href="#">»</a></li>
+
                                         </ul>
+                                        {!! $data->appends($where)->render() !!}
                                     </div>
                                 </div>
                             </div>

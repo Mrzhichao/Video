@@ -18,7 +18,11 @@ route::get('/',function()
 		return view('Admin.index',['title'=>'后台主页']);
 	});
 
-//用户模块
+//后台用户模块
+// Route::resource('admin/')
+
+
+//前台用户模块
 Route::resource('admin/user','Admin\UserController');
 
 

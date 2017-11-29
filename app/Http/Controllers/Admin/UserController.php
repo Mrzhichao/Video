@@ -16,10 +16,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = '用户列表页';
-        return view('Admin.User.index',['title'=>$title]);
+        $keywords=$request->input('keyword');
+        $data = User::where('uname','like',"%".$keywords."%")->simplePaginate(10);
+        return view('Admin.User.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
+
     }
 
     /**
@@ -41,52 +44,52 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       //   $this->validate($request,[
-       //      'uname' => 'required|min:5|max:18',
-       //      'upwd' => 'required',
-       //      're_upwd' => 'same:upwd',
-       //      'email' => 'email',
-       //      'phone' => 'required|size:11',
-       //      'avatar' => 'image'
-       //  ],[
-       //      'uname.required' => '用户名不能为空。',
-       //      'uname.min' => '用户名最小6个字符。',
-       //      'uname.max' => '用户名最大18个字符。',
-       //      'updated_at.required' => '密码不能为空。',
-       //      're_upwd.same' => '确认密码不一致。',
-       //      'email.email' => '邮箱格式不正确。',
-       //      'phone.required' => '手机号不能为空。',
-       //      'phone.size' => '手机长度不合适 。',
-       //      'avatar.image' => '请选择一张图片才好。',
-       //  ]);
+         $this->validate($request,[
+            'uname' => 'required|min:5|max:18',
+            'upwd' => 'required',
+            're_upwd' => 'same:upwd',
+            'email' => 'email',
+            'phone' => 'required|size:11',
+            'avatar' => 'image'
+        ],[
+            'uname.required' => '用户名不能为空。',
+            'uname.min' => '用户名最小6个字符。',
+            'uname.max' => '用户名最大18个字符。',
+            'updated_at.required' => '密码不能为空。',
+            're_upwd.same' => '确认密码不一致。',
+            'email.email' => '邮箱格式不正确。',
+            'phone.required' => '手机号不能为空。',
+            'phone.size' => '手机长度不合适 。',
+            'avatar.image' => '请选择一张图片才好。',
+        ]);
 
-       //  $data = $request->except('_token', 're_upwd');
-       //  $data['upwd'] = encrypt($data['upwd']);
+        $data = $request->except('_token', 're_upwd');
+        $data['upwd'] = encrypt($data['upwd']);
 
-       //  //上传文件处理
-       //  if($request->hasFile('avatar'))
-       //  {
-       //      if($request->file('avatar')->isValid())
-       //      {
-       //          $ext = $request->file('avatar')->getClientOriginalExtension();
-       //          $filename = str_random(32).'.'.$ext;
-       //          $request->file('avatar')->move('./uploads/user', $filename);
-       //          $data['avatar'] = $filename;
-       //          //压缩图片
-       //          $img = Image::make("./uploads/user/".$filename)->resize(120,100);
-       //          $img->save("./uploads/user/s_".$filename);
+        //上传文件处理
+        if($request->hasFile('avatar'))
+        {
+            if($request->file('avatar')->isValid())
+            {
+                $ext = $request->file('avatar')->getClientOriginalExtension();
+                $filename = str_random(32).'.'.$ext;
+                $request->file('avatar')->move('./uploads/user', $filename);
+                $data['avatar'] = $filename;
+                //压缩图片
+                $img = Image::make("./uploads/user/".$filename)->resize(120,100);
+                $img->save("./uploads/user/s_".$filename);
 
-       //      }
-       //  }else
-       //  {
-       //      $data['avatar'] = 'default.jpg';
-       //  }
-       // $res =  User::create($data);
-       // if($res){
-       //  return 111;
-       // }else{
-       //  return 222;
-       // }
+            }
+        }else
+        {
+            $data['avatar'] = 'default.jpg';
+        }
+       $res =  User::create($data);
+       if($res){
+        return 111;
+       }else{
+        return 222;
+       }
     }
 
     /**

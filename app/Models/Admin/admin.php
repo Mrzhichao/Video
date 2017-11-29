@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class admin extends Model
 {
 	//声明数据表的名称
-   	public $table = 'data_admin';
+   	public $table = 'admin';
 
    	//声明数据表的主键
    	public $primaryKey = 'aid';
