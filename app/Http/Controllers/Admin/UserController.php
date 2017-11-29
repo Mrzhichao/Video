@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $title = '用户列表页';
         $keywords=$request->input('keyword');
-        $data = User::where('uname','like',"%".$keywords."%")->simplePaginate(10);
+        $data = User::where('uname','like',"%".$keywords."%")->simplePaginate(1);
         return view('Admin.User.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
 
     }
@@ -86,9 +86,9 @@ class UserController extends Controller
         }
        $res =  User::create($data);
        if($res){
-        return 111;
+        return redirect('admin/user');
        }else{
-        return 222;
+        return back();
        }
     }
 
