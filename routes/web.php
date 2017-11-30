@@ -35,4 +35,5 @@ Route::post('/admin/ajax/ajaxstatus', 'Admin\AjaxController@ajaxStatus');
  Route::resource('admin/ad','Admin\AdController');
 
 
+
 Route::resource('admin/video','Admin\VideoController');

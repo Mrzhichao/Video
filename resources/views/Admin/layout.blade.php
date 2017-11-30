@@ -296,8 +296,6 @@
                 }
             });
         </script>
-       
-    
         @yield('content')
 
 
