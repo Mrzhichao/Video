@@ -23,9 +23,11 @@ route::get('/',function()
 // Route::resource('admin/')
 
 
-//前台用户模块
+//前台台用户模块
 Route::resource('admin/user','Admin\UserController');
 
+//用户的状态管理的ajax
+Route::post('/admin/ajax/ajaxstatus', 'Admin\AjaxController@ajaxStatus');
 
 
 
