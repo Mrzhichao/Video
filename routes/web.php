@@ -33,5 +33,6 @@ Route::resource('admin/user','Admin\UserController');
  Route::resource('admin/ad','Admin\AdController');
 
 
+
 Route::resource('admin/video','Admin\VideoController');
 
