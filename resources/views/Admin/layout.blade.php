@@ -26,6 +26,9 @@
     <script src="{{asset('Admin/assets/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+
+    //layer弹出层js引入
+    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
     
 
 

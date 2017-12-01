@@ -13,26 +13,29 @@
 
 
 
-//后台首页
+//鍚庡彴棣栭〉
 route::get('/',function()
 	{
-		return view('Admin.index',['title'=>'后台主页']);
+		return view('Admin.index',['title'=>'潞贸脤篓脰梅脪鲁']);
 	});
 
-//后台用户模块
+//潞贸脤篓脫脙禄搂脛拢驴茅
 // Route::resource('admin/')
 
 
-//前台用户模块
+//鍚庡彴鐢ㄦ埛妯″潡
 Route::resource('admin/user','Admin\UserController');
 
 
-
-
-//广告模块的增删改查
+//椤甸潰骞垮憡
  Route::resource('admin/ad','Admin\AdController');
+//瑙嗛骞垮憡
+ Route::resource('admin/vad','Admin\VadController');
 
-
-
+//瑙嗛绠＄悊妯″潡
 Route::resource('admin/video','Admin\VideoController');
 
+//杞挱瑙嗛绠＄悊
+Route::resource('admin/carousel','Admin\CarouselController');
+//杞挱绠＄悊 AJAX
+Route::post('admin/carousel/ajaxName','Admin\CarouselController@ajax');
