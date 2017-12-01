@@ -9,7 +9,7 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">视频列表</div>
+                                <div class="widget-title  am-cf">视频类别列表</div>
 
                             </div>
                             <div class="widget-body  am-fr">
@@ -20,7 +20,7 @@
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
 
-                                                <a class="am-btn am-btn-default am-btn-success" href="{{ url('admin/video/create') }}">新增</a>
+                                                <a class="am-btn am-btn-default am-btn-success" href="{{ url('admin/videotype/create') }}">新增</a>
                               
                                             </div>
                                         </div>
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field" name='search' value="{{ $where['search'] }}" >
+                                        <input type="text" class="am-form-field" name='search' value="" >
                                         <span class="am-input-group-btn">
                                         <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
                                       </span>
@@ -50,47 +50,43 @@
                                     <table width="100%" border="1px solid red" class="am-table am-table-compact am-table-striped tpl-table-black ">
                                         <thead>
                                             <tr>
-                                                <th width="5%">ID</th>
-                                                <th width="5%">排序</th>
-                                                <th width="5%">名称</th>
-                                                <th width="5%">Logo</th>
-                                                <th width="5%">上传者</th>
-                                                <th width="10%">上映时间</th>
-                                                <th width="10%">下映时间</th>
-                                                <th width="5%">关键字</th>
-                                                <th width="5%">地址</th>
-                                                <th width="10%">操作</th>
+                                                <th >ID</th>
+                                                <th>排序</th>
+                                                <th >名称</th>
+                                                <th>上传者</th>
+                                                <th >添加时间</th>
+                                                <th>修改时间</th>
+                                                <th width="20%">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             
-                                            @foreach ($videos as $ob)
-                                            <tr class="gradeX" id="video_vid_{{ $ob->vid }}">
-                                                <th class="am-text-middle">{{ $ob->vid }}</th>
+                                            @foreach ($types as $ob)
+                                            <tr class="gradeX" id="videotype_vtid_{{ $ob->vtid }}">
+                                                <th class="am-text-middle">{{ $ob->vtid }}</th>
                                                 <th class="am-text-middle">
-                                                    <input style="width:30px;color:blue" type="text" onchange="changeOrder()" value="{{$ob->typeid}}">
+                                                    <input type="text" style="width:30px;color:blue" onchange="changeOrder(this,{{$ob->vtid}})" value="{{$ob->order_sort}}">
                                                 </th>
-                                                <th class="am-text-middle">{{ $ob->vname }}</th>
-                                                <th>
-                                                    <img src=" {{ asset('Admin/Uploads/Videos/'.$ob->logo) }}" class="tpl-table-line-img" alt="">
-                                                </th>
-                                                <th class="am-text-middle">{{ $ob->users }}</th>
-                                                <th class="am-text-middle">{{ date('Y-m-d',$ob->publicTime) }}</th>
-                                                <th class="am-text-middle">{{ date('Y-m-d',$ob->projectionTime) }}</th>
-                                                <th class="am-text-middle">{{ $ob->keywords }}</th>
-                                                <th class="am-text-middle">{{ $ob->resourceSrc }}</th>
+                                                <th class="am-text-middle">{{ $ob->vtname }}</th>
+                                                <th class="am-text-middle">{{ $ob->uname }}</th>
+                                                <th class="am-text-middle">{{ date('Y-m-d',$ob->addTime) }}</th>
+                                                <th class="am-text-middle">{{ date('Y-m-d',$ob->editTime) }}</th>
                                                 <th class="am-text-middle">
                                                     <div id='div1' class="tpl-table-black-operation">
-                                                        <a href="{{ url('admin/video/'.$ob->vid.'/edit') }}" id='edit'>
-                                                            <i class="am-icon-pencil"></i> 编辑
+
+                                                        <a href="{{ url('admin/videotype/'.$ob->vtid.'/edit') }}" id='edit'>
+                                                            <i class="am-icon-pencil"></i> 修改
                                                         </a>
-                                                        <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " class="tpl-table-black-operation-del" id='del'>
+
+                                                        <a href="{{ url('admin/video/create') }}" id='add'>
+                                                            <i class="am-icon-pencil"></i> 添加视频
+                                                        </a>
+
+                                                        <a href="javascript:;" onclick="typeDel( '{{ $ob->vtid }} ') " class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-trash"></i> 删除
-                                                        <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " class="tpl-table-black-operation-del" id='del'>
-                                                            <i class="am-icon-pencil"></i> 广告
-                                                        <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " id='del'>
-                                                            <i class="am-icon-pencil"></i> 轮播
-                                                        </div>
+                                                        </a>   
+
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -101,7 +97,6 @@
                                     <div>
                                         <ul class="am-pagination tpl-pagination">
                                             <center>
-                                               {!! $data->appends($where)->render() !!}
                                             </center>
                                         </ul>
                                     </div>
@@ -123,8 +118,33 @@
     <script src="{{ asset('/layer/layer.js') }}"></script>
 
 </body>
+    
+<script type='text/javascript'>
 
-<script>
+  //排序
+        function changeOrder(obj,vtid){
+            //获取当前需要排序的记录的ID,vtid
+            //获取当前记录的排序文本框中的值
+            var order_sort = $(obj).val();
+
+            $.post("{{url('admin/videotype/changeorder')}}",{'_token':"{{csrf_token()}}","vtid":vtid,"order_sort":order_sort},function(data){
+                //如果排序成功，提示排序成功
+                if(data.status == 0){
+
+                    layer.msg(data.msg,{icon: 6});
+                    location.href = location.href;
+                }else{
+                    //如果排序失败，提示排序失败
+                    layer.msg(data.msg,{icon: 5});
+                    location.href = location.href;
+                }
+            })
+
+        }
+
+</script>
+
+a<script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -134,17 +154,17 @@
        
 <script type='text/javascript'>
 
-    function videoDel(vid){
+    function typeDel(vtid){
         layer.confirm('您确认删除吗？', {
             btn: ['确认','取消']
             }, function(){
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('admin/video') }}/"+vid,
+                    url: "{{ url('admin/videotype') }}/"+vtid,
                     success: function(data) {
                         if(data.error == 0){
-                           layer.msg(data.msg, {icon: 6});
-                           var sel = $('#video_vid_' + vid);
+                           layer.msg(data.msg,{icon: 6});
+                           var sel = $('#videotype_vtid_' + vtid);
                            sel.remove();
                         }else{
                            layer.msg(data.msg, {icon: 5});

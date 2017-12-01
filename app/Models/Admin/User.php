@@ -19,4 +19,10 @@ class User extends Model
 
     public $guarded = [];
 
+
+     public function Videos()
+    {
+         return $this->hasMany('App\Models\Admin\Video');
+    }
+
 }

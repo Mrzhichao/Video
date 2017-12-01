@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -13,24 +13,29 @@
 
 
 
-//��̨��ҳ
+//ºóÌ¨Ê×Ò³
 route::get('/',function()
 	{
-		return view('Admin.index',['title'=>'��̨��ҳ']);
+		return view('Admin.index',['title'=>'ºóÌ¨Ö÷Ò³']);
 	});
 
-//��̨�û�ģ��
+//ºóÌ¨ÓÃ»§Ä£¿é
 // Route::resource('admin/')
 
 
-//ǰ̨�û�ģ��
+//Ç°Ì¨ÓÃ»§Ä£¿é
 Route::resource('admin/user','Admin\UserController');
 
 
 
 
-//���ģ�����ɾ�Ĳ�
+//¹ã¸æÄ£¿éµÄÔöÉ¾¸Ä²é
  Route::resource('admin/ad','Admin\AdController');
 
 
 Route::resource('admin/video','Admin\VideoController');
+Route::resource('admin/videotype','Admin\VideoTypeController');
+
+Route::post('/admin/videotype/changeorder','Admin\VideoTypeController@changeorder');
+
+Route::post('/admin/videotype/upload','Admin\VideoTypeController@upload');
