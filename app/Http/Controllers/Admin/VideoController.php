@@ -24,26 +24,13 @@ class VideoController extends Controller
 
          $title='视频首页';
 
-         //获取所有的分类数据，返回到前台列表
-//       $cates = Cate::get();
-
-        //return view('admin.cate.list',compact('cates'));
 
          $keywords=$request->input('search');
 
-       
-
-        // return view('Admin.Video.index',['data'=>$data,'title'=>$title,'where'=>['search'=>$keywords] ]);  //放置到视图中 
-
-         // $users = Video::orderBy('userid','asc')->get();
-
-         // dd($users);
-
-        //视频 typeid 相对应 type 表 的 vtid 有没有pid 
+    
         //有就 无限极分类 
           $videos= Video::get();
 
-          // dd(Video::find($videos[0]));
            foreach($videos as $key=>$video){
 
                  Video::where('typeid',( Video::find($video->typeid)->videoType)->pid )->get();
@@ -51,9 +38,7 @@ class VideoController extends Controller
                  $video['users']=Video::find($video->vid)->users['uname'];
 
                  $video['type']= Video::find($video->vid)->videoType;
-                 //d($video['type']);
             }
-             //dd($videos);
 
         $data = Video::where('vname','like',"%".$keywords."%")->paginate(5); 
 
@@ -67,7 +52,6 @@ class VideoController extends Controller
         foreach($videoType as $key => $v){
             $videotypes[]=$v;
         }
-        //dd($videotypes);
 
          return view('Admin.Video.index',['videos'=>$videos,'data'=>$data,'types'=>$types,'title'=>$title,'where'=>['search'=>$keywords] ]);  
     }

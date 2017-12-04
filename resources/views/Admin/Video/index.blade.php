@@ -72,7 +72,7 @@
                                                 </th>
                                                 <th class="am-text-middle">{{ $ob->vname }}</th>
                                                 <th>
-                                                    <img src=" {{ asset('Admin/Uploads/Videos/'.$ob->logo) }}" class="tpl-table-line-img" alt="">
+                                                    <img src=" {{ asset('/Uploads/Video/'.$ob->logo) }}" class="tpl-table-line-img" alt="">
                                                 </th>
                                                 <th class="am-text-middle">{{ $ob->users }}</th>
                                                 <th class="am-text-middle">{{ date('Y-m-d',$ob->publicTime) }}</th>
