@@ -31,6 +31,8 @@ Route::resource('admin/user','Admin\UserController');
  Route::resource('admin/ad','Admin\AdController');
 //视频广告
  Route::resource('admin/vad','Admin\VadController');
+//视频广告管理 AJAX
+Route::post('admin/carousel/ajaxName','Admin\CarouselController@ajax');
 
 //视频管理模块
 Route::resource('admin/video','Admin\VideoController');

@@ -8,7 +8,7 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>视频广告 ><small>添加</small></div>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>视频广告 ><small>修改</small></div>
                         
                     </div>
                     
@@ -28,35 +28,29 @@
                            
                             <div class="widget-body am-fr">
 
-					
-                                <form action="{{ url('admin/vad/') }}" method="post" enctype="multipart/form-data" class="am-form tpl-form-border-form">
-								<div class="am-form-group">
-                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">视频名称<span class="tpl-form-line-small-title"></span></label>
-                                        <div class="am-u-sm-12">
-                                            <input type="text"     id="user-name" name="aname" value="{{$data->vname}}" class="tpl-form-input am-margin-top-xs">
-                                            
-                                        </div>
-                                    </div>
+                    
+                                <form action="{{ url('admin/vad/') }}/{{$data->vaid}}" method="post" enctype="multipart/form-data" class="am-form tpl-form-border-form">
+                                  {{ method_field('put') }}
                                    
                                        <div class="am-form-group">
-                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">请输入广告链接 <span class="tpl-form-line-small-title">link</span></label>
+                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">请修改广告链接 <span class="tpl-form-line-small-title">link</span></label>
                                         <div class="am-u-sm-12">
-                                            <input type="text" placeholder="链接地址" name="vredirect" id="user-name" class="tpl-form-input am-margin-top-xs">
+                                            <input type="text" placeholder="链接地址" value="{{$data->vredirect}}" name="vredirect" id="user-name" class="tpl-form-input am-margin-top-xs">
                                         
                                         </div>
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-email">投放时间 <span class="tpl-form-line-small-title">time</span></label>
+                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-email">修改投放时间 <span class="tpl-form-line-small-title">time</span></label>
                                         <div class="am-u-sm-12">
                                             <select name="vtime" id="vtime" class="form-control">
-                                              <option value="5">5秒</option>
-                                              <option selected="" value="10">10秒</option>
-                                              <option value="20">20秒</option>
-                                              <option value="30">30秒</option>
-                                              <option value="35">35秒</option>
-                                              <option value="40">40秒</option>
-                                              <option value="50">50秒</option>
+                                              <option @if($data->vtime == 5)selected @endif value="5">5秒</option>
+                                              <option @if($data->vtime == 10)selected @endif  value="10">10秒</option>
+                                              <option @if($data->vtime==20)selected @endif  value="20">20秒</option>
+                                              <option @if($data->vtime ==30)selected @endif  value="30">30秒</option>
+                                              <option  @if($data->vtime == 35)selected @endif  value="35">35秒</option>
+                                              <option  @if($data->vtime==40)selected @endif  value="40">40秒</option>
+                                              <option @if($data->vtime==50)selected @endif  value="50">50秒</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,9 +59,7 @@
 
                                     
                                  
-    <i class="am-icon-cloud-upload"></i> 请上传不超过5M的广告视频
-                                                <input type="file" id="file" name="vpath"  id="doc-form-file">
-                                           
+
 
 
                                     <div class="am-form-group">
@@ -156,21 +148,33 @@
 
 <script type="text/javascript">
 
-    $('#jine').val('310');
-
-	//点击结束时间获取开始时间的值
-	$('#vtime').on('change',function()
-		{
-
-			//获取结束时间
-		    var time = $('#vtime').val();
-            
+     
+    //点击结束时间获取开始时间的值
+        $('#vtime').on('change',function()
+        {
+             //获取结束时间
+        var time = $('#vtime').val();
             // 计算金额
+           
             time *= 31;
             //填充
             $('#jine').val(time);
 
-		});
+        });
+
+        $('#jine').on('click',function()
+        {
+             //获取结束时间
+        var time = $('#vtime').val();
+            // 计算金额
+           
+            time *= 31;
+            //填充
+            $('#jine').val(time);
+
+        });
+
+
 
 
 </script>

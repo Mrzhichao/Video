@@ -8,14 +8,26 @@ use App\Models\Admin\VideoAd;
 
 class VadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     /**
+     * 浏览视频广告
+     * @author:Mrlu
+     * @date:2017/12/01 
+     * @return 返回一个浏览模板 广告信息 .标题传递过去
      */
     public function index()
     {
-        //
+        $title = '视频广告浏览页面';    
+       
+       $min = empty($_GET['min']) ? '' : $_GET['min'];
+       $max = empty($_GET['max']) ? '' : $_GET['max'];
+
+        
+        // //查询数据库
+
+        $data = VideoAd::with('video')->paginate(8);
+       
+       
+        return view('Admin.Vad.index',['title'=>$title,'data'=>$data]);
     }
 
     /**
@@ -48,30 +60,27 @@ class VadController extends Controller
     {
          //验证表单
         $this->validate($request, [
-            'vpath' => 'required|size:5000',
+            'vpath' => 'required|max:5000',
             'vredirect' => 'required|max:50|url',
-            'startTime' => 'required|date',
-            'endTime' => 'required|date',
+            'vtime' => 'required',
             'vprice' => 'required',
         ],[
             'vpath.required' => '请上传一个小视频',
-            'vpath.size' => '视频不得超过5M',
+            'vpath.max' => '视频不得超过5M',
             'vredirect.required' => '请填写URL链接',
-            'vredirect.max' => '长度不能超过100',
+            'vredirect.max' => '长度不能超过50',
             'vredirect.url' => '请填写正确的URL地址',
-            'startTime.required' => '请选择开始时间哦',
-            'startTime.data' => '请选择有效时间哦',
-            'endTime.required' => '请选择结束时间哦',
-            'endTime.data' => '请选择有效时间哦',
-            'vprice.required' => '请点击金额进行计算o.o ',
-
+            'vtime.required' => '请选择投放时间哦',
+            'vprice.required' => '请重新选择时间哦'
         ]);
 
+        //获取提交数据
+        $data = $request -> except('_token','method','aname');
 
         //获取文件的信息
           
           //判断是否有上传
-        if($request->hasFile("vpth")){
+        if($request->hasFile("vpath")){ //vpath是表单字段
             //获取上传信息
             $file = $request->file("vpath");
             //确认上传的文件是否成功
@@ -85,8 +94,18 @@ class VadController extends Controller
 
         }
 
+        //获取文件名
+        $data['vpath'] = $filename;
 
+        $res = VideoAd::create($data);
 
+        if($res){
+            //如果添加成功 跳到主页
+            return redirect('admin/vad')->with('msg','成功添加');
+        }else{
+            //失败 返回添加页面
+            return redirect('admin/vad/create')->with('msg','添加失败');
+        }
 
 
     }
@@ -99,40 +118,99 @@ class VadController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     /**
+     * 编辑页面 视频广告
+     * @author:Mrlu
+     * @date:2017/12/01 
+     * @param:某条信息
+     * @return 返回一组数据和一个编辑模板
      */
     public function edit($id)
     {
-        //
+        $data = VideoAd::find($id);
+
+        return view('Admin.Vad.edit',['title'=>'视频广告修改','data'=>$data]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改数据库 视频广告
+     * @author:Mrlu
+     * @date:2017/12/01 
+     * @param:id 某条信息
+     * @return 成功返回主页 失败返回主页
      */
     public function update(Request $request, $id)
     {
-        //
+        //表单验证
+        
+        $this->validate($request, [
+            'vredirect' => 'required|max:50|url',
+            'vtime' => 'required',
+            'vprice' => 'required',
+        ],[
+            'vredirect.required' => '请填写URL链接',
+            'vredirect.max' => '长度不能超过50',
+            'vredirect.url' => '请填写正确的URL地址',
+            'vtime.required' => '请选择投放时间哦',
+            'vprice.required' => '请重新选择时间哦'
+        ]);
+
+        //获取数据
+        $data = $request -> except('_token','method');
+
+        //过滤空数据
+            foreach($data as $k=>&$v){
+                if(!$data[$k]){
+                    unset($data[$k]); 
+                }
+            }
+        //传入数据库
+        $res = VideoAd::find($id) -> update($data);
+
+        if($res){
+            //如果添加成功 跳到主页
+            return redirect('admin/vad')->with('msg','更新添加');
+        }else{
+            //失败 返回添加页面
+            return redirect('admin/vad')->with('msg','更新失败');
+        }
+
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 删除数据库里面的某条信息
+     * @author:Mrlu
+     * @date:2017/12/01 
+     * @param:id 某条信息
+     * @return 成功返回主页 失败返回主页
      */
     public function destroy($id)
     {
-        //
+        //删除数据
+        $res = VideoAd::find($id)->delete();
+        if($res){
+            echo '删除成功';
+         }else{
+            echo '删除失败';
+         }
     }
+
+    /**
+     * ajax修改数据
+     * @author:Mrlu
+     * @date:2017/12/1
+     * @param:页面的请求信息
+     * @return
+     */
+    public function ajax(Request $request)
+    {
+
+        $id = $request->input('id');
+        $name = $request->input('vimg');
+       
+       
+        }
 }
