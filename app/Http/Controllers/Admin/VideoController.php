@@ -33,12 +33,11 @@ class VideoController extends Controller
 
            foreach($videos as $key=>$video){
 
-                 Video::where('typeid',( Video::find($video->typeid)->videoType)->pid )->get();
-
                  $video['users']=Video::find($video->vid)->users['uname'];
 
                  $video['type']= Video::find($video->vid)->videoType;
             }
+             //dd($videos);
 
         $data = Video::where('vname','like',"%".$keywords."%")->paginate(5); 
 
@@ -52,6 +51,7 @@ class VideoController extends Controller
         foreach($videoType as $key => $v){
             $videotypes[]=$v;
         }
+        //dd($videotypes);
 
          return view('Admin.Video.index',['videos'=>$videos,'data'=>$data,'types'=>$types,'title'=>$title,'where'=>['search'=>$keywords] ]);  
     }
