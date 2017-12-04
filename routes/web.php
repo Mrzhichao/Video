@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 
 
@@ -41,7 +42,6 @@ Route::resource('admin/admin','Admin\AdminController');
 
 
 //后台用户模块
-
 Route::resource('admin/user','Admin\UserController');
 
 //用户详情路由
@@ -53,6 +53,7 @@ Route::resource('admin/userinfo','Admin\UserinfoController');
 Route::post('/admin/ajax/ajaxstatus', 'Admin\AjaxController@ajaxStatus');
 //管理员ajax状态路由
 Route::post('/admin/ajax/adminajaxstatus', 'Admin\AjaxController@adminajaxStatus');
+
 
 
 
@@ -75,8 +76,16 @@ Route::resource('admin/videoreview','Admin\ReviewController');
 //视频管理模块
 Route::resource('admin/video','Admin\VideoController');
 
+
 //轮播视频管理
 Route::resource('admin/carousel','Admin\CarouselController');
 //轮播管理 AJAX
 Route::post('admin/carousel/ajaxName','Admin\CarouselController@ajax');
+
+
+Route::resource('admin/videotype','Admin\VideoTypeController');
+
+Route::post('/admin/videotype/changeorder','Admin\VideoTypeController@changeorder');
+
+Route::post('/admin/videotype/upload','Admin\VideoTypeController@upload');
 

@@ -19,6 +19,7 @@ class User extends Model
 
     public $guarded = [];
 
+
        	 // 用户表
     public function infos()
     {
@@ -27,6 +28,12 @@ class User extends Model
 // //        参数2：外键(userinfo)的外键
 // //        参数3：当前模型的主键
         return $this->hasOne('App\Models\Admin\Userinfo','userid','uid');
+    }
+
+    public function Videos()
+    {
+         return $this->hasMany('App\Models\Admin\Video');
+
     }
 
 }
