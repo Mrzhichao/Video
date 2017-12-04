@@ -7,7 +7,7 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>广告管理 ><small>广告预览</small></div>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>轮播管理 ><small>轮播预览</small></div>
                        
                     </div>
                     
@@ -28,13 +28,11 @@
                             <div class="widget-head am-cf">
                           
 
-                                <div class="widget-title am-fl">
-                                <a id="create" href="{{ url('admin/ad/create') }}"> <button  type="button" style="color: " class="btn active  btn-success">&nbsp;广告添加&nbsp;</button></a>
-                                </div>
+                              
 
                                 <div class="widget-function am-fr">
-                                <form action="{{ url('admin/ad') }}" method="get">
-                                <input style="color:#a2b;" type="text" name="aname"  value="{{ $namekey['aname'] }}" placeholder="...谁添加的">
+                                <form action="{{ url('admin/carousel') }}" method="get">
+                                <input style="color:#a2b;" type="text" name="keywords"  value="" placeholder="轮播图名称">
                                <button class="btn   btn-success" id="serach" >搜索</button>
                                 </form>
                                 </div>
@@ -45,37 +43,30 @@
                                     <thead>
                                         <tr>
 
-                                        	<th>添加者</th>
-                                            <th>广告编号</th>
-                                            <th>广告描述</th>
-                                            <th>广告链接</th>
+                                        	<th>轮播编号</th>
+                                            <th>视频编号</th>
+                                            <th>轮播名称</th>
                                             <th>预览图</th>
-                                            <th>付款</th>
-                                            
-                                            <th>开始时间</th>
-                                            <th>结束时间</th>
+                                            <th>跳转地址</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($data as $k => $v)
                                         <tr class="gradeX">
-                                        	<td>{{ $v -> aname }}</td>
-                                            <td>{{ $v -> id }}</td>
-                                            <td>{{ $v -> adesc }}</td>
-                                            <td>{{ $v -> acontent }}</td>
-                                            <td><img width="60" height="40" src="{{ asset('./uploads/Ad/s_') }}{{ $v->aimg }}" /></td>
-                                            <td>{{ $v -> aprice }}</td>
+                                        	<td class="id">{{ $v -> cid }}</td>
+                                            <td>{{ $v -> vid }}</td>
+                                            <td class="cname">{{ $v -> cname }}</td>
+                                            <td><img width="60" height="40" src="{{ asset('uploads/Video/s_') }}{{ $v->vlogo }}" /></td>
+                                            <td class="credirect">{{ $v -> credirect }}</td>
                                             
-                                            <td>{{ date('Y-m-d',$v -> startTime) }}</td>
-                                            <td>{{ date('Y-m-d', $v -> endTime )}}</td>
                                             <td>
                                                 <div class="tpl-table-black-operation">
-                                                    <a id="edit"  href="{{ url('admin/ad') }}/{{$v->id}}/edit">
+                                                    <a id="edit"  href="{{ url('admin/carousel') }}/{{$v->cid}}/edit">
                                                         <i  class="am-icon-pencil"></i> 编辑
                                                     
                                                     </a>
-                                                    <a class="tpl-table-black-operation-del del" href="javascript:void(0);" onclick="sendBtn('ad/{{ $v->id }}')">
+                                                    <a class="tpl-table-black-operation-del del" href="javascript:void(0);" onclick="sendBtn('carousel/{{ $v->cid }}')">
                                                         <i class="am-icon-trash"></i> 删除
                                                     </a>
                                                 </div>
@@ -167,53 +158,63 @@
         };
     </script>
 
+<!--单击修改信息-->
+<script>
+        $(".cname").on('dblclick', fn1);
 
+        function fn1() {
+            var t = $(this);
+            var id = t.parent().find('.id').html(); //获取ID名(修改数据)
+            var name = t.html();
+            var inp = $('<input style="color:black;" type="text">');
+            inp.val(name);
+            t.html(inp);
+            inp.select();
+            t.unbind('dblclick');
+            inp.on('blur', function () {
+                var newName = $(this).val();
+                $.ajax({
+                    url: "{{ url('admin/carousel/ajaxName') }}",
+                    type: 'post',
+                    data: {id: id, name: newName},
+                    beforeSend: function () {
+                        $("#info").html('<span class="text-red"><i class="fa fa-fw fa-spin fa-circle-o-notch"></i>正在修改中...</span>');
+                        $("#info").show();
+                    },
+                    success: function (data) {
+//                        console.log(data);
+                        if (data.code == 0) {
+                            t.html(name);
+                            $("#info").html('<span class="text-red">用户名已经存在</span>');
+                            $("#info").show();
+                            $("#info").fadeOut(2000);
+                        } else if (data.code == 1) {
+                            t.html(newName);
+                            $("#info").html('<span class="text-red">修改成功</span>');
+                            $("#info").show();
+                            $("#info").fadeOut(2000);
+                        } else {
+                            t.html(name);
+                            $("#info").html('<span class="text-red">修改失败</span>');
+                            $("#info").show();
+                            $("#info").fadeOut(2000);
+                        }
+                        ;
+                        //添加事件。
+                        t.on('dblclick', fn1);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    },
+//                    timeout:1000,
+                    dataType: 'json'
+                });
+            });
+        }
 
-
-<script type="text/javascript">
-
-    //提示信息消失
-    $('#msg').slideUp(3000);
-
-</script>
-
-<script type="text/javascript">
-
-	var i = 0;
-	var arr = $('.id');
-	
-	//去除ID排序 
-	$('#id').on('click',function()
-		{
-
-
-			if(i%2 == 0){
-
-			
-				arr.sort(function(a,b){
-					 return a.innerHTML>b.innerHTML?1:-1;
-				});//对li进行排序，这里按照从小到大排序
-				$('ul').empty().append(arr);//清空原来内容添加排序后内容。
-				
-
-			}else{
-
-				arr.sort(function(a,b){
-					 return a.innerHTML<b.innerHTML?1:-1;
-				});//对li进行排序，这里按照从小到大排序
-				$('ul').empty().append(arr);//清空原来内容添加排序后内容。
-
-			}
-			i++;
-		});
-	
-
-</script>>
-
-
-
-
-
+    </script>
 
 
 

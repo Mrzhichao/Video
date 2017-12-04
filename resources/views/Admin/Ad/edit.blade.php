@@ -27,21 +27,8 @@
                         <div class="widget am-cf">
                            
                             <div class="widget-body am-fr">
-								<!-- 报错信息 -->
-								@if(Session('msg'))
-                                    <div style="color: #cf4; size:125%;" id="msg">{{session('msg')}}</div>
-                                @endif
-								<!-- 报错信息 -->
-                                 @if (count($errors) > 0)
-                                    <div >
-                                        <ul style="color:#cf4;">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
+								
+								
 					
                                 <form action="{{ url('admin/ad') }}/{{$data->id}}" method="post" enctype="multipart/form-data" class="am-form tpl-form-border-form">
                                 {{ method_field('put') }}
@@ -124,34 +111,56 @@
             </div>
         </div>
 
+
+
+    @if (count($errors) > 0)
+        <center> <div id="error" style="background: #efe; margin: 0px;padding: 0px;" >
+         <ul style="color:#f89;">
+      @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+          </ul>
+         </div></center>
+    @endif
+           
 <script type="text/javascript">
-    //修改上传文件
-    $('#btn').on('click',function()
-        {
-            //获取修改的文件
-            var file = $('#doc-form-file').html();
-            if(file){
-                //如果上传了文件 获取
+    //捕获页
+    layer.open({
+        type: 1,
+        shade: false,
+        title: false, //不显示标题
+        content: $('#error'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+        cancel: function(){
+        layer.msg('请按照规则填写...', {time: 3000, icon:5});
+        }
+    });
 
 
-            }
+</script> 
 
 
 
-
+@if(Session('msg'))
+<script type="text/javascript">
+//弹出信息框
+     layer.alert("{{session('msg')}}", {
+        skin: 'layui-layer-lan'
+        ,closeBtn: 0
+        ,anim: 2 //动画类型
         });
 
-
-
 </script>
-
+@endif
 
 <script type="text/javascript">
-
-    //提示信息消失
-    $('#msg').slideUp(3000);
+    //修改
+    $('#btn').on('click',function()
+        {         //加载层
+            var index = layer.load(1, {shade: false});
+        });
 
 </script>
+
 <script type="text/javascript">
 	//点击结束时间获取开始时间的值
 	$('#jine').on('click',function()

@@ -43,7 +43,9 @@ class AdController extends Controller
     public function create(Request $request)
     {
         // $uid = $_GET['id']; 查询哪个用户添加的广告
+
         $aname = $request -> Session()->get('user')->aname; //假的
+
         // $uid = DB::table('data_users')->where('uid',$uid)->first(); //获取前台用户名并发送
         // $user = Advertisement::get();
         // dd($user);
@@ -271,4 +273,8 @@ class AdController extends Controller
         echo '删除失败';
        }
     }
+
+
+
+
 }

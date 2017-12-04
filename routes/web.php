@@ -13,11 +13,14 @@
 
 
 
+
 //后台主页
 Route::get('/',function()
 	{
-		return view('Admin.index',['title'=>'潞贸脤篓脢脳脪鲁']);
+		return view('Admin.index',['title'=>'后台首页']);
 	});
+
+
 
 
 //后台登录
@@ -31,11 +34,14 @@ Route::post('admin/dologin','Admin\LoginController@dologin');
 Route::get('admin/loginout','Admin\LoginController@loginout');
 
 
+
 //后台管理员路由
 Route::resource('admin/admin','Admin\AdminController');
 
 
-//用户模块路由
+
+//后台用户模块
+
 Route::resource('admin/user','Admin\UserController');
 
 //用户详情路由
@@ -60,3 +66,17 @@ Route::resource('admin/video','Admin\VideoController');
 
 //视频评论路由
 Route::resource('admin/videoreview','Admin\ReviewController');
+
+//页面广告
+ Route::resource('admin/ad','Admin\AdController');
+//视频广告
+ Route::resource('admin/vad','Admin\VadController');
+
+//视频管理模块
+Route::resource('admin/video','Admin\VideoController');
+
+//轮播视频管理
+Route::resource('admin/carousel','Admin\CarouselController');
+//轮播管理 AJAX
+Route::post('admin/carousel/ajaxName','Admin\CarouselController@ajax');
+
