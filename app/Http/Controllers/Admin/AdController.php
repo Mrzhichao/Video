@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\advertisement;
+use App\Models\Admin\Advertisement;
 use Intervention\Image\ImageManagerStatic as Image; 
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -25,7 +26,7 @@ class AdController extends Controller
         $namekey = empty($_GET['aname']) ? '' : $_GET['aname']; 
         
         // //查询数据库
-        $data = advertisement::where('aname','like','%'.$namekey.'%')->paginate(8); 
+        $data = Advertisement::where('aname','like','%'.$namekey.'%')->paginate(8); 
 
        //将查询到的用户名放进数组
       
@@ -39,15 +40,15 @@ class AdController extends Controller
      * @date:2017/11/28 
      * @return 返回一个添加模板 并把用户名和标题传递过去
      */
-    public function create()
+    public function create(Request $request)
     {
         // $uid = $_GET['id']; 查询哪个用户添加的广告
-         $aid = 1; //假的
+        $aname = $request -> Session()->get('user')->aname; //假的
         // $uid = DB::table('data_users')->where('uid',$uid)->first(); //获取前台用户名并发送
-        $user = advertisement::find($aid)->post;
-        $aname = $user -> aname;
-
-         return view('Admin.Ad.create',['title'=>'广告添加','aid'=>$aid,'aname'=>$aname]);
+        // $user = Advertisement::get();
+        // dd($user);
+        $user = Advertisement::get();
+         return view('Admin.Ad.create',['title'=>'广告添加','aname'=>$aname]);
          
     }
 
@@ -120,7 +121,7 @@ class AdController extends Controller
         $data['endTime'] = strtotime($data['endTime']);
         $data['aimg'] = $filename; 
 
-        $res = advertisement::create($data);
+        $res = Advertisement::create($data);
         if($res){
             //如果添加成功 跳到广告主页
             return redirect('admin/ad')->with('msg','成功添加');
@@ -157,7 +158,7 @@ class AdController extends Controller
     public function edit($id)
     {
         //查询某条数据
-        $ainfo = advertisement::find($id);
+        $ainfo = Advertisement::find($id);
         
 
         //返回一个修改模板
@@ -241,7 +242,7 @@ class AdController extends Controller
        }
 
       //修改数据库
-        $res = advertisement::find($id)->update($data);
+        $res = Advertisement::find($id)->update($data);
         //判断
         if($res){
             return redirect('admin/ad')->with('msg','更新成功');
@@ -263,7 +264,7 @@ class AdController extends Controller
      */
     public function destroy($id)
     {
-       $res = advertisement::find($id)->delete();
+       $res = Advertisement::find($id)->delete();
        if($res){
             echo '删除成功';
        }else{

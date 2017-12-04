@@ -45,62 +45,36 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>名称</th>
-                                                <th>性别</th>
-                                                <th>头像</th>
-                                                <th>手机号</th>
-                                                <th>email</th>
-                                                <th>状态</th>
-                                                <th>角色表编号</th>
+                                                <th>用户编号</th>
+                                                <th>视频编号</th>
+                                                <th>视频评论标题</th>
+                                                <th>视频评论内容</th>
+                                                <th>视频评论时间</th>
+                                                <th>视频评分</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data as $v)
-                                            <tr class="gradeX">
-                                               
-                                                <td class='ids' class="am-text-middle">{{ $v -> uid}}</td>
-                                                <td class="am-text-middle">{{ $v -> uname}}</td>
-                                                <td class="am-text-middle">{{ $v -> sex}}</td>
-                                                 <td>
-                                                    <img src="{{ asset('./uploads/user/s_') }}{{ $v->avatar }}"  class="tpl-table-line-img" alt="">
-                                                </td>
-                                                <td class="am-text-middle">{{ $v -> phone}}</td>
-                                                <td class="am-text-middle">{{ $v -> email}}</td>
-                                                <td class='status' class="am-text-middle">
-                                                    @if($v->status == 0)
-                                                        <button type="button" class="btn bg-purple margin">禁用</button>
-
-                                                        @else
-                                                        <button type="button" class="btn bg-olive btn-flat margin">启用</button>
-
-                                                    @endif
-                                                </td>
-                                                <td class="am-text-middle">
-                                                    @if( $v -> roleid  == 1 )
-                                                        普通用户
-                                                    @elseif(  $v -> roleid  == 4 )
-                                                        vip用户
-                                                    @else
-                                                        广告商
-                                                    @endif
-                                                    
-                                                </td>
+                                        <tr class="gradeX">
+                                                <td class='ids' class="am-text-middle">{{ $data -> rid }}</td>
+                                                <td class="am-text-middle">{{ $data->userid}}</td>
+                                                <td class="am-text-middle">{{ $data ->videoid }}</td>
+                                                <td class="am-text-middle">{{ $data -> rtitle}}</td>
+                                                <td class="am-text-middle">{{ $data -> rcontent}}</td>
+                                                <td class="am-text-middle">{{ $data -> rTime}}</td>
+                                                <td class="am-text-middle">{{ $data -> rscores}}</td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="{{ url('admin/user') }}/{{$v->uid}}/edit">
+                                                        <a href="{{ url('admin/userinfo') }}/{{$data->uiid}}/edit">
                                                             <i class="am-icon-pencil"></i> 编辑
                                                         </a>
-                                                        <a href="javascript:;" onclick="abc('/admin/user/{{$v->uid}}')" class="tpl-table-black-operation-del">
+                                                        <a href="javascript:;" onclick="abc('/admin/userinfo/{{$data->uiid}}')" class="tpl-table-black-operation-del">
                                                         <i class="am-icon-pencil"></i>删除
-                                                        </a>
-                                                        <a href="{{ url('admin/userinfo') }}/{{$v->uid}}">
-                                                            <i class="am-icon-pencil"></i> 查看详情
                                                         </a>
                                                     </div>                                                    
                                                 </td>
-                                            </tr>
-                                        @endforeach
+                                        </tr>
+                                      
                                         </tbody>
                                     </table>
 

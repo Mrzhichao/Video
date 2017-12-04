@@ -19,6 +19,14 @@ class User extends Model
 
     public $guarded = [];
 
-
+       	 // 用户表
+    public function infos()
+    {
+    		//  一对一
+    	// 参数1 ：要关联的模型
+// //        参数2：外键(userinfo)的外键
+// //        参数3：当前模型的主键
+        return $this->hasOne('App\Models\Admin\Userinfo','userid','uid');
+    }
 
 }

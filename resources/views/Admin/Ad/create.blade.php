@@ -8,7 +8,7 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>广告管理 -><small>广告添加</small></div>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>广告管理 ><small>广告添加</small></div>
                         
                     </div>
                     
@@ -41,10 +41,9 @@
 						                </ul>
 						            </div>
 						        @endif
-
+                    
 					
                                 <form action="{{ url('admin/ad/') }}" method="post" enctype="multipart/form-data" class="am-form tpl-form-border-form">
-
 								<div class="am-form-group">
                                         <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">添加者<span class="tpl-form-line-small-title"></span></label>
                                         <div class="am-u-sm-12">

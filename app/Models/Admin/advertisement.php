@@ -4,7 +4,7 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class advertisement extends Model
+class Advertisement extends Model
 {
 	//声明数据表的名称
    	public $table = 'advertisement';
@@ -19,9 +19,9 @@ class advertisement extends Model
    	public $guarded = ['_token'];
 
    	//多对一
-   	public function post()
-   	{
-   		return $this->belongsTo('App\Models\Admin\admin','id','aid');
+   	// public function post()
+   	// {
+   	// 	return $this->belongsTo('App\Models\Admin\Admin','aid','id');
 
-   	}
+   	// }
 }

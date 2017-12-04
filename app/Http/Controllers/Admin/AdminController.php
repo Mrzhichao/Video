@@ -4,78 +4,63 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\User;
+use App\Models\Admin\Admin;
 use Intervention\Image\ImageManagerStatic as Image;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     /**
-     * 用户列表页显示
-     * 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $title = '用户列表页';
-        //用户表  角色表查询
-  
-        // $users = User::get();
-        // foreach ($users as $k => $v){
-        //    $user['rname'] = User::find($v -> uid) -> rname;
-        // }
-        // dd($user);
-        // ,'arr'=>$arr
-        // 搜索 分页
+        $title = '后台管理员用户';
         $keywords=$request->input('keyword');
 
-        $data = User::where('uname','like',"%".$keywords."%")->Paginate(5);
+        $data = Admin::where('aname','like',"%".$keywords."%")->Paginate(5);
 
-        return view('Admin.User.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
+        return view('Admin.Admin.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *用户添加页面
+     *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $title = '用户添加';
-        return view('Admin.User.create',['title'=>$title]);
+        $title = '管理员添加';
+        return view('Admin.Admin.create',['title'=>$title]);
     }
 
     /**
      * Store a newly created resource in storage.
-     *添加用户操作
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-         $this->validate($request,[
-            'uname' => 'required|min:5|max:18',
-            'upwd' => 'required',
-            're_upwd' => 'same:upwd',
-            'email' => 'email',
-            'phone' => 'required|size:11',
+        $this->validate($request,[
+            'aname' => 'required|min:5|max:18',
+            'apwd' => 'required',
+            're_apwd' => 'same:apwd',
             'avatar' => 'image'
         ],[
-            'uname.required' => '用户名不能为空。',
-            'uname.min' => '用户名最小5个字符。',
-            'uname.max' => '用户名最大18个字符。',
+            'aname.required' => '用户名不能为空。',
+            'aname.min' => '用户名最小5个字符。',
+            'aname.max' => '用户名最大18个字符。',
             'updated_at.required' => '密码不能为空。',
-            're_upwd.same' => '确认密码不一致。',
-            'email.email' => '邮箱格式不正确。',
-            'phone.required' => '手机号不能为空。',
-            'phone.size' => '手机长度不合适 。',
+            're_apwd.same' => '确认密码不一致。',
             'avatar.image' => '请选择一张图片才好。',
         ]);
 
-        $data = $request->except('_token', 're_upwd');
+        $data = $request->except('_token', 're_apwd');
         //加密
-        $data['upwd'] = encrypt($data['upwd']);
+        $data['apwd'] = encrypt($data['apwd']);
+        // dd($data);
 
         //上传文件处理
         if($request->hasFile('avatar'))
@@ -84,11 +69,11 @@ class UserController extends Controller
             {
                 $ext = $request->file('avatar')->getClientOriginalExtension();
                 $filename = str_random(32).'.'.$ext;
-                $request->file('avatar')->move('./uploads/user', $filename);
+                $request->file('avatar')->move('./uploads/admin', $filename);
                 $data['avatar'] = $filename;
                 //压缩图片
-                $img = Image::make("./uploads/user/".$filename)->resize(120,100);
-                $img->save("./uploads/user/s_".$filename);
+                $img = Image::make("./uploads/admin/".$filename)->resize(120,100);
+                $img->save("./uploads/admin/s_".$filename);
 
             }
         }else
@@ -96,11 +81,12 @@ class UserController extends Controller
             //不上传给默认值
             $data['avatar'] = 'default.jpg';
         }
+         // dd($data);
         //插入数据库
-       $res =  User::create($data);
+       $res =  Admin::create($data);
        //判断是否登录成功
        if($res){
-        return redirect('admin/user')->with('msg','添加成功');;
+        return redirect('admin/admin')->with('msg','添加成功');;
        }else{
         return back()->with('msg','添加失败');;
        }
@@ -108,7 +94,7 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
-     *用户详情
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -119,15 +105,15 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * 显示修改页面
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-       $title = '修改页面';
-       $data = User::find($id);
-       return view('Admin.User.edit',['title'=>$title,'data'=>$data]);
+      $title = '修改页面';
+       $data = Admin::find($id);
+       return view('Admin.Admin.edit',['title'=>$title,'data'=>$data]);
     }
 
     /**
@@ -137,20 +123,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'uname' => 'required|min:5|max:18',
-            'email' => 'email',
-            'phone' => 'required|size:11',
+            'aname' => 'required|min:5|max:18',
             'avatar' => 'image'
         ],[
-            'uname.required' => '用户名不能为空。',
-            'uname.min' => '用户名最小5个字符。',
-            'uname.max' => '用户名最大18个字符。',
-            'email.email' => '邮箱格式不正确。',
-            'phone.required' => '手机号不能为空。',
-            'phone.size' => '手机长度不合适 。',
+            'aname.required' => '用户名不能为空。',
+            'aname.min' => '用户名最小5个字符。',
+            'aname.max' => '用户名最大18个字符。',
             'avatar.image' => '请选择一张图片才好。',
         ]);
         
@@ -165,26 +146,26 @@ class UserController extends Controller
             {
                 $ext = $request->file('avatar')->getClientOriginalExtension();
                 $filename = str_random(32).'.'.$ext;
-                $request->file('avatar')->move('./uploads/user', $filename);
+                $request->file('avatar')->move('./uploads/admin', $filename);
                 $data['avatar'] = $filename;
                 //压缩图片
-                $img = Image::make("./uploads/user/".$filename)->resize(120,100);
-                $img->save("./uploads/user/s_".$filename);
+                $img = Image::make("./uploads/admin/".$filename)->resize(120,100);
+                $img->save("./uploads/admin/s_".$filename);
 
                 // 删除老图片。
-                $oldPic = User::where('uid', $id)->first()->avatar;
+                $oldPic = Admin::where('aid', $id)->first()->avatar;
                 if($oldPic != 'default.jpg'){
-                    unlink('./uploads/user/'.$oldPic);
-                    unlink("./uploads/user/s_".$oldPic);
+                    unlink('./uploads/admin/'.$oldPic);
+                    unlink("./uploads/admin/s_".$oldPic);
                   }
 
             }
         }
         //修改插入数据库
-       $res = User::find($id) -> update($data);
+       $res = Admin::find($id) -> update($data);
        //判断是否修改成功
        if($res){
-        return redirect('admin/user')->with('msg','修改成功');
+        return redirect('admin/admin')->with('msg','修改成功');
        }else{
         return back()->with('msg','修改失败');
        }
@@ -192,14 +173,14 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *删除数据
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //通过id删除数据
-        $res = User::find($id)->delete();
+         //通过id删除数据
+        $res = Admin::find($id)->delete();
 
         //判断是否删除成功
         $data= [];

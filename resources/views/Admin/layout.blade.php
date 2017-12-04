@@ -26,6 +26,7 @@
     <script src="{{asset('Admin/assets/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
     
 
 
@@ -60,7 +61,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span>Amaze UI</span> </a>
+                            <a href="javascript:;">欢迎你, <span>{{ session('user')->aname}}</span> </a>
                         </li>
 
                         <!-- 新邮件 -->
@@ -170,7 +171,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;">
+                            <a href="{{ url('admin/loginout') }}">
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -209,7 +210,7 @@
             <div class="tpl-sidebar-user-panel">
                 <div class="tpl-user-panel-slide-toggleable">
                     <div class="tpl-user-panel-profile-picture">
-                        <img src="{{asset('Admin/assets/img/user04.png')}}" alt="">
+                        <img src="{{ asset('./uploads/admin/s_') }}{{ session('user')->avatar }}" alt="">
                     </div>
                     <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
@@ -223,23 +224,23 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
                 <li class="sidebar-nav-link">
-                    <a href="index.html" class="active">
+                    <a href="{{url('/')}}" class="active">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="tables.html">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
+                    <a href="{{ url('admin/admin')}}">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 管理员管理
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="calendar.html">
-                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 日历
+                    <a href="{{ url('admin/user')}}">
+                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 用户管理
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="form.html">
-                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 表单
+                    <a href="{{ url('admin/video')}}">
+                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 视频管理
 
                     </a>
                 </li>
@@ -252,20 +253,21 @@
 
                 <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
                 <li class="sidebar-nav-link">
-                    <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
-                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    <a class="sidebar-nav-sub-title" href="javascript:;">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 广告管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
                     </a>
-                    <ul class="sidebar-nav sidebar-nav-sub">
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                            <a href="{{url('admin/ad/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 广告添加
                             </a>
                         </li>
 
+
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                            <a href="{{ url('admin/ad') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 广告预览
                             </a>
                         </li>
                     </ul>
