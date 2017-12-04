@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admin\VideoType;
 
-use App\Models\Admin\VideoType;
 class VideoTypeController extends Controller
 {
     /**
