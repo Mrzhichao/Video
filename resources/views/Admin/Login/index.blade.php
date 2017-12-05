@@ -75,6 +75,9 @@
                         <input type="text" name="code" class="code tpl-form-input" id="user-name" placeholder="验证码">
                         <img src="{{url('admin/yzm')}}"  onclick="this.src='{{url('admin/yzm')}}?'+Math.random()" alt="">
                     </div>
+                   
+
+                    </script>
                     <div class="am-form-group tpl-login-remember-me">
                         <input id="remember-me" type="checkbox">
                         <label></label>

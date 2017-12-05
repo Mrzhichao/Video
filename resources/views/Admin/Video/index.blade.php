@@ -91,10 +91,10 @@
                                                         <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-trash"></i> 删除
                                                         </a>
-                                                        <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " class="tpl-table-black-operation-del" id='del'>
+                                                        <a href="{{ url('admin/vad/create')}}?vid={{ $ob->vid }}" class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-pencil"></i> 广告
                                                         </a>
-                                                        <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " id='del'>
+                                                        <a href="{{ url('admin/carousel/create')}}?vid={{ $ob->vid }}" class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-pencil"></i> 轮播
                                                         </a>
                                                     </div>

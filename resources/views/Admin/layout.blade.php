@@ -257,7 +257,6 @@
 
                     </a>
                 </li>
-
                 <li class="sidebar-nav-link">
                     <a href="{{ url('admin/carousel')}}">
                         <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 轮播图管理

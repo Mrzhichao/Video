@@ -60,14 +60,7 @@
 
 
 
-               <div class="am-form-group">                     
-                                 
-    <i class="am-icon-cloud-upload"></i> 重新上传广告图片<img src="{{asset('uploads/Ad/s_') }}{{$data->aimg}}">
-	<!-- 获取原来的图片路径 -->
-    <input type="hidden" name="img" value="{{$data->aimg}}">
-                                                <input type="file" id="file" name="aimg"  id="doc-form-file">
-                                           </div>
-
+   
 <div class="am-form-group">
                                         <label class="am-u-sm-12 am-form-label am-text-left" for="user-email">开始时间 <span class="tpl-form-line-small-title">startTime</span></label>
                                         <div class="am-u-sm-12">
