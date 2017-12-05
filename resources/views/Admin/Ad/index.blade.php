@@ -39,6 +39,10 @@
                                 </form>
                                 </div>
                             </div>
+                            <form id="form" action="upload" method="post" enctype="multipart/form-data">
+                                          <input type="file"  name="vimg" id="upload" style="display: none;">
+
+                                    </form>
                             <div class="widget-body  widget-body-lg am-fr">
                             
                                 <table width="100%" id="example-r" class="am-table am-table-compact tpl-table-black ">
@@ -61,10 +65,10 @@
                                     @foreach($data as $k => $v)
                                         <tr class="gradeX">
                                         	<td>{{ $v -> aname }}</td>
-                                            <td>{{ $v -> id }}</td>
+                                            <td class="id">{{ $v -> id }}</td>
                                             <td>{{ $v -> adesc }}</td>
                                             <td>{{ $v -> acontent }}</td>
-                                            <td><img width="60" height="40" src="{{ asset('./uploads/Ad/s_') }}{{ $v->aimg }}" /></td>
+                                            <td class="vimg"><img width="60" height="40" src="{{ asset('./uploads/Ad/s_') }}{{ $v->aimg }}" /></td>
                                             <td>{{ $v -> aprice }}</td>
                                             
                                             <td>{{ date('Y-m-d',$v -> startTime) }}</td>
@@ -211,6 +215,75 @@
 </script>>
 
 
+<!--单击修改图片-->
+<script type="text/javascript">
+   //  $(function () {
+   //      $("#form").change(function () {
+   //      $('vimg').show();
+   //      uploadImage();
+   //      });
+   // });
+
+var id = null;
+var img = null; 
+$('.vimg').on('dblclick',function()
+        {
+
+
+            var t = $(this);
+            img = t.find('img');
+            id = t.parent().find('.id').html();  //获取ID
+           $('#upload').click();
+        });
+
+$('#upload').change(function()
+            {
+                uploadImage();
+            });
+function uploadImage() {
+   // 判断是否有选择上传文件
+        var imgPath = $('#upload').val();
+        if (imgPath == "") {
+        alert("请选择上传图片！");
+        return;
+        }
+      //  判断上传文件的后缀名
+        // var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+        // if (strExtension != 'jpg' && strExtension != 'gif'
+        // && strExtension != 'png' && strExtension != 'bmp') {
+        // alert("请选择图片文件");
+        // return;
+        // }
+        //获取ID
+
+        var formData = new FormData();
+        formData.append('id',id); //追加ID
+        formData.append('upload', $('#upload')[0].files[0]);
+        formData.append('_token', "{{csrf_token()}}");
+        // var formData = new FormData($('#form')[0]);
+        // console.log(formData);
+        $.ajax({
+        type: "POST",
+        url: "ad/ajax",
+        data:formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+        img.attr('src','/'+data);
+       
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("上传失败，请检查网络后重试");
+        }
+        });
+        }    
+
+
+
+
+ </script>
 
 
 

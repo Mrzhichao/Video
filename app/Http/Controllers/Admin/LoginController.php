@@ -26,6 +26,7 @@ class LoginController extends Controller
     // 验证码生成
      public function yzm()
     {
+        ob_clean();  
         $code = new Code();
         $code->make();
     }
