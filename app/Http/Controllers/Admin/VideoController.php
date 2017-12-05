@@ -126,10 +126,11 @@ class VideoController extends Controller
                 //执行移动上传文件
                 $filename = time().rand(1000,9999).".".$ext;
 
-                $file->move("./Admin/Uploads/Videos/",$filename);
+                $file->move("./Uploads/Video/",$filename);
               
-               $img = Image::make("./Admin/Uploads/Videos/".$filename)->resize(100,100);
-               $img->save("./Admin/Uploads/Videos/v_".$filename); //另存为
+               $img = Image::make("./Uploads/Video/".$filename)->resize(100,100);
+
+               $img->save("./Uploads/Video/v_".$filename); //另存为
             }
 
         }

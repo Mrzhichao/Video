@@ -40,7 +40,7 @@
         <div class="tpl-login">
             <div class="tpl-login-content">
                 <div class="tpl-login-logo">
-
+                                   
                 </div>
 
 
@@ -74,7 +74,6 @@
                      <div class="am-form-group">
                         <input type="text" name="code" class="code tpl-form-input" id="user-name" placeholder="验证码">
                         <img src="{{url('admin/yzm')}}"  onclick="this.src='{{url('admin/yzm')}}?'+Math.random()" alt="">
-
                     </div>
                     <div class="am-form-group tpl-login-remember-me">
                         <input id="remember-me" type="checkbox">

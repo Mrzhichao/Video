@@ -28,13 +28,13 @@
 	// });
 
 
+
 Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin'],function (){
 
+		/*-----------------------------------Wang-----------------------------------*/
 
 	//后台主页
 	Route::get('index','IndexController@index');
-
-		/*-----------------------------------Wang-----------------------------------*/
 	
 	//退出登录
 	Route::get('loginout','LoginController@loginout');
@@ -76,8 +76,6 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	Route::post('carousel/ajaxName','CarouselController@ajax');
 
 
-
-
 	/*-----------------------------------SunnyHan-----------------------------------*/
 	//视频管理模块
 	Route::resource('video','VideoController');
@@ -89,6 +87,15 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	Route::post('videotype/changeorder','VideoTypeController@changeorder');
 
 	//视频类别ajax无刷新上传
-	Route::post('videotype/upload','VideoTypeController@upload');
+	Route::post('video/upload','VideoTypeController@upload');
+
+	//系统配置管理
+	Route::resource('sysconfig','SysconfigController');
+	Route::post('contentchange','SysconfigController@contentchange');
+
+	//友情链接管理
+	Route::resource('link','LinkController');
+
 
 });
+

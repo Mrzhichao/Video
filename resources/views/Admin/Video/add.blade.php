@@ -98,7 +98,7 @@
                                     <div class="am-form-group">
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">视频简介</label>
                                         <div class="am-u-sm-9">
-                                            <textarea class="" rows="10" name='introduction' value="{{ old('introduction') }}" id="user-intro" placeholder="请输入视频简介"></textarea>
+                                            <textarea class="" rows="10" name='introduction' value="{{ old('introduction') }}" id="user-intro" placeholder="请输入视频简介">{{ old('introduction') }}</textarea>
                                         </div>
                                     </div>              
 

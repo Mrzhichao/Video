@@ -76,8 +76,9 @@
                                                 <th>
                                                     <img src=" {{ asset('/Uploads/Video/'.$ob->logo) }}" class="tpl-table-line-img" alt="">
                                                 </th>
-                                                <th class="am-text-middle">{{ $ob->users->uname }}</th>
-                                                <th class="am-text-middle">{{ $ob->types->vtname }}</th>
+
+                                                <th class="am-text-middle">{{ $ob->uname }}</th>
+                                                <th class="am-text-middle">{{ $ob->types['vtname'] }}</th>
                                                 <th class="am-text-middle">{{ date('Y-m-d',$ob->publicTime) }}</th>
                                                 <th class="am-text-middle">{{ date('Y-m-d',$ob->projectionTime) }}</th>
                                                 <th class="am-text-middle">{{ $ob->keywords }}</th>
