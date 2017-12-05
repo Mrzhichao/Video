@@ -16,16 +16,17 @@ use App\Org\code\Code;
 
 class LoginController extends Controller
 {
-	//显示登录页面
+  //显示登录页面
     public function login()
     {
-    	$title = '后台登录';
-    	return view('Admin.Login.index',['title'=>$title]);
+      $title = '后台登录';
+      return view('Admin.Login.index',['title'=>$title]);
     }
 
     // 验证码生成
      public function yzm()
     {
+        ob_clean();
         $code = new Code();
         $code->make();
     }
@@ -33,10 +34,10 @@ class LoginController extends Controller
     //执行登录
     public function dologin(Request $request)
     {
-    	//获取登录的数据
-    	$input = $request -> except('_token');
-    	//对数据进行表单验证
-    	 $rule = [
+      //获取登录的数据
+      $input = $request -> except('_token');
+      //对数据进行表单验证
+       $rule = [
             'aname'=>'required|regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u|between:5,20',
             "apwd"=>'required|between:3,20'
         ];
@@ -58,7 +59,7 @@ class LoginController extends Controller
                   ->withInput();
           }
            // 登录逻辑
-		 // 验证验证码是否正确
+     // 验证验证码是否正确
        if( $input['code'] !=  Session::get('code')) {
            return redirect('admin/login')->with('errors','验证码错误');
 
@@ -79,7 +80,7 @@ class LoginController extends Controller
          Session::put('user',$user);
          
          // 5登录失败，返回登录页面
-         return redirect('/');
+         return redirect('admin/index');
        
     }
 

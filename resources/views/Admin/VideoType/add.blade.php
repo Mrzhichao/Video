@@ -1,6 +1,7 @@
 @extends('Admin.layout')
 
 @section('content')
+
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
 

@@ -44,7 +44,7 @@
 
                             <div class="widget-body am-fr">   
 
-                                <form action="{{ url('admin/video') }}" class="am-form tpl-form-line-form" method='post' enctype="multipart/form-data"> 
+                                <form action="{{ url('admin/video') }}" id="art_form" class="am-form tpl-form-line-form" method='post' enctype="multipart/form-data"> 
                                           {{ csrf_field() }}
                                     <div class="am-form-group">
                                         <label for="" class="am-u-sm-3 am-form-label">视频名称 
@@ -98,7 +98,7 @@
                                     <div class="am-form-group">
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">视频简介</label>
                                         <div class="am-u-sm-9">
-                                            <textarea class="" rows="10" name='introduction' value="{{ old('introduction') }}" id="user-intro" placeholder="请输入视频简介"></textarea>
+                                            <textarea class="" rows="10" name='introduction' value="{{ old('introduction') }}" id="user-intro" placeholder="请输入视频简介">{{ old('introduction') }}</textarea>
                                         </div>
                                     </div>              
 
@@ -114,16 +114,52 @@
                                             <span class="tpl-form-line-small-title">Images</span>
                                          </label>
                                         <div class="am-u-sm-9">
-                                            <div class="am-form-group am-form-file">
-                   <!--                              <div class="tpl-form-file-img">
-                                                    <img src="{{ asset('Admin/assets/img/a5.png') }}" alt="">
-                                                </div> -->
-                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 添加封面图片
-                                                </button>
-                                                 <input id="doc-form-file" type="file" name='logo' multiple="">
-                                            </div>
+                                            <input type="text" size="50" id="art_thumb" name="art_thumb">
+                                            <input id="file_upload" name="logo" type="file" multiple="true" >
+                                            <br>
+                                            <img src="" id="img1" alt="" style="width:80px;height:80px">
+                                            <script type="text/javascript">
+                                                $(function () {
+                                                    $("#file_upload").change(function () {
+                                                        $('img1').show();
+                                                        uploadImage();
+                                                    });
+                                                });
 
+                                                function uploadImage() {
+                                                    // 判断是否有选择上传文件
+                                                    var imgPath = $("#file_upload").val();
+                                                    if (imgPath == "") {
+                                                        alert("请选择上传图片！");
+                                                        return;
+                                                    }
+                                                    //判断上传文件的后缀名
+                                                    var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+                                                    if (strExtension != 'jpg' && strExtension != 'gif'
+                                                        && strExtension != 'png' && strExtension != 'bmp') {
+                                                        alert("请选择图片文件");
+                                                        return;
+                                                    }
+                                                    var formData = new FormData($('#art_form')[0]);
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "/admin/video/upload",
+                                                        data: formData,
+                                                        async: true,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function(data) {
+                                                           $('#img1').attr('src','/Uploads/'+data);
+                                                            $('#img1').show();
+                                                            $('#art_thumb').val('/Uploads/'+data);
+                                                        },
+                                                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                                            alert("上传失败，请检查网络后重试");
+                                                        }
+                                                    });
+                                                }
+                                            </script>
                                         </div>
                                     </div>
 
@@ -168,9 +204,6 @@
                     </div>
                 </div>
 
-
-
-
             </div>
         </div>
     </div>
@@ -180,7 +213,12 @@
     <script src="{{ asset('Admin/assets/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('Admin/assets/js/app.js') }}"></script>
 
+    <script src="{{ asset('/Admin/assets/js/jquery.min.js') }}"></script>
+
 </body>
 
 </html>
 @stop
+
+
+

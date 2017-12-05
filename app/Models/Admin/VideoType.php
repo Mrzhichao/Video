@@ -3,9 +3,6 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
-
-
 
 class VideoType extends Model
 {
@@ -24,7 +21,7 @@ class VideoType extends Model
 
 
 
-       public  function tree()
+    public  function tree()
     {
         $cates = $this->orderBy('order_sort','asc')->get();
         //对分类数据进行格式化（排序、缩进）
@@ -58,53 +55,6 @@ class VideoType extends Model
         }
         return $arr;
     }
-
-
-
-
-
-    //测试函数 （测试正式函数）
-    public function getVideoTypeInfo(){
-        $sourceItems = $this->get();
-        $targetItems = new Collection;
-        $this->getVideoType($sourceItems, $targetItems);
-        return $targetItems;
-    }
-    
-    //使用递归获取分类信息测试函数 （测试正式函数）
-    public function getVideoType($sourceItems, $targetItems, $pid=0, $str='|'){
-        $str .= '__';
-        foreach ($sourceItems as $k => $v) {
-            if($v->pid == $pid){
-                $v->vname = $str.$v->vname;
-                $targetItems[] = $v;
-                $this->getVideoType($sourceItems, $targetItems, $v->vtid, $str);
-            }
-        }
-    }
-
-
-
-    //测试函数 （测试正式函数）
-    public function getTypeInfo(){
-        $sourceItems = $this->get();
-        $targetItems = new Collection;
-        $this->getType($sourceItems, $targetItems);
-        return $targetItems;
-    }
-    
-    //使用递归获取分类信息测试函数 （测试正式函数）
-    public function getType($sourceItems, $targetItems, $pid=0, $str='|'){
-        $str .= '__';
-        foreach ($sourceItems as $k => $v) {
-            if($v->pid == $pid){
-                $v->vtname = $str.$v->vtname;
-                $targetItems[] = $v;
-                $this->getType($sourceItems, $targetItems, $v->vtid, $str);
-            }
-        }
-    }
-
 
 
 

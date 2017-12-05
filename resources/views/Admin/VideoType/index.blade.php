@@ -50,11 +50,11 @@
                                     <table width="100%" border="1px solid red" class="am-table am-table-compact am-table-striped tpl-table-black ">
                                         <thead>
                                             <tr>
-                                                <th >ID</th>
+                                                <th>ID</th>
                                                 <th>排序</th>
-                                                <th >名称</th>
+                                                <th>名称</th>
                                                 <th>上传者</th>
-                                                <th >添加时间</th>
+                                                <th>添加时间</th>
                                                 <th>修改时间</th>
                                                 <th width="20%">操作</th>
                                             </tr>

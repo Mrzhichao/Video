@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('Admin/assets/css/amazeui.min.css')}}" />
     <link rel="stylesheet" href="{{asset('Admin/assets/css/amazeui.datatables.min.css')}}" />
     <link rel="stylesheet" href="{{asset('Admin/assets/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('Admin/assets/css/ch-ui.admin.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.min.css')}}">
     <script type="text/javascript" src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
     <script src="{{asset('Admin/assets/js/jquery.min.js')}}"></script>
@@ -155,7 +156,7 @@
                                             <span> 上午开会记录存档</span>
                                         </div>
                                         <div class="tpl-dropdown-menu-notifications-time">
-                                            1天前
+                                            1天
                                         </div>
                                     </a>
                                 </li>
@@ -245,8 +246,20 @@
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="chart.html">
-                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
+                    <a href="{{ url('admin/videotype')}}">
+                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 视频类型管理
+
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/carousel')}}">
+                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 轮播图管理
+
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/vad')}}">
+                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 视频广告
 
                     </a>
                 </li>
@@ -268,6 +281,48 @@
                         <li class="sidebar-nav-link">
                             <a href="{{ url('admin/ad') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 广告预览
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a class="sidebar-nav-sub-title" href="javascript:;">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 系统配置
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/sysconfig/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 配置添加
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/sysconfig') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 配置预览
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a class="sidebar-nav-sub-title" href="javascript:;">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 友情链接
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/link/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加链接
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/link') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 链接预览
                             </a>
                         </li>
                     </ul>
