@@ -20,7 +20,7 @@ class LinkController extends Controller
         $links = Link::get();
         $title='友情链接首页';
 //        2 显示视图
-        return view('admin.Link.list',compact(['title','links']));
+        return view('admin.Link.index',compact(['title','links']));
     }
 
     /**

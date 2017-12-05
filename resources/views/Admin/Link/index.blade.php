@@ -26,47 +26,28 @@
                                 </div>
 
                                 <div class="am-u-sm-12">
-                                    <table class="list_tab" style="background:white;color: black" >
+                                   <table class="table table-hover table-bordered " style="background:white;color:black">
                                         <tr>
-                                            <th width="5%">排序</th>
-                                            <th width="10%">ID</th>
-                                            <th width="10%">标题</th>
-                                            <th width="10%">名称</th>
-                                            <th width="20%">内容</th>
-                                            <th width="40%">操作</th>
+                                            <th width="5%" >ID</th>
+                                            <th width="10%">友情链接名</th>
+                                            <th width="50%" align='center'>提示信息</th>
+                                            <th width="15%">提示url</th>
+                                            <th >操作</th>
                                         </tr>
 
-                                    {{csrf_field()}}
-
-                                    @foreach($config as $k=>$v)
+                                    @foreach($links as $k=>$v)
                                             <tr>
-                                                <td class="tc">
-                                                    <input style="width:30px;color:black"  type="text" onchange="changeOrder(this,{{$v->conf_order}})" value="{{$v->conf_order}}">
-                                                </td>
-                                                <td class="tc">{{$v->conf_id}}</td>
-                                                <td>
-                                                    <a href="#">{{$v->conf_title}}</a>
-                                                </td>
-                                                <td>{{$v->conf_name}}</td>
-                                                <td>
-                                                    <input type="hidden" name="conf_id[]" value="{{$v->conf_id}}">
-                                                   {!! $v->conf_contents !!}
-                                                </td>
-                                                <td>
-                                                    {{--http://www.myblog.com/admin/config/9/edit--}}
-                                                    <a href="{{url('admin/sysconfig/'.$v->conf_id.'/edit')}}">修改</a>
-                                                    <a href="javascript:;" onclick="delLinks({{$v->conf_id}})">删除</a>
-                                                </td>
-                                            </tr>
+                                                <th class="tc">{{$v->link_id}}</th>
+                                                <th class="tc">{{$v->link_name}}</th>
+                                                <th class="tc">{{$v->link_title}}</th>
+                                                <th class="tc">{{$v->link_url}}</th>
+                                                <th>
+                                                    <a href="{{url('admin/link/'.$v->link_id.'/edit')}}">修改</a>
+                                                    <a href="javascript:;" onclick="userDel({{$v->link_id}})">删除</a>
+                                                </th>
+                                            </tr>       
+                                     @endforeach
 
-                                        @endforeach
-                                        <tr>
-                                                <td colspan="6" style="color:red">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <input class="am-btn am-btn-default am-btn-success" type="submit" value="提交">
-                                                    </div>
-                                                </td>
-                                        </tr>
                                     </table>
                                 </div>
 
