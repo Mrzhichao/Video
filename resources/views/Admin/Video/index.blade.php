@@ -1,6 +1,7 @@
 @extends('Admin.layout')
 
 @section('content')
+
  <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
@@ -19,9 +20,7 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-
                                                 <a class="am-btn am-btn-default am-btn-success" href="{{ url('admin/video/create') }}">新增</a>
-
                                             </div>
                                         </div>
                                     </div>
@@ -31,20 +30,22 @@
                                         <select data-am-selected="{btnSize: 'sm'}">
                                           <option value="option1">所有类型</option>
                                           @foreach ($types as $type)
-                                          <option value="{{ $type->vtid }}">{{ $type->vtname }}</option>
+                                          <option value="{{ $type['vtid'] }}">{{ $type['vtname'] }}</option>
                                           @endforeach
                                         </select>
                                     </div>
                                 </div>
+
+                            <form action="{{ url('admin/video')}}" method="get">
                                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field" name='search' value="{{ $where['search'] }}" >
+                                        <input type="text" class="am-form-field" name='search' value="{{ $where['search'] }}" placeholder="上传者|视频名称">
                                         <span class="am-input-group-btn">
-                                        <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                                        <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                                       </span>
                                     </div>
                                 </div>
-
+                            </form>
 
                                 <div class="am-u-sm-12">
                                     <table width="100%" border="1px solid red" class="am-table am-table-compact am-table-striped tpl-table-black ">
@@ -55,6 +56,7 @@
                                                 <th width="5%">名称</th>
                                                 <th width="5%">Logo</th>
                                                 <th width="5%">上传者</th>
+                                                <th width="5%">视频类型</th>
                                                 <th width="10%">上映时间</th>
                                                 <th width="10%">下映时间</th>
                                                 <th width="5%">关键字</th>
@@ -74,7 +76,8 @@
                                                 <th>
                                                     <img src=" {{ asset('/Uploads/Video/'.$ob->logo) }}" class="tpl-table-line-img" alt="">
                                                 </th>
-                                                <th class="am-text-middle">{{ $ob->users }}</th>
+                                                <th class="am-text-middle">{{ $ob->users->uname }}</th>
+                                                <th class="am-text-middle">{{ $ob->types->vtname }}</th>
                                                 <th class="am-text-middle">{{ date('Y-m-d',$ob->publicTime) }}</th>
                                                 <th class="am-text-middle">{{ date('Y-m-d',$ob->projectionTime) }}</th>
                                                 <th class="am-text-middle">{{ $ob->keywords }}</th>
@@ -86,11 +89,14 @@
                                                         </a>
                                                         <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-trash"></i> 删除
+                                                        </a>
                                                         <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-pencil"></i> 广告
+                                                        </a>
                                                         <a href="javascript:;" onclick="videoDel( '{{ $ob->vid }} ') " id='del'>
                                                             <i class="am-icon-pencil"></i> 轮播
-                                                        </div>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -101,7 +107,7 @@
                                     <div>
                                         <ul class="am-pagination tpl-pagination">
                                             <center>
-                                               {!! $data->appends($where)->render() !!}
+                                               {!! $videos->appends($where)->render() !!}
                                             </center>
                                         </ul>
                                     </div>

@@ -22,18 +22,18 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <a href="{{ url('admin/user/create') }}">
-                                                    <button  class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                                <a href="{{ url('admin/videoreview') }}">
+                                                    <button  class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 刷新</button>
                                                 </a>
                                                 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <form action="{{ asset('admin/user')}}" method="get">
+                                <form action="{{ asset('admin/videoreview')}}" method="get">
                                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                            <input type="text" name='keyword' class="am-form-field ">
+                                            <input type="text" name='keyword' class="am-form-field " placeholder="请输入视频评论的标题">
                                             <span class="am-input-group-btn">
                                                 <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
                                               </span>
@@ -45,8 +45,8 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>用户编号</th>
-                                                <th>视频编号</th>
+                                                <th>评论者</th>
+                                                <th>评论视频的名称</th>
                                                 <th>视频评论标题</th>
                                                 <th>视频评论内容</th>
                                                 <th>视频评论时间</th>
@@ -55,26 +55,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($data as $k =>$v)
                                         <tr class="gradeX">
-                                                <td class='ids' class="am-text-middle">{{ $data -> rid }}</td>
-                                                <td class="am-text-middle">{{ $data->userid}}</td>
-                                                <td class="am-text-middle">{{ $data ->videoid }}</td>
-                                                <td class="am-text-middle">{{ $data -> rtitle}}</td>
-                                                <td class="am-text-middle">{{ $data -> rcontent}}</td>
-                                                <td class="am-text-middle">{{ $data -> rTime}}</td>
-                                                <td class="am-text-middle">{{ $data -> rscores}}</td>
+                                                <td class='ids' class="am-text-middle">{{ $v -> rid }}</td>
+                                                <td class="am-text-middle">{{ $v->uname}}</td>
+                                                <td class="am-text-middle">{{ $v ->vname }}</td>
+                                                <td class="am-text-middle">{{ $v -> rtitle}}</td>
+                                                <td class="am-text-middle">{{ $v -> rcontent}}</td>
+                                                <td class="am-text-middle">{{ $v -> rTime}}</td>
+                                                <td class="am-text-middle">{{ $v -> rscores}}</td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="{{ url('admin/userinfo') }}/{{$data->uiid}}/edit">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" onclick="abc('/admin/userinfo/{{$data->uiid}}')" class="tpl-table-black-operation-del">
+                                                        <a href="javascript:;" onclick="abc('/admin/videoreview/{{$v->rid}}')" class="tpl-table-black-operation-del">
                                                         <i class="am-icon-pencil"></i>删除
                                                         </a>
                                                     </div>                                                    
                                                 </td>
                                         </tr>
-                                      
+                                        @endforeach
                                         </tbody>
                                     </table>
 
@@ -98,31 +96,6 @@
     <script src="{{ asset('/Admin/assets/js/app.js') }}"></script>
     
     <script type="text/javascript">
-            //状态操作
-             $(".status").on('click', function () {
-                    var t = $(this);
-                    var id = $(this).parent().find('.ids').html();
-                   // alert(id);
-                    // 书写 ajax
-                    $.ajax(
-                        {
-                            url:"{{ url('/admin/ajax/ajaxstatus') }}",
-                            type:'post',
-                            data:{id:id},
-                            success:function (data) {
-                                // console.log(data);
-                                if(data.status == 0)
-                                {
-                                    t.html('<button type="button" class="btn bg-purple margin">禁用</button>');
-                                }else {
-                                    t.html('<button type="button" class="btn bg-olive btn-flat margin">启用</button>');
-                                }
-                            },
-                            dataType:'json'
-                        }
-                    );
-                });
-
         //提示信息消失
         
         $("#msg").fadeOut(6000, 'linear' ,function(){

@@ -245,13 +245,30 @@
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="chart.html">
-                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
+                    <a href="{{ url('admin/videotype')}}">
+                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 视频类型管理
+
+                    </a>
+                </li>
+                  <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/videoreview')}}">
+                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 视频评论管理
+
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/carousel')}}">
+                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 轮播图管理
+
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/vad')}}">
+                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 视频广告
 
                     </a>
                 </li>
 
-                <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
                 <li class="sidebar-nav-link">
                     <a class="sidebar-nav-sub-title" href="javascript:;">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 广告管理

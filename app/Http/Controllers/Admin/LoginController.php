@@ -26,6 +26,7 @@ class LoginController extends Controller
     // 验证码生成
      public function yzm()
     {
+        ob_clean();
         $code = new Code();
         $code->make();
     }
@@ -79,7 +80,7 @@ class LoginController extends Controller
          Session::put('user',$user);
          
          // 5登录失败，返回登录页面
-         return redirect('/');
+         return redirect('admin/index');
        
     }
 

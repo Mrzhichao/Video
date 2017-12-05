@@ -24,36 +24,17 @@ class VideoController extends Controller
 
          $title='视频首页';
 
-
          $keywords=$request->input('search');
 
-    
-        //有就 无限极分类 
-          $videos= Video::get();
+         //渴求式加载多个关联关系
+         $videos = Video::with('users','types')->where('vname','like',"%".$keywords."%")->paginate(5); 
+         //dd($videos);
+         
+         //二级分类显示所有视频分类
+         $types =  (new VideoType) -> tree(); 
+         //dd($types);
 
-           foreach($videos as $key=>$video){
-
-                 $video['users']=Video::find($video->vid)->users['uname'];
-
-                 $video['type']= Video::find($video->vid)->videoType;
-            }
-             //dd($videos);
-
-        $data = Video::where('vname','like',"%".$keywords."%")->paginate(5); 
-
-        $type = ( new VideoType ) -> getTypeInfo();
-
-        foreach ($type as $key => $v) {
-            $types[]=$v;
-        }
-
-        $videoType = ( new VideoType ) -> getVideoTypeInfo();
-        foreach($videoType as $key => $v){
-            $videotypes[]=$v;
-        }
-        //dd($videotypes);
-
-         return view('Admin.Video.index',['videos'=>$videos,'data'=>$data,'types'=>$types,'title'=>$title,'where'=>['search'=>$keywords] ]);  
+         return view('Admin.Video.index',['videos'=>$videos,'title'=>$title,'types'=>$types,'where'=>['search'=>$keywords] ]);  
     }
 
 
@@ -66,14 +47,16 @@ class VideoController extends Controller
     {
         $title='视频添加';
 
-        $category = new VideoType;
-        $items = $category->getCategoryInfoTest();
+        //多级分类
+        // $items =  (new Video) -> getTypeInfo();
+        // foreach ($items as $key => $item) {
+        //     $types[]=$item;        
+        // }
+        
+        //二级分类显示所有视频分类
+        $types =  (new VideoType) -> tree(); 
 
-        foreach ($items as $key => $item) {
-            $types[]=$item;        
-        }
-
-        return view('Admin.Video.add',['title'=>$title,'types'=>$types,]);
+        return view('Admin.Video.add',compact(['title','types']) );
     }
 
 
@@ -151,12 +134,13 @@ class VideoController extends Controller
 
         }
     
-        $input = $request->except('_token');
+        $input = $request->except('_token','art_thumb');
 
         $input['logo'] = $filename;
         $input['publicTime']=strtotime($request->publicTime);
         $input['projectionTime']=strtotime($request->projectionTime);
         $input['isVip']=0;
+        $input['type_order']=1;
         $input['userid']=1;
         $input['vscores']=0;
         
@@ -276,18 +260,33 @@ class VideoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function upload()
+     public function upload(Request $request)
     {
-        //获取上传的文件对象
-        $file = Input::file('file_upload');
-        //判断文件是否有效
+
+         //获取客户端传过来的文件
+         $file = $request->file('file_upload');
+         //$file = $request->all();
+         //dd($file);
+
         if($file->isValid()){
-            $entension = $file->getClientOriginalExtension();//上传文件的后缀名
-            $newName = date('YmdHis').mt_rand(1000,9999).uniqid().'.'.$entension;
-            $path = $file->move(base_path().'/uploads',$newName);
-            $filepath = 'uploads/'.$newName;
-            //返回文件的路径
-            return  $filepath;
+            //        获取文件上传对象的后缀名
+            $ext = $file->getClientOriginalExtension();
+
+            //生成一个唯一的文件名，保证所有的文件不重名
+            $newfile = time().rand(1000,9999).uniqid().'.'.$ext;
+
+            //设置上传文件的目录
+            $dirpath = public_path().'/uploads/';
+
+            //将文件移动到本地服务器的指定的位置，并以新文件名命名
+            //$file->move(移动到的目录, 新文件名);
+           $file->move($dirpath, $newfile);
+
+            //将上传的图片名称返回到前台，目的是前台显示图片
+            return $newfile;
+
         }
+
     }
+
 }

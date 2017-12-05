@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\VideoReview;
-use App\Models\Admin\User;
+
 
 class ReviewController extends Controller
 {
@@ -22,8 +22,15 @@ class ReviewController extends Controller
         // dd($data);
         $keywords=$request->input('keyword');
 
-        $data = VideoReview::where('rtitle','like',"%".$keywords."%")->Paginate(5);
-        dd($data);
+        // $data = VideoReview::
+        // dd($data);
+        // 
+        $data= \DB::table('videoreview')
+            ->join('users', 'users.uid', '=', 'videoreview.userid')
+            ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
+            ->select('videoreview.*', 'users.uname', 'videos.vname')
+            ->where('rtitle','like',"%".$keywords."%")->Paginate(5);
+            // dd($users);
 
         return view('Admin.VideoReview.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }
@@ -91,6 +98,23 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //通过id删除数据
+        $res = VideoReview::find($id)->delete();
+
+        //判断是否删除成功
+        $data= [];
+        if($res){
+            $data['error']=0;
+            $data['msg']='删除成功';
+            // echo '删除成功';
+            // return redirect('admin/user')->with('msg','删除成功');
+        }else{
+            $data['error']=1;
+            $data['msg']='删除失败';
+          // echo '删除失败';
+            // return back()->with('msg','修改失败');
+        }
+
+        return $data;
     }
 }
