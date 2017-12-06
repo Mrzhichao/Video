@@ -81,26 +81,43 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	Route::get('video/first','VideoRecommendController@first');
 
 
-
+	
 	/*-----------------------------------SunnyHan-----------------------------------*/
-	//视频管理模块
+	//视频管理
 	Route::resource('video','VideoController');
+
+
+	//视频ajax无刷新排序
+	Route::post('video/changeorder','VideoController@changeOrder');
+	
+	//视频ajax无刷新上传
+	Route::post('video/upload','VideoController@upload');
+
+
+	//视频ajax无刷新时间判断
+	Route::post('video/time','VideoController@time');
+
 
 	//视频类别管理
 	Route::resource('videotype','VideoTypeController');
 
-	//视频类别类别排序
-	Route::post('videotype/changeorder','VideoTypeController@changeorder');
 
-	//视频类别ajax无刷新上传
-	Route::post('video/upload','VideoTypeController@upload');
+	//视频类别无刷新排序
+	Route::post('videotype/changeorder','VideoTypeController@changeOrder');
+
+
+
 
 	//系统配置管理
 	Route::resource('sysconfig','SysconfigController');
 	Route::post('contentchange','SysconfigController@contentchange');
 
+
+
+
 	//友情链接管理
 	Route::resource('link','LinkController');
+	Route::post('link/changeorder','LinkController@changeorder');
 
 
 });
