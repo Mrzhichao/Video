@@ -9,7 +9,7 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">用户详情</div>
+                                <div class="widget-title  am-cf">评论详情</div>
                             </div>
                             <div id='msg' class="am-btn-group am-btn-group-xs">
                                  @if(session('msg'))
@@ -22,7 +22,7 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <a href="{{ url('admin/user') }}">
+                                                <a href="{{ url('admin/video') }}">
                                                     <button  class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 返回</button>
                                                 </a>
                                                 
@@ -30,42 +30,61 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form action="{{ asset('admin/videoreview/'.$id)}}" method="get">
+                                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                            <input type="text" name='keyword' class="am-form-field " placeholder="请输入视频评论的标题">
+                                            <span class="am-input-group-btn">
+                                                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
+                                              </span>
+                                        </div>
+                                    </div>
+                                </form>
                                 <div class="am-u-sm-12">
                                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>昵称</th>
-                                                <th>真是姓名</th>
-                                                <th>身份证号</th>
-                                                <th>用户积分</th>
-                                                <th>QQ</th>
+                                                <th>评论者昵称</th>
+                                                <th>评论视频的名称</th>
+                                                <th>视频评论标题</th>
+                                                <th>视频评论内容</th>
+                                                <th>视频评论时间</th>
+                                                <th>视频评分</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($data as $k =>$v)
                                         <tr class="gradeX">
-                                                <td class='ids' class="am-text-middle">{{ $data ->uiid}}</td>
-                                                <td class="am-text-middle">{{ $data->nickname}}</td>
-                                                <td class="am-text-middle">{{ $data ->realname }}</td>
-                                                <td class="am-text-middle">{{ $data -> cardid}}</td>
-                                                <td class="am-text-middle">{{ $data -> score}}</td>
-                                                <td class="am-text-middle">{{ $data -> qq}}</td>
+                                                <td class='ids' class="am-text-middle">{{ $v -> rid }}</td>
+                                                <td class="am-text-middle">{{ $v->nickname }}</td>
+                                                <td class="am-text-middle">{{ $v ->vname }}</td>
+                                                <td class="am-text-middle">{{ $v -> rtitle}}</td>
+                                                <td class="am-text-middle">{{ $v -> rcontent}}</td>
+                                                <td class="am-text-middle">{{ $v -> rTime}}</td>
+                                                <td class="am-text-middle">{{ $v -> rscores}}</td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="{{ url('admin/userinfo') }}/{{$data->uiid}}/edit">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" onclick="abc('/admin/userinfo/{{$data->uiid}}')" class="tpl-table-black-operation-del">
+                                                        <a href="javascript:;" onclick="abc('/admin/videoreview/{{$v->rid}}')" class="tpl-table-black-operation-del">
                                                         <i class="am-icon-pencil"></i>删除
+                                                        </a>
+                                                        <a href="{{ url('admin/videoreply/') }}/{{$v->rid}}"  class="tpl-table-black-operation-del">
+                                                        <i class="am-icon-pencil"></i>查看回复
                                                         </a>
                                                     </div>                                                    
                                                 </td>
                                         </tr>
-                                      
+                                        @endforeach
                                         </tbody>
                                     </table>
 
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+
+                                    <div class="am-fr">
+                                        {!! $data->appends($where)->render() !!}
+                                    </div>
                                 </div>
 
                             </div>
@@ -80,8 +99,7 @@
     <script src="{{ asset('/Admin/assets/js/app.js') }}"></script>
     
     <script type="text/javascript">
-
-     //提示信息消失
+        //提示信息消失
         
         $("#msg").fadeOut(6000, 'linear' ,function(){
   

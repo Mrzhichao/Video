@@ -4,35 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\VideoReview;
-use App\Models\Admin\Userinfo;
+use App\Models\Admin\Reply;
 
-class ReviewController extends Controller
+class ReplyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // return 111;
-        // $title = '视频评论页';
-        // // $data = VideoReview::get();
-        // // dd($data);
-        // $keywords=$request->input('keyword');
-
-        // // $data = VideoReview::
-        // // dd($data);
-        // // 
-        // $data= \DB::table('videoreview')
-        //     ->join('users', 'users.uid', '=', 'videoreview.userid')
-        //     ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
-        //     ->select('videoreview.*', 'users.uname', 'videos.vname')
-        //     ->where('rtitle','like',"%".$keywords."%")->Paginate(5);
-        //     // dd($users);
-
-        // return view('Admin.VideoReview.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
+        //
     }
 
     /**
@@ -52,7 +35,7 @@ class ReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         //
     }
 
@@ -62,20 +45,48 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request ,$id)
     {
-        $title = '视频评论';
+         $title = '视频评论回复';
 
         $keywords=$request->input('keyword');
-         $data= \DB::table('videoreview')
-            ->join('users', 'users.uid', '=', 'videoreview.userid')
-            ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
-            ->join('userinfo', 'userinfo.uiid', '=', 'videoreview.userinfoid')
-            ->select('videoreview.*', 'users.uname', 'videos.vname','userinfo.nickname')
-            ->where('vid',$id)->where('rtitle','like',"%".$keywords."%")->Paginate(5);
+         $users= \DB::table('reply')
+            ->join('users', 'users.uid', '=', 'reply.userid')
+            ->join('videos', 'videos.vid', '=', 'reply.videoid')
+            ->join('userinfo', 'userinfo.uiid', '=', 'reply.userinfoid')
+            ->select('reply.*', 'users.uname', 'videos.vname','userinfo.nickname')
+            ->where('nickname','like',"%".$keywords."%")->Paginate(5);
+           // / dd($users);
+        $data = $this ->subtree($users,$id); 
         // dd($data);
-       return view('Admin.Review.index',['title'=>$title,'id'=>$id,'data'=>$data,'where'=>['keyword'=>$keywords]]);
+       return view('Admin.Reply.index',['title'=>$title,'id'=>$id,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }
+        
+
+        /**
+         * 无限极分类
+         * @param  [type]  $arr [description]
+         * @param  integer $id  [description]
+         * @param  integer $lev [description]
+         * @return [type]       [description]
+         */
+        public function subtree($arr,$id=0,$lev=1)
+        {
+                    // dd($arr);
+                        $subs=[];
+                        foreach($arr as $v){
+
+                            if($v->pid==$id){
+                                // dd($v);
+                                $v->lev=$lev;
+                                $subs[]=$v;
+                                // dd($subs);
+                                $subs = array_merge($subs,$this->subtree($arr,$v->rid,$lev+1));
+                            }
+                        }
+                     return $subs;
+        } 
+     
 
     /**
      * Show the form for editing the specified resource.
@@ -108,8 +119,8 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-        //通过id删除数据
-        $res = VideoReview::find($id)->delete();
+         //通过id删除数据
+        $res = Reply::find($id)->delete();
 
         //判断是否删除成功
         $data= [];

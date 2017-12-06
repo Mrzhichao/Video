@@ -5,42 +5,48 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ $title }}</title>
-     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="{{asset('Admin/assets/i/favicon.png')}}">
-    <link rel="apple-touch-icon-precomposed" href="{{asset('Admin/assets/i/app-icon72x72@2x.png')}}">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="{{asset('Admin/assets/js/echarts.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('Admin/assets/css/amazeui.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('Admin/assets/css/amazeui.datatables.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('Admin/assets/css/app.css')}}">
-    <link rel="stylesheet" href="{{asset('Admin/assets/css/ch-ui.admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.min.css')}}">
-    <script type="text/javascript" src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
-    <script src="{{asset('Admin/assets/js/jquery.min.js')}}"></script>
-    <script src="{{asset('Admin/assets/js/amazeui.min.js')}}"></script>
-    <script src="{{asset('Admin/assets/js/amazeui.datatables.min.js')}}"></script>
-    <script src="{{asset('Admin/assets/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('Admin/assets/js/app.js')}}"></script>
-    <script type="text/javascript" src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
+
+    <link rel="icon" type="image/png" href="{{asset('Admin/i/favicon.png')}}">
+    <link rel="apple-touch-icon-precomposed" type="image/png" href="{{asset('Admin/i/app-icon72x72@2x.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/app.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/ch-ui.admin.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
     
+    <script src="{{asset('Admin/js/app.js')}}"></script>
+    <script src="{{asset('Admin/js/echarts.min.js')}}"></script>
+    <script src="{{asset('Admin/js/dataTables.responsive.min.js')}}"></script>
+    
+    <script src="{{asset('Js/jquery.min.js')}}"></script>
 
+    <script src="{{asset('Bootstrap/js/jquery.min.js')}}"></script>
+    <script src="{{asset('Bootstrap/js/bootstrap.min.js')}}"></script>
 
+    <script src="{{asset('Amaze/js/amazeui.min.js')}}"></script>
+    <script src="{{asset('Amaze/js/amazeui.datatables.min.js')}}"></script>
+    <script src="{{asset('Amaze/datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
+
+    <script src="{{asset('Layer/layer.js')}}"></script>
+    
 </head>
 
 <body data-type="index">
-    <script src="{{asset('Admin/assets/js/theme.js')}}"></script>
+    <script src="{{asset('Admin/js/theme.js')}}"></script>
     <div class="am-g tpl-g">
         <!-- 头部 -->
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;"><img src="{{asset('Admin/assets/img/logo.png')}}" alt=""></a>
+                <a href="javascript:;"><img src="{{asset('Admin/img/logo.png')}}" alt=""></a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -76,7 +82,7 @@
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
-                                            <img src="{{asset('Admin/assets/img/user04.png')}}" alt="">
+                                            <img src="{{asset('Admin/img/user04.png')}}" alt="">
                                         </div>
                                         <div class="menu-messages-time">
                                             3小时前
@@ -95,7 +101,7 @@
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
-                                            <img src="{{asset('Admin/assets/img/user02.png')}}" alt="">
+                                            <img src="{{asset('Admin/img/user02.png')}}" alt="">
                                         </div>
                                         <div class="menu-messages-time">
                                             5天前
@@ -248,12 +254,6 @@
                 <li class="sidebar-nav-link">
                     <a href="{{ url('admin/videotype')}}">
                         <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 视频类型管理
-
-                    </a>
-                </li>
-                  <li class="sidebar-nav-link">
-                    <a href="{{ url('admin/videoreview')}}">
-                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 视频评论管理
 
                     </a>
                 </li>

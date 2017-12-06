@@ -56,6 +56,9 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	//视频评论路由
 	Route::resource('videoreview','ReviewController');
 
+	//评论路由
+	Route::resource('videoreply','ReplyController');
+
 	/*-----------------------------------Mrlu-----------------------------------*/
 
 	//广告路由AJAX

@@ -97,6 +97,9 @@
                                                         <a href="{{ url('admin/carousel/create')}}?vid={{ $ob->vid }}" class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-pencil"></i> 轮播
                                                         </a>
+                                                        <a href="{{ url('admin/videoreview')}}/{{ $ob->vid }}" class="tpl-table-black-operation-del" id='del'>
+                                                            <i class="am-icon-pencil"></i>查看评论
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
