@@ -7,7 +7,7 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表单 <small>Amaze UI</small></div>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 视频管理 <small>添加</small></div>
                         <p class="page-header-description">Active Video</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
@@ -19,18 +19,10 @@
 
             <div class="row-content am-cf">
 
-
                 <div class="row">
-
 
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">视频添加</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
 
                             @if (count($errors) > 0)
                             <div class="alert alert-danger">
@@ -52,17 +44,7 @@
                                         </label>
                                         <div class="am-u-sm-9">
                                             <input type="text" class="tpl-form-input" id="user-name" name='vname' value="{{ old('vname') }}" placeholder="请输入视频名称">
-                                            <small>请填写视频名称5-8字左右。</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <label for="user-phone" class="am-u-sm-3 am-form-label">发布者
-                                            <span class="tpl-form-line-small-title">Author</span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" name='uname' value="{{ old('uname') }}" placeholder="请输入上传者">
-                                            <small>请填写发布者1-5字左右。</small>
+                                            <small>请填写视频名称1-5字左右。</small>
                                         </div>
                                     </div>
 
@@ -77,23 +59,27 @@
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-email" class="am-u-sm-3 am-form-label">上映时间
+                                        <label for="publicTime" class="am-u-sm-3 am-form-label">上映时间
                                         <span class="tpl-form-line-small-title">Time</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" name='publicTime' class="am-form-field tpl-form-no-bg" placeholder="{{ date('Y-m-d H:i:s') }}" data-am-datepicker="" readonly="">
+                                            <input type="text" class="am-form-field tpl-form-no-bg" id='publicTime' name='publicTime' placeholder="{{ date('Y-m-d H:i:s') }}" data-am-datepicker="" >
                                             <small>上映时间为必填</small>
                                         </div>
                                     </div>
 
+<!-- <input type="text" value="2015-02-15 21:05" id="datetimepicker" class="am-form-field">
+<script type="text/javascript">$('#datetimepicker').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });</script> -->
+
+                                    <div class="am-form-group" id="notice1"></div>
+
                                     <div class="am-form-group">
-                                        <label for="user-email" class="am-u-sm-3 am-form-label">下映时间
+                                        <label for="projectionTime" class="am-u-sm-3 am-form-label">下映时间
                                         <span class="tpl-form-line-small-title">Time</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="am-form-field tpl-form-no-bg" name='projectionTime' placeholder="{{ date('Y-m-d H:i:s') }}" data-am-datepicker="" readonly="">
+                                            <input type="text" class="am-form-field tpl-form-no-bg" id='projectionTime' name='projectionTime' placeholder="{{ date('Y-m-d H:i:s') }}" data-am-datepicker="" >
                                             <small>下映时间必填</small>
                                         </div>
                                     </div>
-
 
                                     <div class="am-form-group">
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">视频简介</label>
@@ -110,56 +96,10 @@
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图
-                                            <span class="tpl-form-line-small-title">Images</span>
-                                         </label>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">海报</label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" size="50" id="art_thumb" name="art_thumb">
-                                            <input id="file_upload" name="logo" type="file" multiple="true" >
-                                            <br>
-                                            <img src="" id="img1" alt="" style="width:80px;height:80px">
-                                            <script type="text/javascript">
-                                                $(function () {
-                                                    $("#file_upload").change(function () {
-                                                        $('img1').show();
-                                                        uploadImage();
-                                                    });
-                                                });
-
-                                                function uploadImage() {
-                                                    // 判断是否有选择上传文件
-                                                    var imgPath = $("#file_upload").val();
-                                                    if (imgPath == "") {
-                                                        alert("请选择上传图片！");
-                                                        return;
-                                                    }
-                                                    //判断上传文件的后缀名
-                                                    var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-                                                    if (strExtension != 'jpg' && strExtension != 'gif'
-                                                        && strExtension != 'png' && strExtension != 'bmp') {
-                                                        alert("请选择图片文件");
-                                                        return;
-                                                    }
-                                                    var formData = new FormData($('#art_form')[0]);
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "/admin/video/upload",
-                                                        data: formData,
-                                                        async: true,
-                                                        cache: false,
-                                                        contentType: false,
-                                                        processData: false,
-                                                        success: function(data) {
-                                                           $('#img1').attr('src','/Uploads/'+data);
-                                                            $('#img1').show();
-                                                            $('#art_thumb').val('/Uploads/'+data);
-                                                        },
-                                                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                                            alert("上传失败，请检查网络后重试");
-                                                        }
-                                                    });
-                                                }
-                                            </script>
+                                           <img src="{{ asset('Admin/img/file.png') }}" id="pic" style="width:80px;cursor: pointer;"/>
+                                           <input type="file" name="logo" id="photo_upload" style="display: none;" />
                                         </div>
                                     </div>
 
@@ -170,8 +110,17 @@
                                         <div class="am-u-sm-9">
                                             <select data-am-selected="{searchBox: 1}" name='typeid' style="display: none;">
                                                 <option value="option1">所有类型</option>
-                                                @foreach ($types as $type)
-                                                    <option value="{{ $type->vtid }}">{{ $type->vtname }}</option>
+
+                                                @foreach ($types as $v)
+                                                    @if( !empty($type) )
+                                                        @if(  $v->vtid == $type )
+                                                            <option value="{{ $v->vtid }}" selected>{{ $v->vtname }}</option>
+                                                        @else
+                                                            <option value="{{ $v->vtid }}">{{ $v->vtname }}</option>
+                                                        @endif
+                                                    @else
+                                                        <option value="{{ $v->vtid }}">{{ $v->vtname }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
 
@@ -191,8 +140,6 @@
                                         </div>
                                     </div>
 
-
-
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
                                             <input type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success" value='提交' />
@@ -208,16 +155,81 @@
         </div>
     </div>
     </div>
-    <script src="{{ asset('Admin/assets/js/amazeui.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/amazeui.datatables.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/app.js') }}"></script>
-
-    <script src="{{ asset('/Admin/assets/js/jquery.min.js') }}"></script>
-
 </body>
-
 </html>
+
+<script type="text/javascript">
+
+    $('#pic').on('click', function(){
+        $('#photo_upload').trigger('click');
+        $('#photo_upload').on('change', function(){
+            var obj = this;
+            //用整个from表单初始化FormData
+            var formData = new FormData($('#art_form')[0]);
+            $.ajax({
+                url: '/admin/video/upload',
+                type: 'post',
+                data: formData,
+                // 因为data值是FormData对象，不需要对数据做处理
+                processData: false,
+                contentType: false,
+                beforeSend:function(){
+                    // 菊花转转图
+                    $('#pic').attr('src', '/Uploads/load.gif');
+                },
+                success: function(data){
+
+                    if(data['ServerStatus']=='200'){
+                        // 如果成功
+                        $('#pic').attr('src', '/Uploads/Video/'+data['ResultData']);
+                        $('input[name=pic]').val(data);
+                        $(obj).off('change');
+                    }else{
+                        // 如果失败
+                        alert(data['ResultData']);
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var number = XMLHttpRequest.status;
+                    var info = "错误号"+number+"文件上传失败!";
+                    // 将菊花换成原图
+                    $('#pic').attr('src', '/Admin/img/file.png');
+                    alert(info);
+                },
+                async: true
+            });
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#projectionTime').on('select',function(){
+                var publicTime=$('#publicTime').val();
+                var projectionTime=$('#projectionTime').val();
+                alert(publicTime);
+                alert(projectionTime);
+
+            if ( projectionTime != '' && publicTime != '') {
+                alert(2)
+                $.post("{{url('admin/video/time')}}",{
+                    '_token':"{{csrf_token()}}",
+                    "publicTime":publicTime,
+                    "projectionTime":projectionTime,
+                    function(data) {
+                        if (data['status'] != 0) {
+                            $('#notice1').html("data['msg']").css('color', 'red');
+                        }
+                    }
+                });
+            }
+        })
+    })
+
+</script>
+
 @stop
 
 

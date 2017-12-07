@@ -52,12 +52,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <form id="form" action="upload" method="post" enctype="multipart/form-data">
+                                          <input type="file"  name="vimg" id="upload" style="display: none;">
+
+                                    </form>
                                     @foreach($data as $k => $v)
                                         <tr class="gradeX">
-                                        	<td id="id">{{ $v -> vaid }}</td>
+                                        	<td class="id">{{ $v -> vaid }}</td>
                                             <td>{{ $v -> video['vname'] }}</td>
                                             <td>{{ $v -> vredirect }}</td>
-                                            <td class="vimg"><img width="60" height="40" src="{{ asset('./uploads/Vad') }}/{{ $v->vpath }}" /></td>
+                                            <td class="vimg"><img id="" width="60" height="40" src="{{ asset('./uploads/Vad') }}/{{ $v->vpath }}" /></td>
                                             <td>{{ $v -> vtime }}秒</td>
                                             <td>{{ $v -> vprice }}</td>
                                             
@@ -159,104 +163,75 @@
         };
     </script>
 
-<!--单击修改信息-->
+<!--单击修改图片-->
 <script type="text/javascript">
-    $(function () {
-        $("#file_upload").change(function () {
-        $('img1').show();
-        uploadImage();
-        });
-   });
+   //  $(function () {
+   //      $("#form").change(function () {
+   //      $('vimg').show();
+   //      uploadImage();
+   //      });
+   // });
 
-     $(".vimg").on('dblclick', fn1);
+var id = null;
+var img = null; 
+$('.vimg').on('dblclick',function()
+        {
 
 
-        function fn1() {
             var t = $(this);
-            var id = t.parent().find('#id').html(); //获取ID名(修改数据)
-            console.log(id);
-            var name = t.html();
-            var inp = $('<input style="color:black;" type="text">');
-            inp.val(name);
-            t.html(inp);
-            inp.select();
-            t.unbind('dblclick');
-            inp.on('blur', function () {
-                var newName = $(this).val();
-                $.ajax({
-                    url: "{{ url('admin/carousel/ajaxName') }}",
-                    type: 'post',
-                    data: {id: id, name: newName},
-                    beforeSend: function () {
-                        $("#info").html('<span class="text-red"><i class="fa fa-fw fa-spin fa-circle-o-notch"></i>正在修改中...</span>');
-                        $("#info").show();
-                    },
-                    success: function (data) {
-//                        console.log(data);
-                        if (data.code == 0) {
-                            t.html(name);
-                            $("#info").html('<span class="text-red">用户名已经存在</span>');
-                            $("#info").show();
-                            $("#info").fadeOut(2000);
-                        } else if (data.code == 1) {
-                            t.html(newName);
-                            $("#info").html('<span class="text-red">修改成功</span>');
-                            $("#info").show();
-                            $("#info").fadeOut(2000);
-                        } else {
-                            t.html(name);
-                            $("#info").html('<span class="text-red">修改失败</span>');
-                            $("#info").show();
-                            $("#info").fadeOut(2000);
-                        }
-                        ;
-                        //添加事件。
-                        t.on('dblclick', fn1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(XMLHttpRequest.status);
-                        alert(XMLHttpRequest.readyState);
-                        alert(textStatus);
-                    },
-//                    timeout:1000,
-                    dataType: 'json'
-                });
+            img = t.find('img');
+            console.log(img);
+            id = t.parent().find('.id').html();  //获取ID
+           $('#upload').click();
+        });
+
+$('#upload').change(function()
+            {
+                uploadImage();
             });
+function uploadImage() {
+   // 判断是否有选择上传文件
+        var imgPath = $('#upload').val();
+        if (imgPath == "") {
+        alert("请选择上传图片！");
+        return;
         }
+      //  判断上传文件的后缀名
+        // var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+        // if (strExtension != 'jpg' && strExtension != 'gif'
+        // && strExtension != 'png' && strExtension != 'bmp') {
+        // alert("请选择图片文件");
+        // return;
+        // }
+        //获取ID
+
+        var formData = new FormData();
+        formData.append('id',id); //追加ID
+        formData.append('upload', $('#upload')[0].files[0]);
+        formData.append('_token', "{{csrf_token()}}");
+        // var formData = new FormData($('#form')[0]);
+        // console.log(formData);
+        $.ajax({
+        type: "POST",
+        url: "vad/ajax",
+        data:formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+        img.attr('src','/'+data);
+       
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("上传失败，请检查网络后重试");
+        }
+        });
+        }    
 
 
-    function uploadImage() {
-    // 判断是否有选择上传文件
-    var imgPath = $("#file_upload").val();
-    if (imgPath == "") {
-    alert("请选择上传图片！");
-     return;
-    }
-    //判断上传文件的后缀名
-    var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-        if (strExtension != 'jpg' && strExtension != 'gif'&& strExtension != 'png' && strExtension != 'bmp') {
-                 alert("请选择图片文件");
-                 return;
-            }
-    var formData = new FormData($('#art_form')[0]);
-     $.ajax({
-       type: "POST",
-       url: "/admin/upload",
-       data: formData,
-       async: true,
-       cache: false,
-       contentType: false,
-       processData: false,
-       success: function(data) {
-            $('#img1').attr('src','http://project193.oss-cn-beijing.aliyuncs.com/'+data);
-            $('#img1').show();
-            $('#art_thumb').val('/uploads/'+data);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                  alert("上传失败，请检查网络后重试");
-                }
-           });
-       }
+
+
  </script>
 
 

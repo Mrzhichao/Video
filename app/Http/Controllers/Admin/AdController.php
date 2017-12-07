@@ -44,7 +44,7 @@ class AdController extends Controller
     {
         // $uid = $_GET['id']; 查询哪个用户添加的广告
 
-        $aname = $request -> Session()->get('user')->aname; //假的
+        $aname = $request -> Session()->get('user')->aname; 
 
         // $uid = DB::table('data_users')->where('uid',$uid)->first(); //获取前台用户名并发送
         // $user = Advertisement::get();
@@ -206,36 +206,8 @@ class AdController extends Controller
             unset($data[$k]); 
         }
        }
-         //判断是否有上传
-        if($request->hasFile("aimg")){
-            //获取上传信息
-            $file = $request->file("aimg");
-            //确认上传的文件是否成功
-            if($file->isValid()){
-                $ext = $file->getClientOriginalExtension(); //获取上传文件名的后缀名
-                //执行移动上传文件
-                $filename = 'Ad'.time().rand(1000,9999).".".$ext;
-                $file->move("./uploads/Ad/",$filename);
-                $data['aimg'] = $filename;
-                //压缩图片
-                 $img = Image::make("./uploads/Ad/".$filename)->resize(60,40);
-                 $img->save("./uploads/Ad/s_".$filename);  
-
-                 // 删除源数据
-                unlink('./uploads/Ad/'.$data['img']);
-                unlink('./uploads/Ad/s_'.$data['img']);
-
-                
-
-                
-            }
-
-        }
-       
-
-        
+    
        //处理数据
-       unset($data['img']);
        if($data['startTime']){
             $data['startTime'] = strtotime($data['startTime']);
        }
@@ -274,6 +246,47 @@ class AdController extends Controller
        }
     }
 
+
+     /**
+     * ajax修改图片
+     * @author:Mrlu
+     * @date:2017/12/4
+     * @param:表单和ID
+     * @return 返回图片的路径
+     */
+    public function ajax(Request $request)
+    {
+        //获取id
+        $id = $request->id; 
+        $file = $request -> file('upload');
+        if($file->isValid()){
+        $entension = $file->getClientOriginalExtension();//上传文件的后缀名
+        $newName = 'Ad'.time().mt_rand(1000,9999).'.'.$entension;
+        //上传到本地服务器的方法
+        $path = $file->move(public_path().'/uploads/Ad/',$newName);
+
+         //压缩图片
+          $img = Image::make("./uploads/Ad/".$newName)->resize(60,40);
+          $img->save("./uploads/Ad/s_".$newName);  
+
+        //移动成功后 修改数据库并删除老图片
+        $oldImg = Advertisement::find($id);
+        if($oldImg->aimg){
+            //如果文件存在就删除
+            if(file_exists('/uploads/Ad/'.$oldImg->aimg)){
+                unlink('/uploads/Ad/'.$oldImg->aimg);
+            }
+        }
+       //修改数据库
+        // $oldImg -> vpath = $newName;
+        Advertisement::find($id) -> update(['aimg'=>$newName]);
+        //将上传文件的路径返回给浏览器客户端
+        $filepath = 'uploads/Ad/'.$newName;
+        return $filepath;
+        }
+       
+       
+    }
 
 
 

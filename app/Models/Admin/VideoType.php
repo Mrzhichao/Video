@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class VideoType extends Model
 {
-    //
+
    public $table = 'videotype';
    public $primaryKey='vtid';
    
-   //    定义时间戳  larval会自动维护create_at update_at两个表字段，所以如果表中没有这两个字段，一定要关闭自维护
+   //定义时间戳  larval会自动维护create_at update_at两个表字段，所以如果表中没有这两个字段，一定要关闭自维护
 
-   public $timestamps = false;
+    public $timestamps = false;
 
-   // 设置允许批量修改的字段
+   //设置允许批量修改的字段
    //public $fillable = ['username','userpass','telephone'];
  
-   public $guarded = [];
-
-
+    public $guarded = [];
 
     public  function tree()
     {
@@ -55,7 +53,6 @@ class VideoType extends Model
         }
         return $arr;
     }
-
 
 
 }

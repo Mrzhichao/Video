@@ -19,9 +19,7 @@
 
             <div class="row-content am-cf">
 
-
                 <div class="row">
-
 
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
@@ -46,7 +44,8 @@
 
                                 <form action="{{ url('admin/video/'.$video['vid']) }}" class="am-form tpl-form-line-form" method='post' enctype="multipart/form-data" id="art_form"> 
                                     {{ csrf_field() }}
-                                    <input type="hidden" name='_method' value="put">
+                                    {{method_field('put')}}
+                                    <!-- <input type="hidden" name='_method' value="put"> -->
                
                                     <div class="am-form-group">
                                         <label for="" class="am-u-sm-3 am-form-label">视频名称 
@@ -54,7 +53,7 @@
                                         </label>
                                         <div class="am-u-sm-9">
                                             <input type="text" class="tpl-form-input" id="user-name" name='vname' value="" placeholder="{{ $video['vname'] }}">
-                                            <small>请填写5-8字左右的视频名称</small>
+                                            <small>请填写1-5字左右的视频名称</small>
                                         </div>
                                     </div>
 
@@ -111,21 +110,11 @@
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">视频海报
-                                            <span class="tpl-form-line-small-title">Images</span>
-                                         </label>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">海报</label>
                                         <div class="am-u-sm-9">
-                                        
-                                            <input type="text" size="50" name="art_thumb" id="art_thumb">
-                                            <input id="file_upload" name="file_upload" type="file" multiple="true">
-                                            <p><img id="img1" style="max-width:350px;max-height:100px;" /></p>
-
-                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i >修改视频海报</i> 
-                                                </button>
-                                            
-                                 
-
+                                            <img  src="{{ asset('/Uploads/Video/'.$video->logo) }}" style="width:80px;cursor: pointer;"/>
+                                            <img src="{{ asset('Admin/img/file.png') }}" id="pic" style="width:80px;cursor: pointer;"/>
+                                            <input type="file" name="logo" id="photo_upload" style="display: none;" />
                                         </div>
                                     </div>
 
@@ -174,54 +163,52 @@
         </div>
     </div>
     </div>
-    <script src="{{ asset('Admin/assets/js/amazeui.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/amazeui.datatables.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/app.js') }}"></script>
-
-    <script src="{{ asset('/Admin/assets/js/jquery.min.js') }}"></script>
-
 </body>
-
 </html>
-@stop
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-    $(function () {
-        $("#file_upload").change(function () {
-            uploadImage();
-        })
-    })
-    function uploadImage() {
-//  判断是否有选择上传文件
-        var imgPath = $("#file_upload").val();
-        if (imgPath == "") {
-            alert("请选择上传图片！");
-            return;
-        }
-        //判断上传文件的后缀名
-        var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-        if (strExtension != 'jpg' && strExtension != 'gif'
-            && strExtension != 'png' && strExtension != 'bmp') {
-            alert("请选择图片文件");
-            return;
-        }
-        var formData = new FormData($('#art_form')[0]);
-        $.ajax({
-            type: "POST",
-            url: "/admin/videotype/upload",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                $('#img1').attr('src','/'+data);
-                $('#art_thumb').val(data);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("上传失败，请检查网络后重试");
-            }
+    $('#pic').on('click', function(){
+        $('#photo_upload').trigger('click');
+        $('#photo_upload').on('change', function(){
+            var obj = this;
+            //用整个from表单初始化FormData
+            var formData = new FormData($('#art_form')[0]);
+            $.ajax({
+                url: '/admin/video/upload',
+                type: 'post',
+                data: formData,
+                // 因为data值是FormData对象，不需要对数据做处理
+                processData: false,
+                contentType: false,
+                beforeSend:function(){
+                    // 菊花转转图
+                    $('#pic').attr('src', '/Uploads/load.gif');
+                },
+                success: function(data){
+
+                    if(data['ServerStatus']=='200'){
+                        // 如果成功
+                        $('#pic').attr('src', '/Uploads/Video/'+data['ResultData']);
+                        $('input[name=pic]').val(data);
+                        $(obj).off('change');
+                    }else{
+                        // 如果失败
+                        alert(data['ResultData']);
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var number = XMLHttpRequest.status;
+                    var info = "错误号"+number+"文件上传失败!";
+                    // 将菊花换成原图
+                    $('#pic').attr('src', '/Admin/img/file.png');
+                    alert(info);
+                },
+                async: true
+            });
         });
-    }
+    });
 
-    </script>
+</script>
+
+@stop

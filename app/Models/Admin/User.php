@@ -36,4 +36,10 @@ class User extends Model
 
     }
 
+    //视频表
+    public function video()
+    {
+        
+    }
+
 }

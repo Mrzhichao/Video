@@ -1,81 +1,119 @@
-@extends('layouts.admin')
-@section('title')
-    <title>后台用户添加页面</title>
-@endsection
-@section('body')
-    <!--面包屑导航 开始-->
-    <div class="crumb_warp">
-        <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">商品管理</a> &raquo; 添加商品
-    </div>
-    <!--面包屑导航 结束-->
+@extends('Admin.layout')
 
-	<!--结果集标题与导航组件 开始-->
-	<div class="result_wrap">
-        <div class="result_title">
+@section('content')
 
-                <div class="alert alert-danger">
-                    <ul>
-                       @if(session('msg'))
-                            <li style="color:red">{{session('msg')}}</li>
-                           @endif
-                    </ul>
+   <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表单 <small>Amaze UI</small></div>
+                        <p class="page-header-description">Active Video</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    </div>
                 </div>
 
-        </div>
-        <div class="result_content">
-            <div class="short_wrap">
-                <a href="#"><i class="fa fa-plus"></i>新增文章</a>
-                <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-                <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+            </div>
+
+            <div class="row-content am-cf">
+
+
+                <div class="row">
+
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">配置添加</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul style="color:red;">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                                </ul>
+                            </div>
+                             @endif
+
+                            <div class="widget-body am-fr">   
+                                <form action="{{ url('admin/link') }}" method="post"> 
+                                     <table class="add_tab" style="background:#4B5357;color:black;">
+                                        <tbody>
+                                            <tr>
+                                                {{csrf_field()}}
+                                                <th><i class="require">*</i>链接名称：</th>
+                                                <td>
+                                                    <input type="text" class="lg" name="link_name" value="">
+                                                    <p>名称可以写30个字</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="require">*</i>链接提示：</th>
+                                                <td>
+                                                    <input type="text" class="lg" name="link_title">
+                                                    <p>提示可以写30个字</p>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th><i class="require">*</i>链接url：</th>
+                                                <td>
+                                                    <input type="text" class="lg" name="link_url">
+                                                    <p>URL可以写30个字</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="require">*</i>链接排序：</th>
+                                                <td>
+                                                    <input type="text" class="lg" name="link_order">
+                                                    <p>必须为数字</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td  colspan='6'>
+                                                    <input type="submit" value="提交" style="color:white;height:40px">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
-    <!--结果集标题与导航组件 结束-->
-    
-    <div class="result_wrap">
-        <form action="{{url('admin/link')}}" method="post">
-            <table class="add_tab">
-                <tbody>
-                    <tr>
-                        {{csrf_field()}}
-                        <th><i class="require">*</i>链接名称：</th>
-                        <td>
-                            <input type="text" class="lg" name="link_name" value="">
-                            <p>标题可以写30个字</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>链接提示：</th>
-                        <td>
-                            <input type="text" class="lg" name="link_title">
-                            <p>标题可以写30个字</p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th><i class="require">*</i>链接url：</th>
-                        <td>
-                            <input type="text" class="lg" name="link_url">
-                            <p>标题可以写30个字</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>链接排序：</th>
-                        <td>
-                            <input type="text" class="lg" name="link_order">
-                            <p>标题可以写30个字</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="submit" value="提交">
-                            <input type="button" class="back" onclick="history.go(-1)" value="返回">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
     </div>
-@endsection
+</body>
+</html>
+
+<script type="text/javascript">
+
+    function showTr(obj){
+        switch($(obj).val()){
+            case 'input':
+                $('.field_value').hide();
+                break;
+            case 'textarea':
+                $('.field_value').hide();
+                break;
+
+            case 'radio':
+                $('.field_value').show();
+        }
+    }
+
+</script>
+
+@stop

@@ -62,7 +62,6 @@ class VadController extends Controller
         $this->validate($request, [
             'vpath' => 'required|max:5000',
             'vredirect' => 'required|max:50|url',
-            'vtime' => 'required',
             'vprice' => 'required',
         ],[
             'vpath.required' => '请上传一个小视频',
@@ -70,7 +69,6 @@ class VadController extends Controller
             'vredirect.required' => '请填写URL链接',
             'vredirect.max' => '长度不能超过50',
             'vredirect.url' => '请填写正确的URL地址',
-            'vtime.required' => '请选择投放时间哦',
             'vprice.required' => '请重新选择时间哦'
         ]);
 
@@ -199,18 +197,39 @@ class VadController extends Controller
     }
 
     /**
-     * ajax修改数据
+     * ajax修改图片
      * @author:Mrlu
-     * @date:2017/12/1
-     * @param:页面的请求信息
-     * @return
+     * @date:2017/12/4
+     * @param:表单和ID
+     * @return 返回图片的路径
      */
     public function ajax(Request $request)
     {
+        //获取id
+        $id = $request->id; 
+        $file = $request -> file('upload');
+        if($file->isValid()){
+        $entension = $file->getClientOriginalExtension();//上传文件的后缀名
+        $newName = 'V'.time().mt_rand(1000,9999).'.'.$entension;
+        //上传到本地服务器的方法
+        $path = $file->move(public_path().'/uploads/Vad/',$newName);
 
-        $id = $request->input('id');
-        $name = $request->input('vimg');
-       
-       
+        //移动成功后 修改数据库并删除老图片
+        $oldImg = VideoAd::find($id);
+        if($oldImg->vpath){
+            //如果文件存在就删除
+            if(file_exists('uploads/Ad/'.$oldImg->vpath)){
+                unlink('/uploads/Ad/'.$oldImg->vpath);
+            }
         }
+       //修改数据库
+        // $oldImg -> vpath = $newName;
+        VideoAd::find($id) -> update(['vpath'=>$newName]);
+        //将上传文件的路径返回给浏览器客户端
+        $filepath = 'uploads/Vad/'.$newName;
+        return $filepath;
+        }
+       
+       
+    }
 }

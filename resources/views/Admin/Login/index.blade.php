@@ -10,18 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="{{ asset('/Admin/assets/i/favicon.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('/Admin/assets/i/app-icon72x72@2x.png ') }}">
+    <link rel="icon" type="image/png" href="{{ asset('Admin/i/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('Admin/i/app-icon72x72@2x.png ') }}">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="{{ asset('/Admin/assets/css/amazeui.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/Admin/assets/css/amazeui.datatables.min.css') }} " />
-    <link rel="stylesheet" href="{{ asset('/Admin/assets/css/app.css') }}">
-    <script src="{{ asset('/Admin/assets/js/jquery.min.js ') }}"></script>
+
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
+
+    <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/app.css')}}">
+    <script src="{{asset('Js/jquery.min.js')}}"></script>
+
+    <script src="{{asset('Admin/js/app.js')}}"></script>
+    <script src="{{asset('Amaze/js/amazeui.min.js')}}"></script>
 
 </head>
 
 <body data-type="login">
-    <script src="{{ asset('/Admin/assets/js/theme.js ') }}"></script>
+    <script src="{{ asset('Admin/js/theme.js ') }}"></script>
     <div class="am-g tpl-g">
         <!-- 风格切换 -->
         <div class="tpl-skiner">
@@ -42,8 +47,6 @@
                 <div class="tpl-login-logo">
                                    
                 </div>
-
-
 
                 <form class="am-form tpl-form-line-form" action="{{asset('admin/dologin')}}" method="post">
 
@@ -73,9 +76,11 @@
                     </div>
                      <div class="am-form-group">
                         <input type="text" name="code" class="code tpl-form-input" id="user-name" placeholder="验证码">
-                        <img src="{{url('admin/yzm')}}" onclick="this.src='{{url('admin/yzm')}}?'+Math.random()" alt="">
-
+                        <img src="{{url('admin/yzm')}}"  onclick="this.src='{{url('admin/yzm')}}?'+Math.random()" alt="">
                     </div>
+                   
+
+                    </script>
                     <div class="am-form-group tpl-login-remember-me">
                         <input id="remember-me" type="checkbox">
                         <label></label>
@@ -91,8 +96,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('/Admin/assets/js/amazeui.min.js ') }}"></script>
-    <script src="{{ asset('/Admin/assets/js/app.js') }}"></script>
 
 </body>
 

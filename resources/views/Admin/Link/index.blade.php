@@ -2,74 +2,89 @@
 
 @section('content')
 
- <meta name="csrf-token" content="{{ csrf_token() }}">
-        <!-- 内容区域 -->
+   <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
-            <div class="row-content am-cf">
+
+            <div class="container-fluid am-cf">
                 <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 友情链接 <small></small></div>
+                        <p class="page-header-description">Link</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-content am-cf">
+
+
+                <div class="row">
+
+
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">浏览配置</div>
-
-                            </div>
-                            <div class="widget-body  am-fr">
-
-                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                                    <div class="am-form-group">
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <a class="am-btn am-btn-default am-btn-success" href="{{ url('admin/sysconfig/create') }}">新增</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="widget-title am-fl">添加链接</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
+                            </div>
 
-                                <div class="am-u-sm-12">
-                                   <table class="table table-hover table-bordered " style="background:white;color:black">
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul style="color:red;">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                                </ul>
+                            </div>
+                             @endif
+
+                            <div class="widget-body am-fr">   
+                                <form action="{{ url('admin/sysconfig') }}" method="post"> 
+                                   <table class="add_tab" style="background:#4B5357;color:white;">
                                         <tr>
-                                            <th width="5%" >ID</th>
-                                            <th width="10%">友情链接名</th>
-                                            <th width="50%" align='center'>提示信息</th>
-                                            <th width="15%">提示url</th>
+                                            <th >排序</th>
+                                            <th >ID</th>
+                                            <th >友情链接名</th>
+                                            <th >提示信息</th>
+                                            <th >提示url</th>
                                             <th >操作</th>
                                         </tr>
 
                                     @foreach($links as $k=>$v)
-                                            <tr>
-                                                <th class="tc">{{$v->link_id}}</th>
-                                                <th class="tc">{{$v->link_name}}</th>
-                                                <th class="tc">{{$v->link_title}}</th>
-                                                <th class="tc">{{$v->link_url}}</th>
-                                                <th>
-                                                    <a href="{{url('admin/link/'.$v->link_id.'/edit')}}">修改</a>
-                                                    <a href="javascript:;" onclick="userDel({{$v->link_id}})">删除</a>
-                                                </th>
-                                            </tr>       
-                                     @endforeach
-
+                                        <tr id="links_link_id_{{ $v->link_id }}">
+                                            <th>
+                                                <input type="text" style="width:30px;color:blue" onchange="changeOrder(this,{{$v->link_id}})" value="{{$v->link_order}}">
+                                            </th>
+                                            <th >{{$v->link_id}}</th>
+                                            <th >{{$v->link_name}}</th>
+                                            <th >{{$v->link_title}}</th>
+                                            <th >{{$v->link_url}}</th>
+                                            <th>
+                                                <a href="{{url('admin/link/'.$v->link_id.'/edit')}}">修改</a>
+                                                <a href="javascript:;" onclick="LinkDel( {{$v->link_id}} )">删除</a>
+                                            </th>
+                                        </tr>
+                                    @endforeach
                                     </table>
-                                </div>
-
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
     </div>
-
-
-    <script src="{{ asset('Admin/assets/js/amazeui.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/amazeui.datatables.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/app.js') }}"></script>
-
-    <script src="{{ asset('/Admin/assets/js/jquery.min.js') }}"></script>
 </body>
+</html>
 
-<script>
+<script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -77,51 +92,50 @@
     });
 </script>
        
- <script>
-        
-        function userDel(id) {
+<script type='text/javascript'>
 
-            //询问框
-            layer.confirm('您确认删除吗？', {
-                btn: ['确认','取消'] //按钮
+    function LinkDel(link_id){
+        layer.confirm('您确认删除吗？', {
+            btn: ['确认','取消']
             }, function(){
-//                如果用户发出删除请求，应该使用ajax向服务器发送删除请求
-//                $.get("请求服务器的路径","携带的参数", 获取执行成功后的额返回数据);
-                //admin/user/1
-                $.post("{{url('admin/user')}}/"+id,{"_method":"delete","_token":"{{csrf_token()}}"},function(data){
-                    //alert(data);
-//                    data是json格式的字符串，在js中如何将一个json字符串变成json对象
-                   //var res =  JSON.parse(data);
-//                    删除成功
-                   if(data.error == 0){
-                       //console.log("错误号"+res.error);
-                       //console.log("错误信息"+res.msg);
-                       layer.msg(data.msg, {icon: 6});
-//                       location.href = location.href;
-                       var t=setTimeout("location.href = location.href;",2000);
-                   }else{
-                       layer.msg(data.msg, {icon: 5});
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('admin/link') }}/"+link_id,
+                    success: function(data) {
+                        if(data.error == 0){
+                           layer.msg(data.msg, {icon: 6});
+                           var sel = $('#links_link_id_' + link_id);
+                           sel.remove();
+                        }else{
+                           layer.msg(data.msg, {icon: 5});
+                           var t=setTimeout("location.href = location.href;",2000);
+                        }
+                    },
+                    dataType: 'json',
+                 });
+            }, function(){});
+    }
 
-                       var t=setTimeout("location.href = location.href;",2000);
-                       //location.href = location.href;
-                   }
+    //排序
+    function changeOrder(obj,link_id){
+        //获取当前需要排序的记录的ID,vtid
+        //获取当前记录的排序文本框中的值
+        var link_order = $(obj).val();
 
+        $.post("{{url('admin/link/changeorder')}}",{'_token':"{{csrf_token()}}","link_id":link_id,"link_order":link_order},function(data){
+            //如果排序成功，提示排序成功
+            if(data.status == 0){
 
-                });
+                layer.msg(data.msg,{icon: 6});
+                location.href = location.href;
+            }else{
+                //如果排序失败，提示排序失败
+                layer.msg(data.msg,{icon: 5});
+                location.href = location.href;
+            }
+        })
+    }
 
+</script>
 
-            }, function(){
-
-            });
-        }
-        
-
-
-
-
-    </script>
-
-</html>
 @stop
-
-    

@@ -9,33 +9,60 @@ use App\Http\Controllers\Controller;
 
 class LinkController extends Controller
 {
+
     /**
-     * 友情链接页
+     * 友情链接浏览页
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-//        1获取友情链接数据
-        $links = Link::get();
+        $links = Link::orderby('link_order','asc')->get();
         $title='友情链接首页';
-//        2 显示视图
-        return view('admin.Link.index',compact(['title','links']));
+        return view('Admin.Link.index',compact(['title','links']));
     }
 
     /**
-     * Show the form for creating a new resource.
+     *  ajax排序操作
+     *
+     * @return \Illuminate\Http\Response
+     */
+     public function changeOrder(Request $request)
+    {
+          $link_id = $request->input('link_id');
+          $link_order = $request->input('link_order');
+          $link = Link::find($link_id);
+          $res = $link->update(['link_order'=>$link_order]);
+
+          if($res){
+              $data =[
+                  'status'=> 0,
+                  'msg'=>'修改成功'
+              ];
+          }else{
+              $data =[
+                  'status'=> 1,
+                  'msg'=>'修改失败'
+              ];
+          }
+
+          return $data;
+    }
+
+
+    /**
+     *友情链接更新页
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
-        return view('admin.link.add');
+        $title='添加友情链接首页';
+        return view('Admin.Link.add',compact(['title']));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 友情链接更新操作
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -44,7 +71,6 @@ class LinkController extends Controller
     {
         $input = $request->except('_token');
         $res = Link::create($input);
-        //        4. 判断添加是否成功
         if($res){
             return redirect('admin/link');
         }else{
@@ -64,18 +90,21 @@ class LinkController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 友情链接更新页
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $title = '友情链接更新';
+        $link = Link::find($id);
+
+        return view('Admin.Link.edit',['link'=>$link,'title'=>$title]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * 友情链接更新操作
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -83,17 +112,39 @@ class LinkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $link = Link::find($id);
+        $input = $request->except('_token','_method');
+        
+       //过滤掉空数据
+       foreach($input as $k=>&$v){
+            if(!$v){unset($input[$k]); }
+       }
+
+        $res = $link->update($input);
+        if($res){
+            return redirect('admin/link');
+        }else{
+            return redirect('admin/link/'.$link->link_id.'/edit');
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 友情链接删除操作
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $res = Link::find($id)->delete();
+        $data = [];
+        if($res){
+            $data['error'] = 0;
+            $data['msg'] ="删除成功";
+        }else{
+            $data['error'] = 1;
+            $data['msg'] ="删除失败";
+        }
+        return $data;
     }
 }

@@ -31,6 +31,7 @@ class UserController extends Controller
         $keywords=$request->input('keyword');
 
         $data = User::where('uname','like',"%".$keywords."%")->Paginate(5);
+        // dd($data);
 
         return view('Admin.User.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }
