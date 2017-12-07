@@ -72,7 +72,7 @@ class ReviewController extends Controller
             ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
             ->join('userinfo', 'userinfo.uiid', '=', 'videoreview.userinfoid')
             ->select('videoreview.*', 'users.uname', 'videos.vname','userinfo.nickname')
-            ->where('vid',$id)->where('rtitle','like',"%".$keywords."%")->Paginate(5);
+            ->where('vid',$id)->where('pid',0)->where('rtitle','like',"%".$keywords."%")->Paginate(5);
         // dd($data);
        return view('Admin.Review.index',['title'=>$title,'id'=>$id,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }

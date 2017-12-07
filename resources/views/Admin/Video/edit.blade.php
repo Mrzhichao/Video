@@ -46,7 +46,8 @@
                                     {{ csrf_field() }}
                                     {{method_field('put')}}
                                     <!-- <input type="hidden" name='_method' value="put"> -->
-               
+                                   <input type="file"  name="vimg" id="upload" style="display: none;">
+
                                     <div class="am-form-group">
                                         <label for="" class="am-u-sm-3 am-form-label">视频名称 
                                             <span class="tpl-form-line-small-title">Title</span>
@@ -62,7 +63,7 @@
                                             <span class="tpl-form-line-small-title">Author</span>
                                         </label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" name='uname' value="" placeholder="{{ $video['uname'] }}">
+                                            <input type="text" class="tpl-form-input" id="user-name" name='uname' value="" placeholder="{{ $aname }}" readonly>
                                             <small>请填写1-5字左右的发布者</small>
                                         </div>
                                     </div>
@@ -81,7 +82,7 @@
                                         <label for="user-email" class="am-u-sm-3 am-form-label">上映时间
                                         <span class="tpl-form-line-small-title">Time</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" name='publicTime' class="am-form-field tpl-form-no-bg" placeholder="{{ date('Y-m-d',$video['publicTime']) }}" data-am-datepicker="" readonly="">
+                                            <input type="text" name='publicTime' id='publicTime' class="am-form-field tpl-form-no-bg" placeholder="{{ date('Y-m-d',$video['publicTime']) }}" data-am-datepicker="" readonly="">
                                             <small>上映时间为必填项</small>
                                         </div>
                                     </div>
@@ -90,7 +91,7 @@
                                         <label for="user-email" class="am-u-sm-3 am-form-label">下映时间
                                         <span class="tpl-form-line-small-title">Time</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="am-form-field tpl-form-no-bg" name='projectionTime' placeholder="{{ date('Y-m-d',$video['projectionTime']) }}" data-am-datepicker="" readonly="">
+                                            <input type="text" class="am-form-field tpl-form-no-bg" id='projectionTime' name='projectionTime' placeholder="{{ date('Y-m-d',$video['projectionTime']) }}" data-am-datepicker="" readonly="">
                                             <small>下映时间必填项</small>
                                         </div>
                                     </div>
@@ -111,10 +112,8 @@
 
                                     <div class="am-form-group">
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">海报</label>
-                                        <div class="am-u-sm-9">
-                                            <img  src="{{ asset('/Uploads/Video/'.$video->logo) }}" style="width:80px;cursor: pointer;"/>
-                                            <img src="{{ asset('Admin/img/file.png') }}" id="pic" style="width:80px;cursor: pointer;"/>
-                                            <input type="file" name="logo" id="photo_upload" style="display: none;" />
+                                        <div class="am-u-sm-9 vimg">
+                                            <img name='logo' src="{{ asset('/Uploads/Video/'.$video->logo) }}" style="width:80px;cursor: pointer;"/>
                                         </div>
                                     </div>
 
@@ -146,10 +145,10 @@
 
                                         </div>
                                     </div>
-
+                                    <input class='id' type='hidden' value='{{ $id }}' >
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <input type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success" value='提交' />
+                                            <input type="submit" class='submit' class="am-btn am-btn-primary tpl-btn-bg-color-success" value='修改' />
                                         </div>
                                     </div>
                                
@@ -166,49 +165,84 @@
 </body>
 </html>
 
+<!--单击修改图片-->
 <script type="text/javascript">
 
-    $('#pic').on('click', function(){
-        $('#photo_upload').trigger('click');
-        $('#photo_upload').on('change', function(){
-            var obj = this;
-            //用整个from表单初始化FormData
-            var formData = new FormData($('#art_form')[0]);
-            $.ajax({
-                url: '/admin/video/upload',
-                type: 'post',
-                data: formData,
-                // 因为data值是FormData对象，不需要对数据做处理
-                processData: false,
-                contentType: false,
-                beforeSend:function(){
-                    // 菊花转转图
-                    $('#pic').attr('src', '/Uploads/load.gif');
-                },
-                success: function(data){
+    var id = null;
+    var img = null; 
 
-                    if(data['ServerStatus']=='200'){
-                        // 如果成功
-                        $('#pic').attr('src', '/Uploads/Video/'+data['ResultData']);
-                        $('input[name=pic]').val(data);
-                        $(obj).off('change');
-                    }else{
-                        // 如果失败
-                        alert(data['ResultData']);
-                    }
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var number = XMLHttpRequest.status;
-                    var info = "错误号"+number+"文件上传失败!";
-                    // 将菊花换成原图
-                    $('#pic').attr('src', '/Admin/img/file.png');
-                    alert(info);
-                },
-                async: true
-            });
-        });
+    $('.vimg').on('dblclick',function()
+    {
+        var obj = $(this);
+        img = obj.find('img');
+        id =  $('.id').val() //获取ID
+        $('#upload').click();
     });
+
+    $('#upload').change(function() {
+        uploadImage();
+     });
+
+    function uploadImage() {
+        var imgPath = $('#upload').val();
+       
+        if (imgPath == "") {
+            alert("请选择上传图片！");
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('id',id); //追加ID
+        formData.append('upload', $('#upload')[0].files[0]);
+        formData.append('_token', "{{csrf_token()}}");
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/video/img/ajax/edit",
+            data:formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+            img.attr('src','/Uploads/Video/'+data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("上传失败，请检查网络后重试");
+            }
+        });
+    }    
 
 </script>
 
+<script type="text/javascript">
+    //点击结束时间获取开始时间的值
+    $('#projectionTime').on('blur',function(){
+        // alert(343);
+        //获取开始时间的时间戳
+        var startTime = $('#publicTime').val();
+        var timestamp = Date.parse(new Date(startTime));
+        startstamp = timestamp / 1000;
+        //获取结束时间的时间戳
+        var endTime = $('#projectionTime').val();
+        var timestamp = Date.parse(new Date(endTime));
+        endstamp = timestamp / 1000;
+
+        //判断时间是不是没选
+        if(!startstamp){
+            alert('请输入开始时间');
+            return;
+        }
+        if(!endstamp){
+            alert('请输入结束时间');
+            return;
+        }
+
+        if(endstamp <= startstamp){
+            alert('请输入有效时间!!');
+            return;
+        }
+            
+    }
+</script>
 @stop

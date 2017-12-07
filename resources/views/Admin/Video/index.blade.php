@@ -23,21 +23,33 @@
                                         </div>
                                     </div>
                                 </div>
+
+                            <form action="{{ url('admin/video')}}" method="get">
+                                
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                                     <div class="am-form-group tpl-table-list-select">
-                                        <select data-am-selected="{btnSize: 'sm'}">
-                                          <option value="option1">所有类型</option>
+                                        <select data-am-selected="{btnSize: 'sm'}" id='type' name='type' >
+                                          <option value="0">所有类型</option>
                                           @foreach ($types as $type)
-                                          <option value="{{ $type['vtid'] }}">{{ $type['vtname'] }}</option>
+                                            @if( !empty($where) )
+                                                  @if( $type['vtid'] == $where['type'])
+                                                    <option value="{{ $type['vtid'] }}" selected >{{ $type['vtname'] }}</option>
+                                                  @else 
+                                                    <option value="{{ $type['vtid'] }}">{{ $type['vtname'] }}</option>
+                                                  @endif
+                                            @endif    
                                           @endforeach
                                         </select>
                                     </div>
                                 </div>
 
-                            <form action="{{ url('admin/video')}}" method="get">
                                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field" name='search' value="" placeholder="关键字|视频名称">
+                                         @if( !empty($where) )
+                                            <input type="text" class="am-form-field" name='search' value="" placeholder="{{$where['search']}}">
+                                        @else 
+                                            <input type="text" class="am-form-field" name='search' value="" placeholder="关键字|视频名称">
+                                        @endif
                                         <span class="am-input-group-btn">
                                         <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                                       </span>
@@ -84,9 +96,6 @@
                                                         <a href="{{ url('admin/video/'.$ob->vid) }}" class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-pencil"></i> 详情
                                                         </a>
-                                                        <a href="{{ url('admin/videoreview')}}/{{ $ob->vid }}" class="tpl-table-black-operation-del" id='del'>
-                                                            <i class="am-icon-pencil"></i>查看评论
-                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -94,15 +103,18 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                @if(!empty($where))
                                 <div class="am-u-lg-12 am-cf">
                                     <div>
                                         <ul class="am-pagination tpl-pagination">
                                             <center>
-                                              
+                                               {!! $videos->appends($where)->render() !!}
                                             </center>
                                         </ul>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -113,14 +125,6 @@
     </div>
 </body>
 </html>
-
-<script type='text/javascript'>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
        
 <script type='text/javascript'>
 
@@ -167,6 +171,36 @@
 
 </script>
 
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $("#type").click(function(){
+            $typeid=$('#type').val();
+                $.ajax({
+                    url: '/admin/video',
+                    type: 'get',
+                    data: {type:type},
+                    success: function(data){
+
+                        if(data['ServerStatus']=='200'){
+                            // 如果成功
+                            $('#pic').attr('src', '/Uploads/Video/'+data['ResultData']);
+                            $('input[name=pic]').val(data);
+                            $(obj).off('change');
+                        }else{
+                            // 如果失败
+                            alert(data['ResultData']);
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        var number = XMLHttpRequest.status;
+                        var info = "错误号"+number+"收索失败!";
+                        alert(info);
+                    },
+                    async: true
+                });
+      });
+    });
+</script>
 @stop
 
     

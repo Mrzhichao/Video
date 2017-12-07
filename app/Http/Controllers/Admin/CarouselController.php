@@ -42,7 +42,9 @@ class CarouselController extends Controller
         $title = '视频轮播添加';
         //通过编号获取视频的名称
         $id = $_GET['vid']; 
+        // dd($id);
         $data = Carousel::find($id)->video;
+         // dd($data);
         //返回
         return view('Admin.Carousel.create',['title'=>$title,'data'=>$data]);
         

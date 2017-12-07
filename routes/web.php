@@ -27,7 +27,7 @@
 	// 	return view('Admin.index',['title'=>'后台首页']);
 	// });
 
-Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin'],function (){
+Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespace'=>'Admin'],function (){
 
 	/*-----------------------------------Wang-----------------------------------*/
 
@@ -40,9 +40,10 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 
 	//后台管理员路由
 	Route::resource('admin','AdminController');
-
+	
 	//后台用户模块
 	Route::resource('user','UserController');
+	
 
 	//用户详情路由
 	Route::resource('userinfo','UserinfoController');
@@ -56,13 +57,13 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	//视频评论路由
 	Route::resource('videoreview','ReviewController');
 
-	//评论路由
+	//评论回复路由
 	Route::resource('videoreply','ReplyController');
 
 	/*-----------------------------------Mrlu-----------------------------------*/
 
 	//广告路由AJAX
-	 Route::post('ad/ajax','AdController@ajax');
+	Route::post('ad/ajax','AdController@ajax');
 	 //广告路由
  	Route::resource('ad','AdController');
 
@@ -77,30 +78,46 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	//轮播管理 AJAX
 	Route::post('carousel/ajaxName','CarouselController@ajax');
 
-	//视频推荐管理
-	Route::get('video/first','VideoRecommendController@first');
-
-
+	//角色管理
+	Route::resource('role','RoleController');
+	//角色授权
+	Route::get('role/auth/{id}','RoleController@auth');
+	Route::post('role/auth','RoleController@doauth');
 	
-	/*-----------------------------------SunnyHan-----------------------------------*/
+	//后台授权路由
+	Route::get('admin/auth/{id}','AdminController@auth');
+	Route::post('admin/auth','AdminController@doauth');
+	//权限管理
+	Route::resource('auth','AuthController');
+
+
+
+		/*-----------------------------------SunnyHan-----------------------------------*/
 	//视频管理
 	Route::resource('video','VideoController');
+
 
 	//视频ajax无刷新排序
 	Route::post('video/changeorder','VideoController@changeOrder');
 	
+	//视频ajax无刷新修改
+	Route::post('video/img/ajax/edit','VideoController@img_ajax_edit');
+	
 	//视频ajax无刷新上传
-	Route::post('video/upload','VideoController@upload');
-
-
+	Route::post('video/img/ajax/upload','VideoController@img_ajax_upload');
+	
 	//视频ajax无刷新时间判断
 	Route::post('video/time','VideoController@time');
+
 
 	//视频类别管理
 	Route::resource('videotype','VideoTypeController');
 
+
 	//视频类别无刷新排序
 	Route::post('videotype/changeorder','VideoTypeController@changeOrder');
+
+
 
 
 	//系统配置管理
@@ -109,9 +126,18 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 
 
 
+
 	//友情链接管理
 	Route::resource('link','LinkController');
 	Route::post('link/changeorder','LinkController@changeorder');
 
-
 });
+
+/*-----------------------------------Mrlu-----------------------------------*/
+
+//报错路由  权限不足
+Route::get('admin/error/auth','ErrorController@auth');
+
+
+//视频推荐管理
+Route::get('home/video/first','Home\VideoRecommendController@first');

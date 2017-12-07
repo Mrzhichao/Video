@@ -15,14 +15,13 @@
 
     <link rel="icon" type="image/png" href="{{asset('Admin/i/favicon.png')}}">
     <link rel="apple-touch-icon-precomposed" type="image/png" href="{{asset('Admin/i/app-icon72x72@2x.png')}}">
+
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/app.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/ch-ui.admin.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/css/bootstrap.min.css')}}">
 
-    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
-    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
-
-    
     <script src="{{asset('Admin/js/app.js')}}"></script>
     <script src="{{asset('Admin/js/echarts.min.js')}}"></script>
     <script src="{{asset('Admin/js/dataTables.responsive.min.js')}}"></script>
@@ -35,8 +34,7 @@
     <script src="{{asset('Amaze/js/amazeui.min.js')}}"></script>
     <script src="{{asset('Amaze/js/amazeui.datatables.min.js')}}"></script>
     <script src="{{asset('Amaze/datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
-
-
+    
     <script src="{{asset('Layer/layer.js')}}"></script>
     
 </head>
@@ -265,34 +263,36 @@
 
                     </a>
                 </li>
+
+                <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/ad') }}">
+                                <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 广告管理
+                            </a>
+                </li>
                 <li class="sidebar-nav-link">
                     <a href="{{ url('admin/vad')}}">
                         <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 视频广告
 
                     </a>
                 </li>
-
                 <li class="sidebar-nav-link">
                     <a class="sidebar-nav-sub-title" href="javascript:;">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 广告管理
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限模块
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
                         <li class="sidebar-nav-link">
-                            <a href="{{url('admin/ad/create') }}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 广告添加
+                            <a href="{{ url('admin/role')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色管理
                             </a>
                         </li>
-
-
                         <li class="sidebar-nav-link">
-                            <a href="{{ url('admin/ad') }}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 广告预览
+                            <a href="{{ url('admin/auth')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 权限管理
                             </a>
                         </li>
                     </ul>
                 </li>
-
                 <li class="sidebar-nav-link">
                     <a class="sidebar-nav-sub-title" href="javascript:;">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 系统配置
@@ -334,23 +334,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-nav-link">
-                    <a href="sign-up.html">
-                        <i class="am-icon-clone sidebar-nav-link-logo"></i> 注册
-                        <span class="am-badge am-badge-secondary sidebar-nav-link-logo-ico am-round am-fr am-margin-right-sm">6</span>
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="login.html">
-                        <i class="am-icon-key sidebar-nav-link-logo"></i> 登录
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="404.html">
-                        <i class="am-icon-tv sidebar-nav-link-logo"></i> 404错误
-                    </a>
-                </li>
-
             </ul>
         </div>
         <script>

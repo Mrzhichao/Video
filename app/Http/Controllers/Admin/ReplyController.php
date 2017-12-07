@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Reply;
+use App\Models\Admin\VideoReview;
 
 class ReplyController extends Controller
 {
@@ -48,18 +48,18 @@ class ReplyController extends Controller
     public function show(Request $request ,$id)
     {
          $title = '视频评论回复';
+     
+        $users= \DB::table('videoreview')
+            ->join('users', 'users.uid', '=', 'videoreview.userid')
+            ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
+            ->join('userinfo', 'userinfo.uiid', '=', 'videoreview.userinfoid')
+            ->select('videoreview.*', 'users.uname', 'videos.vname','userinfo.nickname')
+            ->get();
+            // dd($users);
 
-        $keywords=$request->input('keyword');
-         $users= \DB::table('reply')
-            ->join('users', 'users.uid', '=', 'reply.userid')
-            ->join('videos', 'videos.vid', '=', 'reply.videoid')
-            ->join('userinfo', 'userinfo.uiid', '=', 'reply.userinfoid')
-            ->select('reply.*', 'users.uname', 'videos.vname','userinfo.nickname')
-            ->where('nickname','like',"%".$keywords."%")->Paginate(5);
-           // / dd($users);
         $data = $this ->subtree($users,$id); 
         // dd($data);
-       return view('Admin.Reply.index',['title'=>$title,'id'=>$id,'data'=>$data,'where'=>['keyword'=>$keywords]]);
+       return view('Admin.Reply.index',['title'=>$title,'id'=>$id,'data'=>$data]);
     }
         
 
@@ -120,7 +120,7 @@ class ReplyController extends Controller
     public function destroy($id)
     {
          //通过id删除数据
-        $res = Reply::find($id)->delete();
+        $res = VideoReview::find($id)->delete();
 
         //判断是否删除成功
         $data= [];

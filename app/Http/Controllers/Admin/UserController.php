@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\User;
 use Intervention\Image\ImageManagerStatic as Image;
-
 class UserController extends Controller
 {
     /**

@@ -25,17 +25,35 @@ class VideoController extends Controller
          $title='视频首页';
 
          $keywords=$request->input('search');
+         $type=$request->input('type');
 
-         //渴求式加载多个关联关系
-         $videos = Video::with('users','types')->where('vname','like',"%".$keywords."%")->orderby('type_order','asc')->paginate(1); 
+         if(!empty($type)){
+            //渴求式加载多个关联关系
+            $videos = Video::with('users','types')->where('vname','like',"%".$keywords."%")->where('vid',$type)->orderby('type_order','asc')->paginate(1); 
+         }else{
+            $videos = Video::with('users','types')->where('vname','like',"%".$keywords."%")->orderby('type_order','asc')->paginate(1); 
+         }
+
          //dd($videos);
          
          //二级分类显示所有视频分类
          $types =  (new VideoType) -> tree(); 
          //dd($types);
 
-         return view('Admin.Video.index',['videos'=>$videos,'title'=>$title,'types'=>$types,'where'=>['search'=>$keywords] ]);  
+         return view('Admin.Video.index',['videos'=>$videos,'title'=>$title,'types'=>$types,'where'=>['type'=>$type,'search'=>$keywords] ]);  
     }
+
+
+     /**
+     * ajax无刷新条件查询
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function tj_ajax(){
+
+    }    
 
 
     /**
@@ -178,8 +196,9 @@ class VideoController extends Controller
 
         $video = Video::find($id);
         $types=VideoType::get();
+        $aname=Session('user')->aname;
 
-        return view('Admin.Video.edit',['video'=>$video,'types'=>$types,'title'=>$title]);
+        return view('Admin.Video.edit',['video'=>$video,'types'=>$types,'aname'=>$aname,'title'=>$title,'id'=>$id]);
     }
 
 
@@ -192,7 +211,7 @@ class VideoController extends Controller
      */
     public function update(Request $request, $vid)
     {
-        $input = $request->except('_token','_method');
+        $input = $request->except('_token','_method','vimg');
         
         //过滤掉空数据
         foreach($input as $k=>&$v){
@@ -205,21 +224,6 @@ class VideoController extends Controller
 
         if( !empty($request->projectionTime) ){
              $input['projectionTime']=strtotime($request->projectionTime); 
-        }
-
-        if(!empty($request->logo)){
-            if($request->hasFile("logo")){
-                $file = $request->file("logo");
-                if($file->isValid()){
-                    $ext = $file->getClientOriginalExtension(); 
-                    $filename = time().rand(1000,9999).".".$ext;
-                    $file->move("./Admin/Uploads/Videos/",$filename);
-                    $img = Image::make("./Admin/Uploads/Videos/".$filename)->resize(100,100);
-                    $img->save("./Admin/Uploads/Videos/v_".$filename); //另存为
-                }
-            }
-
-            $input['logo'] = $filename;
         }
 
         $res = Video::find($vid)->update($input);
@@ -315,6 +319,50 @@ class VideoController extends Controller
     }
 
 
+     /**
+     * ajax修改图片
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function img_ajax_edit(Request $request)
+    {
+        //获取id
+        $id = $request->id; 
+        $file = $request -> file('upload');
+        if($file->isValid()){
+            $entension = $file->getClientOriginalExtension();//上传文件的后缀名
+            $newName = time().mt_rand(1000,9999).'.'.$entension;
+            //上传到本地服务器的方法
+            $path = $file->move(public_path().'/Uploads/Video/',$newName);
+
+            //压缩图片
+            $img = Image::make("./Uploads/Video/".$newName)->resize(100,100);
+            $img->save("./Uploads/Video/small_".$newName); //另存为
+
+            //移动成功后 修改数据库并删除老图片
+            $video = Video::find($id);
+
+            if($video){
+                //如果文件存在就删除
+                $oldImge=$video->logo;
+                if(file_exists(public_path().'/Uploads/Video/'.$oldImge)){
+                   
+                    if( unlink(public_path().'/Uploads/Video/'.$oldImge) &&  unlink(public_path().'/Uploads/Video/small_'.$oldImge) ){
+                        //修改数据库
+                        Video::find($id) -> update(['logo'=>$newName]); 
+                    }  
+                }
+            }
+           
+            //将上传文件的路径返回给浏览器客户端
+            return $newName;
+        }
+
+    }
+
+
     /**
      *  ajax无刷新上传
      *
@@ -322,7 +370,7 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request)
+    public function img_ajax_upload(Request $request)
     {
         // $old_img=$require->input('old_img');
         // dd($old_img);

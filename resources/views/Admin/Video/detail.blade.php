@@ -67,7 +67,6 @@
                                                         <a href="{{ url('admin/carousel/create')}}?vid={{ $video['vid'] }}" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 推荐
                                                         </a>
-                                                        
                                                     </div>
                                                 </td>
                                             </tr>

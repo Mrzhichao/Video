@@ -59,7 +59,7 @@
                                                 <td class="am-text-middle">{{ $v-> nickname }}</td>
                                                 <td class="am-text-middle">{{ $v ->vname }}</td>
                                                 <td class="am-text-middle">{{ $v -> rcontent}}</td>
-                                                <td class="am-text-middle">{{ $v -> rtime}}</td>
+                                                <td class="am-text-middle">{{ $v -> rTime}}</td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
                                                         <a href="javascript:;" onclick="abc('/admin/videoreply/{{$v->rid}}')" class="tpl-table-black-operation-del">
