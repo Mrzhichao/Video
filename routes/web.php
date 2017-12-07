@@ -27,7 +27,7 @@
 	// 	return view('Admin.index',['title'=>'后台首页']);
 	// });
 
-Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin'],function (){
+Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespace'=>'Admin'],function (){
 
 	/*-----------------------------------Wang-----------------------------------*/
 
@@ -40,9 +40,10 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 
 	//后台管理员路由
 	Route::resource('admin','AdminController');
-
+	
 	//后台用户模块
 	Route::resource('user','UserController');
+	
 
 	//用户详情路由
 	Route::resource('userinfo','UserinfoController');
@@ -59,7 +60,7 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	/*-----------------------------------Mrlu-----------------------------------*/
 
 	//广告路由AJAX
-	 Route::post('ad/ajax','AdController@ajax');
+	Route::post('ad/ajax','AdController@ajax');
 	 //广告路由
  	Route::resource('ad','AdController');
 
@@ -74,8 +75,18 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	//轮播管理 AJAX
 	Route::post('carousel/ajaxName','CarouselController@ajax');
 
-	//视频推荐管理
-	Route::get('video/first','VideoRecommendController@first');
+	//角色管理
+	Route::resource('role','RoleController');
+	//角色授权
+	Route::get('role/auth/{id}','RoleController@auth');
+	Route::post('role/auth','RoleController@doauth');
+	
+	//后台授权路由
+	Route::get('admin/auth/{id}','AdminController@auth');
+	Route::post('admin/auth','AdminController@doauth');
+	//权限管理
+	Route::resource('auth','AuthController');
+
 
 
 
@@ -101,3 +112,12 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 
 
 });
+
+/*-----------------------------------Mrlu-----------------------------------*/
+
+//报错路由  权限不足
+Route::get('admin/error/auth','ErrorController@auth');
+
+
+//视频推荐管理
+Route::get('home/video/first','Home\VideoRecommendController@first');

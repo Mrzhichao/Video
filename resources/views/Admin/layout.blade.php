@@ -28,7 +28,6 @@
     <script src="{{asset('Admin/assets/js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
-    
 
 
 </head>
@@ -269,6 +268,7 @@
 
                     </a>
                 </li>
+            
 
                 <li class="sidebar-nav-link">
                     <a class="sidebar-nav-sub-title" href="javascript:;">
@@ -290,6 +290,28 @@
                         </li>
                     </ul>
                 </li>
+
+                  <li class="sidebar-nav-link">
+                    <a class="sidebar-nav-sub-title" href="javascript:;">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限模块
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico sidebar-nav-sub-ico-rotate"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: block;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/role')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色管理
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/auth')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 权限管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
 
                 <li class="sidebar-nav-link">
                     <a class="sidebar-nav-sub-title" href="javascript:;">

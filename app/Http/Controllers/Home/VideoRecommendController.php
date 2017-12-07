@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Home\VideoRecommend as vr;
-
+use App\Models\Admin\Video;
 class VideoRecommendController extends Controller
 {
    
@@ -18,9 +18,10 @@ class VideoRecommendController extends Controller
      */
     public function first()
     {
-    	//获取视频的数据
-    	$data = vr::with('video')->get();
-    	dd($data);
+    	//获取视频数据
+        $data = video::orderBy('vscores','desc')->take(3)->get();
+        dd($data);
+
     }
 
 

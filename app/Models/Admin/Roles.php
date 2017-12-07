@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Roles extends Model
 {
     /**
-     * 用户权限表
+     * 权限角色表
      */
      public $table = 'roles';
 
@@ -17,13 +17,17 @@ class Roles extends Model
 
     public $guarded = [];
 
-        //用户表
-//     public function users()
-//     {
-//     		//  一对一
-//     	// 参数1 ：要关联的模型
-// // //        参数2：外键
-// // //        参数3：当前模型的主键
-//         return $this->hasOne('App\Models\Admin\User','roleid','rid');
-//     }
+       
+    public function role()
+   	{	
+   		//路由名称,关联表,当前的ID,aid 反向
+   		return $this->belongsToMany('App\Models\Admin\Admin','admin_roles','rid','aid');
+   	}
+
+   	public function auth()
+   	{	
+   		//路由名称,关联表,当前的ID,aid
+   		return $this->belongsToMany('App\Models\Admin\Auth','role_auth','rid','aid');
+   	}
+
 }

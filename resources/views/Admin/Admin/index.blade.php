@@ -80,6 +80,9 @@
                                                 </td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
+                                                         <a href="{{ url('admin/admin/auth') }}/{{$v->aid}}">
+                                                            <i  class="am-icon-pencil"></i> 授权
+                                                        </a>
                                                         <a href="{{ url('admin/admin') }}/{{$v->aid}}/edit">
                                                             <i class="am-icon-pencil"></i> 编辑
                                                         </a>

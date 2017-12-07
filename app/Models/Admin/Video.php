@@ -47,5 +47,4 @@ class Video extends Model
         }
     }
 
-
 }

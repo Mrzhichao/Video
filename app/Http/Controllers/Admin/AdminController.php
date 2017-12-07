@@ -5,10 +5,80 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Admin;
+use App\Models\Admin\Roles;
 use Intervention\Image\ImageManagerStatic as Image;
+use DB;
+
+
 
 class AdminController extends Controller
 {
+
+
+     /**
+     * 显示用户授权页面
+     * @author:Mrlu
+     * @date:2017/12/5
+     * @param:用户的ID
+     * @返回一个页面
+     */
+    public function auth($id){
+
+        //标题
+        $title='管理员用户授权';
+
+        //获取用户名
+        $user = Admin::find($id);
+        //获取角色
+        $roles = Roles::get();
+        
+         //获取当前用户已经拥有的角色
+       
+
+        $own_roles = DB::table('admin_roles')->where('aid',$id)->pluck('rid');
+        $own_roles= $own_roles->toArray();
+        return view('Admin.Admin.auth',compact('title','user','roles','own_roles'));
+
+    }
+
+      /**
+     * 处理用户授权数据
+     * @author:Mrlu
+     * @date:2017/12/5
+     * @param:请求页面的信息
+     * @返回到列表页
+     */
+    public function doauth(Request $request)
+    {
+        $data = $request->except('_token');
+
+          //开启事务
+          DB::beginTransaction();
+        try{
+            //删除用户以前拥有的角色
+            DB::table('admin_roles')->where('aid',$data['aid'])->delete();
+//            给当前用户重新授权
+            if(isset($data['rid'])){
+                foreach ($data['rid'] as $k=>$v){
+                    DB::table('admin_roles')->insert(['aid'=>$data['aid'],'rid'=>$v]);
+                }
+            }
+
+
+        }catch (Exception $e){
+            DB::rollBack();
+        }
+
+        DB::commit();
+
+        // //添加成功后，跳转到列表页
+         return redirect('admin/admin');
+
+
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
