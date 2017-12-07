@@ -15,13 +15,13 @@
 
     <link rel="icon" type="image/png" href="{{asset('Admin/i/favicon.png')}}">
     <link rel="apple-touch-icon-precomposed" type="image/png" href="{{asset('Admin/i/app-icon72x72@2x.png')}}">
+
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
+    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/app.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('Admin/css/ch-ui.admin.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Bootstrap/css/bootstrap.min.css')}}">
 
-    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
-    <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
-    
     <script src="{{asset('Admin/js/app.js')}}"></script>
     <script src="{{asset('Admin/js/echarts.min.js')}}"></script>
     <script src="{{asset('Admin/js/dataTables.responsive.min.js')}}"></script>
@@ -34,7 +34,7 @@
     <script src="{{asset('Amaze/js/amazeui.min.js')}}"></script>
     <script src="{{asset('Amaze/js/amazeui.datatables.min.js')}}"></script>
     <script src="{{asset('Amaze/datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
-
+    
     <script src="{{asset('Layer/layer.js')}}"></script>
     
 </head>

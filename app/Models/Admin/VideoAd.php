@@ -21,7 +21,7 @@ class VideoAd extends Model
     //查询视频表的信息
     public function video()
    	{
-   		return $this->belongsTo('App\Models\Admin\Video','vaid','vid');
+   		return $this->belongsTo('App\Models\Admin\Video','videoid','vid');
    	}
 
 

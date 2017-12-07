@@ -86,8 +86,11 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	//视频ajax无刷新排序
 	Route::post('video/changeorder','VideoController@changeOrder');
 	
+	//视频ajax无刷新修改
+	Route::post('video/img/ajax/edit','VideoController@img_ajax_edit');
+	
 	//视频ajax无刷新上传
-	Route::post('video/upload','VideoController@upload');
+	Route::post('video/img/ajax/upload','VideoController@img_ajax_upload');
 	
 	//视频ajax无刷新时间判断
 	Route::post('video/time','VideoController@time');

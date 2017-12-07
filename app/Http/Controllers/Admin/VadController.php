@@ -42,6 +42,7 @@ class VadController extends Controller
         $id = $_GET['vid'];
         //获取视频的信息
         $data =  VideoAd::find($id)->video;
+        // dd($id);
         
         return view('Admin.Vad.create',['title'=>'视频广告添加','data'=>$data]);
       

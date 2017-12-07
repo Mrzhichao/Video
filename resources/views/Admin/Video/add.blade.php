@@ -109,7 +109,7 @@
                                         </label>
                                         <div class="am-u-sm-9">
                                             <select data-am-selected="{searchBox: 1}" name='typeid' style="display: none;">
-                                                <option value="option1">所有类型</option>
+                                                <option value="0">根分类</option>
 
                                                 @foreach ($types as $v)
                                                     @if( !empty($type) )
@@ -167,7 +167,7 @@
             //用整个from表单初始化FormData
             var formData = new FormData($('#art_form')[0]);
             $.ajax({
-                url: '/admin/video/upload',
+                url: '/admin/video/img/ajax/upload',
                 type: 'post',
                 data: formData,
                 // 因为data值是FormData对象，不需要对数据做处理

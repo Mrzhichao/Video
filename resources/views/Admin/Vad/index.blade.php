@@ -61,7 +61,9 @@
                                         	<td class="id">{{ $v -> vaid }}</td>
                                             <td>{{ $v -> video['vname'] }}</td>
                                             <td>{{ $v -> vredirect }}</td>
-                                            <td class="vimg"><img id="" width="60" height="40" src="{{ asset('./uploads/Vad') }}/{{ $v->vpath }}" /></td>
+                                            <td class="vimg">
+                                                <img id="" width="60" height="40" src="{{ asset('./uploads/Vad') }}/{{ $v->vpath }}" />
+                                            </td>
                                             <td>{{ $v -> vtime }}秒</td>
                                             <td>{{ $v -> vprice }}</td>
                                             

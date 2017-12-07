@@ -20,7 +20,7 @@
                                             <div class="am-btn-group am-btn-group-xs">
 
                                                 <a class="am-btn am-btn-default am-btn-success" href="{{ url('admin/videotype/create') }}">新增</a>
-                              
+                        
                                             </div>
                                         </div>
                                     </div>
