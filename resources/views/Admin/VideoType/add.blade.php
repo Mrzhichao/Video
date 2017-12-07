@@ -20,9 +20,7 @@
 
             <div class="row-content am-cf">
 
-
                 <div class="row">
-
 
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
@@ -53,7 +51,7 @@
                                         </label>
                                         <div class="am-u-sm-9">
                                             <input type="text" class="tpl-form-input" id="user-name" name='vtname' value="{{ old('vtname') }}" placeholder="请输入视频名称">
-                                            <small>视频类别名称5-8字左右。</small>
+                                            <small>视频类别名称1-5字左右。</small>
                                         </div>
                                     </div>
 
@@ -63,7 +61,7 @@
                                         </label>
                                         <div class="am-u-sm-9">
                                             <select data-am-selected="{searchBox: 1}" name='pid' style="display: none;">
-                                                <option value="option1">所有类型</option>
+                                                <option value="0">根分类</option>
                                                 @foreach ($types as $type)
                                                     <option value="{{ $type->vtid }}">{{ $type->vtname }}</option>
                                                 @endforeach
@@ -77,8 +75,8 @@
                                             <span class="tpl-form-line-small-title">Uname</span>
                                         </label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" name='uname' value="{{ old('uname') }}" placeholder="请输入上传者">
-                                            <small>发布者1-5字左右。</small>
+                                            <input type="text" class="tpl-form-input" id="user-name" name='uname' value="{{ $aname }}" placeholder="请输入上传者" readonly >
+                                            <small>发布者不可更改。</small>
                                         </div>
                                     </div>
 
@@ -103,17 +101,11 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
     </div>
     </div>
-    <script src="{{ asset('Admin/assets/js/amazeui.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/amazeui.datatables.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/app.js') }}"></script>
-
 </body>
-
 </html>
+
 @stop

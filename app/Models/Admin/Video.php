@@ -7,15 +7,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Video extends Model
 {
-    //
-   public $table = 'videos';
-   public $primaryKey='vid';
+    
+    public $table = 'videos';
+    public $primaryKey='vid';
    
-   public $timestamps = false;
+    public $timestamps = false;
 
-
-   public $guarded = [];
-
+    public $guarded = [];
 
     public function users()
     {
@@ -26,7 +24,6 @@ class Video extends Model
     {
       return $this->belongsTo('App\Models\Admin\VideoType', 'typeid','vtid');
     }
-
 
     public function getTypeInfo(){
         $sourceItems = $this->get();

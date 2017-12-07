@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
     <link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
+
     
     <script src="{{asset('Admin/js/app.js')}}"></script>
     <script src="{{asset('Admin/js/echarts.min.js')}}"></script>
@@ -34,6 +35,7 @@
     <script src="{{asset('Amaze/js/amazeui.min.js')}}"></script>
     <script src="{{asset('Amaze/js/amazeui.datatables.min.js')}}"></script>
     <script src="{{asset('Amaze/datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
+
 
     <script src="{{asset('Layer/layer.js')}}"></script>
     

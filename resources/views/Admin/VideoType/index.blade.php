@@ -14,7 +14,6 @@
                             </div>
                             <div class="widget-body  am-fr">
 
-
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
@@ -45,7 +44,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="am-u-sm-12">
                                     <table width="100%" border="1px solid red" class="am-table am-table-compact am-table-striped tpl-table-black ">
                                         <thead>
@@ -74,12 +72,16 @@
                                                 <th class="am-text-middle">
                                                     <div id='div1' class="tpl-table-black-operation">
 
-                                                        <a href="{{ url('admin/videotype/'.$ob->vtid.'/edit') }}" id='edit'>
-                                                            <i class="am-icon-pencil"></i> 修改
+                                                        <a href="{{ url('admin/video/create') }}?id={{ $ob->vtid }}" id='add'>
+                                                            <i class="am-icon-pencil"></i> 添加视频
                                                         </a>
 
-                                                        <a href="{{ url('admin/video/create') }}" id='add'>
-                                                            <i class="am-icon-pencil"></i> 添加视频
+                                                        <a href="{{ url('admin/videotype/'.$ob->vtid) }}" id='show'>
+                                                            <i class="am-icon-pencil"></i> 所有视频
+                                                        </a>
+
+                                                        <a href="{{ url('admin/videotype/'.$ob->vtid.'/edit') }}" id='edit'>
+                                                            <i class="am-icon-pencil"></i> 修改
                                                         </a>
 
                                                         <a href="javascript:;" onclick="typeDel( '{{ $ob->vtid }} ') " class="tpl-table-black-operation-del" id='del'>
@@ -109,50 +111,39 @@
         </div>
     </div>
     </div>
-
-
-    <script src="{{ asset('/Admin/assets/js/amazeui.min.js') }}"></script>
-    <script src="{{ asset('/Admin/assets/js/app.js') }}"></script>
-
-    <script src="{{ asset('/Admin/assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('/layer/layer.js') }}"></script>
-
 </body>
-    
+</html> 
+
 <script type='text/javascript'>
-
-  //排序
-        function changeOrder(obj,vtid){
-            //获取当前需要排序的记录的ID,vtid
-            //获取当前记录的排序文本框中的值
-            var order_sort = $(obj).val();
-
-            $.post("{{url('admin/videotype/changeorder')}}",{'_token':"{{csrf_token()}}","vtid":vtid,"order_sort":order_sort},function(data){
-                //如果排序成功，提示排序成功
-                if(data.status == 0){
-
-                    layer.msg(data.msg,{icon: 6});
-                    location.href = location.href;
-                }else{
-                    //如果排序失败，提示排序失败
-                    layer.msg(data.msg,{icon: 5});
-                    location.href = location.href;
-                }
-            })
-
-        }
-
-</script>
-
-a<script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 </script>
-       
+
 <script type='text/javascript'>
+
+    //排序
+    function changeOrder(obj,vtid){
+        //获取当前需要排序的记录的ID,vtid
+        //获取当前记录的排序文本框中的值
+        var order_sort = $(obj).val();
+
+        $.post("{{url('admin/videotype/changeorder')}}",{'_token':"{{csrf_token()}}","vtid":vtid,"order_sort":order_sort},function(data){
+            //如果排序成功，提示排序成功
+            if(data.status == 0){
+
+                layer.msg(data.msg,{icon: 6});
+                location.href = location.href;
+            }else{
+                //如果排序失败，提示排序失败
+                layer.msg(data.msg,{icon: 5});
+                location.href = location.href;
+            }
+        })
+
+    }
 
     function typeDel(vtid){
         layer.confirm('您确认删除吗？', {
@@ -162,10 +153,14 @@ a<script>
                     type: 'DELETE',
                     url: "{{ url('admin/videotype') }}/"+vtid,
                     success: function(data) {
+                        // alert(data);
                         if(data.error == 0){
                            layer.msg(data.msg,{icon: 6});
                            var sel = $('#videotype_vtid_' + vtid);
                            sel.remove();
+                        }else if(data.error == 1){
+                           layer.msg(data.msg, {icon: 5});
+                           var t=setTimeout("location.href = location.href;",2000);
                         }else{
                            layer.msg(data.msg, {icon: 5});
                            var t=setTimeout("location.href = location.href;",2000);
@@ -178,7 +173,6 @@ a<script>
         
 </script>
 
-</html>
 @stop
 
     

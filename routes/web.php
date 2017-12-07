@@ -86,12 +86,16 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 	//视频管理
 	Route::resource('video','VideoController');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/sunny
 	//视频ajax无刷新排序
 	Route::post('video/changeorder','VideoController@changeOrder');
 	
 	//视频ajax无刷新上传
 	Route::post('video/upload','VideoController@upload');
+<<<<<<< HEAD
 
 
 	//视频ajax无刷新时间判断
@@ -107,17 +111,35 @@ Route::group(['middleware'=>'CheckLogin','prefix'=>'admin','namespace'=>'Admin']
 
 
 
+=======
+	
+	//视频ajax无刷新时间判断
+	Route::post('video/time','VideoController@time');
+
+	//视频类别管理
+	Route::resource('videotype','VideoTypeController');
+
+	//视频类别无刷新排序
+	Route::post('videotype/changeorder','VideoTypeController@changeOrder');
+
+>>>>>>> origin/sunny
 
 	//系统配置管理
 	Route::resource('sysconfig','SysconfigController');
 	Route::post('contentchange','SysconfigController@contentchange');
 
 
+<<<<<<< HEAD
 
 
 	//友情链接管理
 	Route::resource('link','LinkController');
 	Route::post('link/changeorder','LinkController@changeorder');
 
+=======
+	//友情链接管理
+	Route::resource('link','LinkController');
+	Route::post('link/changeorder','LinkController@changeorder');
+>>>>>>> origin/sunny
 
 });

@@ -10,4 +10,6 @@
   2434 => '<input type="radio" checked name="conf_content[]" value="0" >开启',
   'ni cai' => NULL,
   'heheheheheh' => NULL,
+  'rewrwe' => NULL,
+  'fdasfds' => NULL,
 );

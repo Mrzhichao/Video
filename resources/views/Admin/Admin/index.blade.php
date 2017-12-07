@@ -109,9 +109,7 @@
         </div>
     </div>
     </div>
-    <script src="{{ asset('/Admin/assets/js/amazeui.min.js') }}"></script>
-    <script src="{{ asset('/Admin/assets/js/app.js') }}"></script>
-    
+
     <script type="text/javascript">
             //状态操作
              $(".status").on('click', function () {
