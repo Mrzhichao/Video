@@ -134,7 +134,7 @@ class VideoTypeController extends Controller
     {
         $title = '视频类别修改';
 
-        $videotype = VideoType::find($id);  
+        $videotype = VideoType::find($id); 
         $types=VideoType::get();
 
         return view('Admin.VideoType.edit',['videotype'=>$videotype,'types'=>$types,'title'=>$title]);
@@ -161,7 +161,7 @@ class VideoTypeController extends Controller
             $input['editTime']=strtotime($request->editTime);
         }
 
-        $video_type=VideoType::find($vtid)
+        $video_type=VideoType::find($vtid);
         $res = $video_type->update($input);
         
         if($res){
