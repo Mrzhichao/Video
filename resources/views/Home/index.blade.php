@@ -31,7 +31,7 @@
 		<div class="shutter">
 		<div class="shutter-img">
 		@foreach($car as $k=>$v)
-		  <a href="{{$v->credirect}}" data-shutter-title="{{ $v->cname }}"><img src="{{ url('uploads/Video') }}/{{$v->vlogo}}" alt="加载失败"></a>
+		  <a href="{{url('home/play')}}?vid={{$v->vid}}" data-shutter-title="{{ $v->cname }}"><img src="{{ url('uploads/Video') }}/{{$v->vlogo}}" alt="加载失败"></a>
 		@endforeach
 		</div>
 		<ul class="shutter-btn">
@@ -90,7 +90,7 @@
 				<article class="post post-medium main-large-post">
 				   <div class="thumbr">
 					  <div class="flag flag1"><i class="fa fa-star"></i></div>
-					  <a class="post-thumb" href="{{ $oneVip['resourceSrc'] }}" data-lity>
+					  <a class="post-thumb" href="{{url('home/play')}}?vid={{$oneVip['vid']}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <img class="img-responsive" src="{{ url('/uploads/Video') }}/{{$oneVip['logo'] }}" alt="加载失败">
 					  </a>
@@ -159,7 +159,7 @@
 				   <article class="col-sm-6 post post-medium small-post">
 					  <div class="thumbr">
 						 <div class="flag flag1"><i class="fa fa-star"></i></div>
-						 <a class="post-thumb" href="{{ $v->resourceSrc }}" data-lity>
+						 <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity >
 						 <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 						 <img class="img-responsive" src="{{ url('/uploads/Video') }}/{{$v->logo}}" alt="加载失败">
 						 </a>
@@ -247,13 +247,13 @@
 					  <article class="col-lg-2 col-md-4 col-sm-4">
 						 <div class="post post-medium">
 							<div class="thumbr">
-							   <a class="post-thumb" href="{{ $v->resourceSrc }}">
+							   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}">
 							   <img style="width: 180px;height: 130px;" class="img-responsive" src="{{ url('uploads/Video') }}/{{$v->logo}}" alt="#">
 							   </a>
 							</div>
 							<div class="infor">
 							   <h4>
-								  <a class="title" href="{{ $v->resourceSrc }}">{{ $v->vname }}</a>
+								  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{ $v->vname }}</a>
 							   </h4>
 							   <span class="posts-channel" title="Posts from Channel"><i class="fa fa-video-camera" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
 							</div>
@@ -271,13 +271,13 @@
 					  <article class="col-lg-2 col-md-4 col-sm-4">
 						 <div class="post post-medium">
 							<div class="thumbr">
-							   <a class="post-thumb" href="{{ $v->resourceSrc }}">
+							   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}">
 							   <img style="width: 180px;height: 130px;" class="img-responsive" src="{{ url('uploads/Video') }}/{{$v->logo}}" alt="#">
 							   </a>
 							</div>
 							<div class="infor">
 							   <h4>
-								  <a class="title" href="{{ $v->resourceSrc }}">{{ $v->vname }}</a>
+								  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{ $v->vname }}</a>
 							   </h4>
 							   <span class="posts-channel" title="Posts from Channel"><i class="fa fa-video-camera" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
 							</div>
@@ -312,13 +312,13 @@
 					  <article class="reviews col-lg-2 col-md-4 col-sm-4">
 						 <!-- POST L size -->
 						 <div class="post post-medium">
-							<a class="thumbr post-thumb" href="{{ $v->resourceSrc }}">
+							<a class="thumbr post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}">
 							<span class="review-number">{{$v->vscores}}</span>
 							<img src="{{ url('/uploads/Video') }}/{{ $v->logo }}" style="width: 256px; height: 160px;" class="review img-responsive" alt="Client">
 							</a>
 							<div class="infor">
 							   <h4>
-								  <a class="title" href="#">{{$v->vname}}</a>
+								  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
 							   </h4>
 							    @if($v->vscores < 2 )
 							   <div class="ratings">
@@ -377,13 +377,13 @@
 					  <article class="reviews col-lg-2 col-md-4 col-sm-4">
 						 <!-- POST L size -->
 						 <div class="post post-medium">
-							<a class="thumbr post-thumb" href="">
+							<a class="thumbr post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}">
 							<span class="review-number">{{$v->vscores}}</span>
 							<img src="{{ url('/uploads/Video') }}/{{ $v->logo }}" style="width: 256px; height: 160px;" class="review img-responsive" alt="Client">
 							</a>
 							<div class="infor">
 							   <h4>
-								  <a class="title" href="#">{{$v->vname}}</a>
+								  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
 							   </h4>
 							    @if($v->vscores < 2 )
 							   <div class="ratings">
@@ -455,7 +455,7 @@
 			 @foreach($dyjx as $v)
 			 <article class="col-lg-2 col-md-4 col-sm-6 post post-medium">
 				<div class="thumbr">
-				   <a class="post-thumb" href="{{$v->resourceSrc}}" data-lity>
+				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
 					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
@@ -463,7 +463,7 @@
 				</div>
 				<div class="infor">
 				   <h4>
-					  <a class="title" href="{{$v->resourceSrc}}">{{$v->vname}}</a>
+					  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
 				   </h4>
 				   <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
 				   <div class="ratings">
@@ -527,7 +527,7 @@
 			 @foreach($dsjx as $v)
 			 <article class="col-lg-2 col-md-4 col-sm-6 post post-medium">
 				<div class="thumbr">
-				   <a class="post-thumb" href="{{$v->resourceSrc}}" data-lity>
+				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
 					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
@@ -535,7 +535,7 @@
 				</div>
 				<div class="infor">
 				   <h4>
-					  <a class="title" href="{{$v->resourceSrc}}">{{$v->vname}}</a>
+					  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
 				   </h4>
 				   <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
 				   <div class="ratings">
@@ -599,7 +599,7 @@
 			 @foreach($yljx as $v)
 			 <article class="col-lg-2 col-md-4 col-sm-6 post post-medium">
 				<div class="thumbr">
-				   <a class="post-thumb" href="{{$v->resourceSrc}}" data-lity>
+				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
 					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
@@ -607,7 +607,7 @@
 				</div>
 				<div class="infor">
 				   <h4>
-					  <a class="title" href="{{$v->resourceSrc}}">{{$v->vname}}</a>
+					  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
 				   </h4>
 				   <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
 				   <div class="ratings">
@@ -671,7 +671,7 @@
 			 @foreach($xwjx as $v)
 			 <article class="col-lg-2 col-md-4 col-sm-6 post post-medium">
 				<div class="thumbr">
-				   <a class="post-thumb" href="{{$v->resourceSrc}}" data-lity>
+				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
 					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
@@ -679,7 +679,7 @@
 				</div>
 				<div class="infor">
 				   <h4>
-					  <a class="title" href="{{$v->resourceSrc}}">{{$v->vname}}</a>
+					  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
 				   </h4>
 				   <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
 				   <div class="ratings">
