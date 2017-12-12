@@ -42,7 +42,7 @@
 
                                         <tbody>
                                             <tr class="gradeX" id="video_vid_{{ $video['vid'] }}">
-                                                <th class="am-text-middle">{{ $video['vid'] }}</th>
+                                                <th class="am-text-middle">{{ $video['aid'] }}</th>
                                                 <th>
                                                     <img src="{{ asset('/Uploads/Video/'.$video->logo) }}" class="tpl-table-line-img" alt="">
                                                 </th>
@@ -64,15 +64,36 @@
                                                         <a href="{{ url('admin/carousel/create')}}?vid={{ $video['vid'] }}" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 轮播
                                                         </a>
-                                                        <a href="{{ url('admin/carousel/create')}}?vid={{ $video['vid'] }}" class="tpl-table-black-operation-del">
+                                                        @if(empty($em))
+                                                        <a id="tj" href="javascript:;" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 推荐
                                                         </a>
+                                                        <a id="hidden" style="display: none;" href="javascript:;"class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-pencil"></i> 取消
+                                                        </a>
+                                                        @else
+                                                        <a id="tj"
+                                                        style="display: none;" 
+                                                         href="javascript:;" class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-pencil"></i> 推荐
+                                                        </a>
+                                                        <a id="hidden" href="javascript:;"class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-pencil"></i> 取消
+                                                        </a>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                         
                                     </table>
+
+
+
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -84,6 +105,82 @@
     </div>
 </body>
 </html>
+
+<!-- 推荐页 -->
+<script type="text/javascript">
+
+//点击按钮 发送推荐
+$('#tj').on('click',function()
+    {
+        //ajax发送视频编号到推荐表
+
+    $.ajax({
+        type:'post',
+        url:'/home/video/tj',
+        data:{vid:"{{ $video['vid'] }}"},
+        success:function(data)
+        {
+            layer.alert(data, {
+            skin: 'layui-layer-lan'
+            ,closeBtn: 0
+            ,anim: 2 //动画类型
+            });
+            if(data == '已推荐'){
+            //把取消按钮显示出来
+                $('#tj').css('display','none');
+                $('#hidden').css('display','');
+            }else if(data == '影片已经过期'){
+                $('#tj').css('display','none');
+                $('#hidden').css('display','');
+            }
+        }
+
+    });
+
+    });
+
+
+
+</script>
+
+
+<!-- 推荐页 -->
+<script type="text/javascript">
+
+//点击按钮取消推送
+$('#hidden').on('click',function()
+    {
+        //ajax发送视频编号到推荐表
+
+    $.ajax({
+        type:'post',
+        url:'/home/video/qx',
+        data:{vid:"{{ $video['vid'] }}"},
+        success:function(data)
+        {
+            layer.alert(data, {
+            skin: 'layui-layer-lan'
+            ,closeBtn: 0
+            ,anim: 2 //动画类型
+            });
+            if(data == '已取消'){
+            //把推荐按钮显示出来
+                $('#hidden').css('display','none');
+                $('#tj').css('display','');
+            }else if(data == '请不要重复取消'){
+                $('#hidden').css('display','none');
+                $('#tj').css('display','');
+            }
+
+        }
+
+    });
+
+    });
+
+
+
+</script>
 
 @stop
 

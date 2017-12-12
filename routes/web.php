@@ -90,6 +90,14 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//权限管理
 	Route::resource('auth','AuthController');
 
+	//导航管理
+	Route::resource('nav','NavController');
+	//导航描述 AJAX修改
+	Route::post('nav/ajaxNdesc','NavController@ajaxNdesc');
+	//导航名字 AJAX修改
+	Route::post('nav/ajaxName','NavController@ajaxName');
+	//导航路径 AJAX修改
+	Route::post('nav/ajaxNsrc','NavController@ajaxNsrc');
 
 
 		/*-----------------------------------SunnyHan-----------------------------------*/
@@ -138,6 +146,17 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 //报错路由  权限不足
 Route::get('admin/error/auth','ErrorController@auth');
 
+//视频推荐
+Route::post('home/video/tj','Home\VideoRecommendController@tj');
+//取消视频推荐
+Route::post('home/video/qx','Home\VideoRecommendController@qx');
 
-//视频推荐管理
-Route::get('home/video/first','Home\VideoRecommendController@first');
+//前台首页
+Route::get('/','Home\indexController@index');
+//前台首页搜索
+Route::get('home/search','Home\indexController@search');
+
+//播放页
+Route::get('home/play','Home\PlayController@play');
+
+

@@ -55,7 +55,7 @@
                                             <th>广告链接</th>
                                             <th>预览图</th>
                                             <th>付款</th>
-                                            
+                                            <th>状态</th>
                                             <th>开始时间</th>
                                             <th>结束时间</th>
                                             <th>操作</th>
@@ -70,7 +70,11 @@
                                             <td>{{ $v -> acontent }}</td>
                                             <td class="vimg"><img width="60" height="40" src="{{ asset('./uploads/Ad/s_') }}{{ $v->aimg }}" /></td>
                                             <td>{{ $v -> aprice }}</td>
-                                            
+                                            @if($v->status == 1)
+                                            <td style="color:#cf4;">已激活</td>
+                                            @else
+                                                <td id="xf" style="color:#58f;">请续费</td>
+                                            @endif
                                             <td>{{ date('Y-m-d',$v -> startTime) }}</td>
                                             <td>{{ date('Y-m-d', $v -> endTime )}}</td>
                                             <td>
@@ -109,6 +113,19 @@
 
             </div>
         </div>
+
+<script type="text/javascript">
+    $('#xf').on('click',function()
+        {
+           layer.alert("付费君被劫持了....", {
+            skin: 'layui-layer-lan'
+            ,closeBtn: 0
+            ,anim: 1 //动画类型
+            });
+ 
+        });
+
+</script>>
 
 <!--判断错误信息 并弹出-->
 @if(Session('msg'))
@@ -212,7 +229,7 @@
 		});
 	
 
-</script>>
+</script>
 
 
 <!--单击修改图片-->

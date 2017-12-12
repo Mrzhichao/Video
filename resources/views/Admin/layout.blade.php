@@ -275,6 +275,12 @@
 
                     </a>
                 </li>
+                 <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/nav/')}}">
+                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 导航管理
+
+                    </a>
+                </li>
                 <li class="sidebar-nav-link">
                     <a class="sidebar-nav-sub-title" href="javascript:;">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 权限模块
