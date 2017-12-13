@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Video;
 
 use App\Models\Admin\VideoType;
-
+use App\Models\Home\VideoRecommend as vr;
 use Illuminate\Database\Eloquent\Collection;
 
 use Intervention\Image\ImageManagerStatic as Image;
@@ -178,9 +178,23 @@ class VideoController extends Controller
     {
         $title='视频详情页';
 
+      
+        
         $video=Video::with('users','types')->find($id);
-        // dd($video);
-        return view('Admin.Video.detail',compact(['video','title']));
+        //dd($video);
+        // 获取推荐的内容
+        $vr = vr::get();
+
+        //判断视频是否已经推荐
+        foreach($vr as $v){
+            if(!empty($v->videoid)){
+                $em = true;
+            }else{
+                $em = false;
+            }
+        }
+
+        return view('Admin.Video.detail',compact(['video','title','em']));
     }
 
 

@@ -152,7 +152,7 @@ class CarouselController extends Controller
             return redirect('admin/carousel')->with('msg','更新添加');
         }else{
             //失败 返回上一个页面
-            return redirect('admin/carousel')->with('msg','跟新失败');
+            return redirect('admin/carousel')->with('msg','更新失败');
         }
 
     }

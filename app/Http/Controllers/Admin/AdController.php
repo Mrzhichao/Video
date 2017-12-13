@@ -26,9 +26,22 @@ class AdController extends Controller
         $namekey = empty($_GET['aname']) ? '' : $_GET['aname']; 
         
         // //查询数据库
-        $data = Advertisement::where('aname','like','%'.$namekey.'%')->paginate(8); 
+        $data = Advertisement::all();
 
-       //将查询到的用户名放进数组
+        //判断广告是否过期
+            foreach($data as $k => $v){
+                //如果结束时间比当前时间大
+                if($v['endTime'] > time()){
+                    //状态改为1
+                   Advertisement::find($v->id)->update(['status'=>1]);
+                }else{
+                     //状态改为0
+                   Advertisement::find($v->id)->update(['status'=>0]);
+                }
+               
+            }
+
+        $data = Advertisement::where('aname','like','%'.$namekey.'%')->paginate(8); 
       
         return view('Admin.Ad.index',['title'=>'广告预览','data'=>$data])->with('namekey',['aname'=>$namekey]);
 
@@ -118,9 +131,18 @@ class AdController extends Controller
         //获取数据
         $data = $request -> except('_token','aimg');
 
+        // //判断时间是否有效
+        // if( strtotime($data['startTime']) < time()){
+        //    return redirect('admin/ad/create')->with('msg','请选择有效时间');
+        // }
+        //  if( strtotime($data['endTime'] < time()){
+        //    return redirect('admin/ad/create')->with('msg','请选择有效时间');
+        // }
         //处理时间
         $data['startTime'] = strtotime($data['startTime']);
         $data['endTime'] = strtotime($data['endTime']);
+        
+
         $data['aimg'] = $filename; 
 
         $res = Advertisement::create($data);

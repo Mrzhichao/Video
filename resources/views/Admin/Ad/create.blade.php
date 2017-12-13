@@ -164,6 +164,54 @@
 </script>
 
 
+<!-- 限制投放的时间 -->
+<script type="text/javascript">
+ $('#startTime').on('change',function()
+    {
+        //获取开始时间的时间戳
+        var startTime = $('#startTime').val();
+        var timestamp = Date.parse(new Date(startTime));
+        var startstamp = timestamp / 1000;
+        //获取当前时间戳
+        var time = Date.parse(new Date());
+        time = time/1000;
+        //进行比较
+        if(time > startstamp){
+            layer.alert("选择的时间不能成为历史", {
+            skin: 'layui-layer-lan'
+            ,closeBtn: 0
+            ,anim: 2 //动画类型
+            });
+        }
+        
+
+    });
+
+
+ $('#endTime').on('change',function()
+    {
+        //获取开始时间的时间戳
+        var endTime = $('#endTime').val();
+        var time = Date.parse(new Date(endTime));
+        var endstamp = time / 1000;
+        //获取当前时间戳
+        var time = Date.parse(new Date());
+        time = time/1000;
+        //进行比较
+        if(time > endstamp){
+            layer.alert("选择的时间不能成为历史", {
+            skin: 'layui-layer-lan'
+            ,closeBtn: 0
+            ,anim: 2 //动画类型
+            });
+        }
+        
+
+    });
+
+
+</script>
+
 
 <script type="text/javascript">
 	//点击结束时间获取开始时间的值
@@ -172,8 +220,8 @@
 			//获取开始时间的时间戳
 			var startTime = $('#startTime').val();
 			var timestamp = Date.parse(new Date(startTime));
-			startstamp = timestamp / 1000;
-			//获取结束时间的时间戳
+			var startstamp = timestamp / 1000;
+		    //获取结束时间的时间戳
 			var endTime = $('#endTime').val();
 			var timestamp = Date.parse(new Date(endTime));
 			endstamp = timestamp / 1000;
