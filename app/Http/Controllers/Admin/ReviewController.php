@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\VideoReview;
-
+use App\Models\Admin\Userinfo;
 
 class ReviewController extends Controller
 {
@@ -17,22 +17,22 @@ class ReviewController extends Controller
     public function index(Request $request)
     {
         // return 111;
-        $title = '视频评论页';
-        // $data = VideoReview::get();
-        // dd($data);
-        $keywords=$request->input('keyword');
+        // $title = '视频评论页';
+        // // $data = VideoReview::get();
+        // // dd($data);
+        // $keywords=$request->input('keyword');
 
-        // $data = VideoReview::
-        // dd($data);
-        // 
-        $data= \DB::table('videoreview')
-            ->join('users', 'users.uid', '=', 'videoreview.userid')
-            ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
-            ->select('videoreview.*', 'users.uname', 'videos.vname')
-            ->where('rtitle','like',"%".$keywords."%")->Paginate(5);
-            // dd($users);
+        // // $data = VideoReview::
+        // // dd($data);
+        // // 
+        // $data= \DB::table('videoreview')
+        //     ->join('users', 'users.uid', '=', 'videoreview.userid')
+        //     ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
+        //     ->select('videoreview.*', 'users.uname', 'videos.vname')
+        //     ->where('rtitle','like',"%".$keywords."%")->Paginate(5);
+        //     // dd($users);
 
-        return view('Admin.VideoReview.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
+        // return view('Admin.VideoReview.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }
 
     /**
@@ -62,9 +62,19 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        //
+        $title = '视频评论';
+
+        $keywords=$request->input('keyword');
+         $data= \DB::table('videoreview')
+            ->join('users', 'users.uid', '=', 'videoreview.userid')
+            ->join('videos', 'videos.vid', '=', 'videoreview.videoid')
+            ->join('userinfo', 'userinfo.uiid', '=', 'videoreview.userinfoid')
+            ->select('videoreview.*', 'users.uname', 'videos.vname','userinfo.nickname')
+            ->where('vid',$id)->where('pid',0)->where('rtitle','like',"%".$keywords."%")->Paginate(5);
+        // dd($data);
+       return view('Admin.Review.index',['title'=>$title,'id'=>$id,'data'=>$data,'where'=>['keyword'=>$keywords]]);
     }
 
     /**

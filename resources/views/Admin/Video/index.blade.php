@@ -30,14 +30,15 @@
                                     <div class="am-form-group tpl-table-list-select">
                                         <select data-am-selected="{btnSize: 'sm'}" id='type' name='type' >
                                           <option value="0">所有类型</option>
-                                          @if( !empty($where) )
-                                          @foreach($types as $type)
-                                            @if($type['vtid'] == $where['type'])
-                                                <option value="{{ $type['vtid'] }}" selected >{{ $type['vtname'] }}</option>
-                                            @elseif
-                                                <option value="{{ $type['vtid'] }}">{{ $type['vtname'] }}</option>
+                                          @foreach ($types as $type)
+                                            @if( !empty($where) )
+                                                  @if( $type['vtid'] == $where['type'])
+                                                    <option value="{{ $type['vtid'] }}" selected >{{ $type['vtname'] }}</option>
+                                                  @else 
+                                                    <option value="{{ $type['vtid'] }}">{{ $type['vtname'] }}</option>
+                                                  @endif
+                                            @endif    
                                           @endforeach
-                                          @endif
                                         </select>
                                     </div>
                                 </div>
@@ -46,7 +47,7 @@
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                                          @if( !empty($where) )
                                             <input type="text" class="am-form-field" name='search' value="" placeholder="{{$where['search']}}">
-                                        @elseif
+                                        @else 
                                             <input type="text" class="am-form-field" name='search' value="" placeholder="关键字|视频名称">
                                         @endif
                                         <span class="am-input-group-btn">

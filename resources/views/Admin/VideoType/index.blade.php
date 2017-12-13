@@ -115,14 +115,6 @@
 </html> 
 
 <script type='text/javascript'>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
-
-<script type='text/javascript'>
 
     //排序
     function changeOrder(obj,vtid){

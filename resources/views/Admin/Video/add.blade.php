@@ -213,7 +213,7 @@
                 alert(projectionTime);
 
             if ( projectionTime != '' && publicTime != '') {
-                alert(2)
+                // alert(2)
                 $.post("{{url('admin/video/time')}}",{
                     '_token':"{{csrf_token()}}",
                     "publicTime":publicTime,

@@ -205,12 +205,12 @@
             contentType: false,
             processData: false,
             success: function(data) {
-            img.attr('src','/Uploads/Video/'+data);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("上传失败，请检查网络后重试");
-            }
-        });
+                img.attr('src','/Uploads/Video/'+data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("上传失败，请检查网络后重试");
+                }
+            });
     }    
 
 </script>

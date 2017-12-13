@@ -38,6 +38,7 @@
                                                 <th>昵称</th>
                                                 <th>真是姓名</th>
                                                 <th>身份证号</th>
+                                                <th>用户积分</th>
                                                 <th>QQ</th>
                                                 <th>操作</th>
                                             </tr>
@@ -48,6 +49,7 @@
                                                 <td class="am-text-middle">{{ $data->nickname}}</td>
                                                 <td class="am-text-middle">{{ $data ->realname }}</td>
                                                 <td class="am-text-middle">{{ $data -> cardid}}</td>
+                                                <td class="am-text-middle">{{ $data -> score}}</td>
                                                 <td class="am-text-middle">{{ $data -> qq}}</td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
