@@ -96,6 +96,9 @@
                                                         <a href="{{ url('admin/video/'.$ob->vid) }}" class="tpl-table-black-operation-del" id='del'>
                                                             <i class="am-icon-pencil"></i> 详情
                                                         </a>
+                                                        <a href="{{ url('admin/videoreview/'.$ob->vid) }}" class="tpl-table-black-operation-del" id='del'>
+                                                            <i class="am-icon-pencil"></i> 查看评论
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>

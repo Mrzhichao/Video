@@ -118,14 +118,9 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	Route::post('videotype/changeorder','VideoTypeController@changeOrder');
 
 
-
-
 	//系统配置管理
 	Route::resource('sysconfig','SysconfigController');
 	Route::post('contentchange','SysconfigController@contentchange');
-
-
-
 
 	//友情链接管理
 	Route::resource('link','LinkController');
@@ -141,3 +136,28 @@ Route::get('admin/error/auth','ErrorController@auth');
 
 //视频推荐管理
 Route::get('home/video/first','Home\VideoRecommendController@first');
+
+//前台登录页面
+Route::get('home/login','Home\LoginController@Login');
+Route::post('home/dologin','Home\LoginController@doLogin');
+
+//前台手机邮箱注册路由
+Route::get('home/phoneregister','Home\RegisterController@PhoneRegister');
+//执行注册
+Route::post('home/dophoneregister','Home\RegisterController@doPhoneRegister');
+//发送验证码路由ajax
+Route::post('home/sendcode','Home\RegisterController@Sendcode');
+//邮箱激活
+Route::get('home/active','Home\RegisterController@Email');
+//忘记密码
+Route::get('home/forget','Home\RegisterController@Forget');
+//发送忘记密码邮件
+Route::post('home/doforget','Home\RegisterController@doForget');
+//重置密码
+Route::get('home/reset','Home\RegisterController@Reset');
+//修改密码
+Route::post('home/doreset','Home\RegisterController@doReset');
+
+//个人中心路由
+Route::resource('home/userinfo','Home\UserinfoController');
+
