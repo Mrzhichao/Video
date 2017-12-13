@@ -240,7 +240,9 @@ class VideoController extends Controller
              $input['projectionTime']=strtotime($request->projectionTime); 
         }
 
-        $res = Video::find($vid)->update($input);
+        $video=Video::find($vid);
+        $res = $video->update($input);
+
         if($res){
             return redirect('admin/video');
         }else{
@@ -365,7 +367,7 @@ class VideoController extends Controller
                    
                     if( unlink(public_path().'/Uploads/Video/'.$oldImge) &&  unlink(public_path().'/Uploads/Video/small_'.$oldImge) ){
                         //修改数据库
-                        Video::find($id) -> update(['logo'=>$newName]); 
+                        $video -> update(['logo'=>$newName]); 
                     }  
                 }
             }

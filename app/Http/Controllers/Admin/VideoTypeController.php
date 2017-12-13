@@ -52,31 +52,29 @@ class VideoTypeController extends Controller
     {
         //验证
         $this->validate(
-                        $request, 
-                        [
+            $request, 
+            [
+                'pid' => 'required',
 
-                            'pid' => 'required',
+                'vtname' => 'required|regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u|between:1,5',  //只允许数字和字母
+                'uname'=>'required|regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u|between:1,5',
 
-                            'vtname' => 'required|regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u|between:1,5',  //只允许数字和字母
-                            'uname'=>'required|regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u|between:1,5',
+                'reason'=>'required',
+            ],
 
-                            'reason'=>'required',
-                        ],
+            [
+                'pid.required'=>'所属类型为必选项',
 
-                        [
-                            
-                            'pid.required'=>'所属类型为必选项',
+                'vtname.required'=>'视频类型名称为必选项',
+                'vtname.regex'=>'视频类型名称只允许数字和字母',
+                'vtname.between'=>'视频类型名称只能为1--5位的名称',
 
-                            'vtname.required'=>'视频类型名称为必选项',
-                            'vtname.regex'=>'视频类型名称只允许数字和字母',
-                            'vtname.between'=>'视频类型名称只能为1--5位的名称',
+                'uname.required'=>'视频类型上传者为必选项',
+                'uname.regex'=>'视频类型上传者只允许数字和字母',
+                'uname.between'=>'视频类型上传者只能为1--5位的名称',
 
-                            'uname.required'=>'视频类型上传者为必选项',
-                            'uname.regex'=>'视频类型上传者只允许数字和字母',
-                            'uname.between'=>'视频类型上传者只能为1--5位的名称',
-
-                            'reason.required'=>'视频类型添加理由不能为空',
-                        ]
+                'reason.required'=>'视频类型添加理由不能为空',
+            ]
         );
 
         $input = $request->except('_token');

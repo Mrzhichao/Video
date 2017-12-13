@@ -1,63 +1,135 @@
 @extends('Admin.layout')
 
 @section('content')
-    <!--面包屑导航 开始-->
-    <div class="crumb_warp">
-        <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">商品管理</a> &raquo; 添加商品
-    </div>
-    <!--面包屑导航 结束-->
 
-	<!--结果集标题与导航组件 开始-->
-	<div class="result_wrap">
-        <div class="result_title">
+   <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
 
-                <div class="alert alert-danger">
-                    <ul>
-                       @if(session('msg'))
-                            <li style="color:red">{{session('msg')}}</li>
-                           @endif
-                    </ul>
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span>配置管理&nbsp;&nbsp;&nbsp;&nbsp;<small>配置修改</small></div>
+                    </div>
                 </div>
 
-        </div>
-        <div class="result_content">
-            <div class="short_wrap">
-                <a href="#"><i class="fa fa-plus"></i>新增文章</a>m
-                <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-                <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+            </div>
+
+            <div class="row-content am-cf">
+
+
+                <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul style="color:red;">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                                </ul>
+                            </div>
+                             @endif
+
+                            <div class="widget-body am-fr">   
+                              
+                                <form action="{{ url('admin/sysconfig/'.$config['conf_id']) }}" class="am-form tpl-form-line-form" method='post' enctype="multipart/form-data" id="art_form"> 
+                                    {{ csrf_field() }}
+                                    {{method_field('put')}}
+
+                                    <table class="add_tab" style="background:#4B5357;color:white;">         
+                                        <tr>
+                                            {{csrf_field()}}
+                                            <th><i class="require"></i>标题：</th>
+                                            <td>
+                                                <input type="text" name="conf_title" style="color:black;" placeholder="{{ $config['conf_title'] }}""  value="{{config('webconfig.web_title')}}">
+                                                <span style="color:white;" ><i class="fa fa-exclamation-circle yellow" ></i>配置项标题必须填写</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><i class="require"></i>名称：</th>
+                                            <td>
+                                                <input type="text" name="conf_name" placeholder="{{ $config['conf_name'] }}" style="color:black;">
+                                                <span  style="color:white;"><i class="fa fa-exclamation-circle yellow"></i>配置项名称必须填写</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><i class="require"></i>内容：</th>
+                                            <td>
+                                                <input type="text" name="conf_content" placeholder="{{ $config['conf_content'] }}" style="color:black;">
+                                                <span  style="color:white;"><i class="fa fa-exclamation-circle yellow"></i>配置项内容必须填写</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>类型：</th>
+                                            <td>
+                                                <input type="radio" name="field_type" value="input" style="color:white;" checked onclick="showTr(this)">input　
+                                                <input type="radio" name="field_type" value="textarea" style="color:white;" onclick="showTr(this)">textarea　
+                                                <input type="radio" name="field_type" value="radio" style="color:white;" onclick="showTr(this)">radio
+                                            </td>
+                                        </tr>  
+                                            <tr class="field_value" style="display: none">
+                                                <th>类型值：</th>
+                                                <td>
+                                                    <input type="text" class="lg" name="field_value" style="color:black;">
+                                                    <p style="color:white;"><i class="fa fa-exclamation-circle yellow"></i>类型值只有在radio的情况下才需要配置，格式 1|开启,0|关闭</p>
+                                                </td>
+                                            </tr>
+                                        <tr>
+                                            <th>排序：</th>
+                                            <td>
+                                                <input type="text" class="sm" name="conf_order" value="" placeholder="{{ $config['conf_order'] }}" style="color:black;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>说明：</th>
+                                            <td>
+                                                <textarea id="" cols="10" name="conf_tips" style="color:black;">{{ $config['conf_tips'] }}</textarea>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                 
+                                            <td colspan='6'>
+                                                <input type="submit" style="color:white;height:40px" value="提交">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    <!--结果集标题与导航组件 结束-->
-    
-    <div class="result_wrap">
-        <form action="{{url('admin/user/'.$user->user_id)}}" method="post">
-            <table class="add_tab">
-                <tbody>
-                    <tr>
-                        {{--token认证--}}
-                        {{csrf_field()}}
-                        {{--<input type="hidden" name="_token" value="{{csrf_token()}}">--}}
-                        {{--提交方式为put--}}
-                        {{method_field()}}
-                        {{--<input type="hidden" name="_method" value="put">--}}
-                        <th><i class="require">*</i>用户名：</th>
-                        <td>
-                            <input type="text" class="lg" name="user_name" value="{{$user->user_name}}">
-                            <p>标题可以写30个字</p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="submit" value="提交">
-                            <input type="button" class="back" onclick="history.go(-1)" value="返回">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
     </div>
-@endsection
+</body>
+</html>
+
+<script type='text/javascript'>
+
+    function showTr(obj){
+        switch($(obj).val()){
+            case 'input':
+                $('.field_value').hide();
+                break;
+            case 'textarea':
+                $('.field_value').hide();
+                break;
+
+            case 'radio':
+                $('.field_value').show();
+        }
+    }
+
+</script>
+
+@stop

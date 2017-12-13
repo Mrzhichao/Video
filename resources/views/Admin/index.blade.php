@@ -7,94 +7,43 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页 <small>Amaze UI</small></div>
-                        <p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
-                    </div>
-                    <div class="am-u-lg-3 tpl-index-settings-button">
-                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 后台首页 </div>
                     </div>
                 </div>
 
             </div>
 
-            <div class="row-content am-cf">
-                <div class="row  am-cf">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">月度财务收支计划</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body am-fr">
-                                <div class="am-fl">
-                                    <div class="widget-fluctuation-period-text">
-                                        ￥61746.45
-                                        <button class="widget-fluctuation-tpl-btn">
-                        <i class="am-icon-calendar"></i>
-                        更多月份
-                      </button>
-                                    </div>
-                                </div>
-                                <div class="am-fr am-cf">
-                                    <div class="widget-fluctuation-description-amount text-success" am-cf>
-                                        +￥30420.56
-
-                                    </div>
-                                    <div class="widget-fluctuation-description-text am-text-right">
-                                        8月份收入
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-primary am-cf">
-                            <div class="widget-statistic-header">
-                                本季度利润
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    ￥27,294
-                                </div>
-                                <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
-                                </div>
-                                <span class="widget-statistic-icon am-icon-credit-card-alt"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-purple am-cf">
-                            <div class="widget-statistic-header">
-                                本季度利润
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    ￥27,294
-                                </div>
-                                <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
-                                </div>
-                                <span class="widget-statistic-icon am-icon-support"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row am-cf">
                     <div class="am-u-sm-12 am-u-md-8">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">月度财务收支计划</div>
+                                <div class="widget-title am-fl">系统基本信息</div>
                                 <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body-md widget-body tpl-amendment-echarts am-fr" id="tpl-echarts">
+                                    <ul>
+                                        <li class="am-progress-title">
+                                            <label>操作系统</label><span>WINNT</span>
+                                        </li>
+                                        <li class="am-progress-title">
+                                            <label>运行环境</label><span>{{$_SERVER['SERVER_SOFTWARE']}}</span>
+                                        </li>
+                                        <li class="am-progress-title">
+                                            <label>PHP运行方式</label><span>apache2handler</span>
+                                        </li>
 
+                                        <li class="am-progress-title">
+                                            <label>上传附件限制</label><span><?php echo get_cfg_var("upload_max_filesize")?get_cfg_var("upload_max_filesize"):"不允许上传";?></span>
+                                        </li>
+                                        <li class="am-progress-title">
+                                            <label>北京时间</label><span>{{date('Y-m-d H:i:s')}}</span>
+                                        </li>
+                                        <li class="am-progress-title">
+                                            <label>服务器域名/IP</label><span>{{$_SERVER['SERVER_NAME']}} [{{$_SERVER['SERVER_ADDR']}}  ]</span>
+                                        </li>
+                                        <li class="am-progress-title">
+                                            <label>Host</label><span>{{$_SERVER['SERVER_ADDR']}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -113,34 +62,34 @@
                                 <div class="am-progress">
                                     <div class="am-progress-bar" style="width: 15%"></div>
                                 </div>
+
                                 <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
                                 <div class="am-progress">
                                     <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
                                 </div>
+
                                 <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
                                 <div class="am-progress">
                                     <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
 
-
                 <div class="row am-cf">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-4 widget-margin-bottom-lg ">
                         <div class="tpl-user-card am-text-center widget-body-lg">
                             <div class="tpl-user-card-title">
-                                禁言小张
+                                
                             </div>
                             <div class="achievement-subheading">
-                                月度最佳员工
+
                             </div>
-                            <img class="achievement-image" src="Admin/assets/img/user07.png" alt="">
+                            <img class="achievement-image" style='width:220px' src="{{ asset('/Uploads/Admin/'.$admin->avatar) }}" alt="">
                             <div class="achievement-description">
-                                禁言小张在
-                                <strong>30天内</strong> 禁言了
-                                <strong>200多</strong>人。
+                                
                             </div>
                         </div>
                     </div>
@@ -154,7 +103,7 @@
                                     <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
                                         <thead>
                                             <tr>
-                                                <th>文章标题</th>
+                                                <th>标题</th>
                                                 <th>作者</th>
                                                 <th>时间</th>
                                                 <th>操作</th>
@@ -236,7 +185,6 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
 
                                             <!-- more data -->
                                         </tbody>

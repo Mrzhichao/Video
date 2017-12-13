@@ -26,6 +26,8 @@
 	// Route::get('/',function(){
 	// 	return view('Admin.index',['title'=>'后台首页']);
 	// });
+	
+
 
 Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespace'=>'Admin'],function (){
 
@@ -100,10 +102,9 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	Route::post('nav/ajaxNsrc','NavController@ajaxNsrc');
 
 
-		/*-----------------------------------SunnyHan-----------------------------------*/
+	/*-----------------------------------SunnyHan-----------------------------------*/
 	//视频管理
 	Route::resource('video','VideoController');
-
 
 	//视频ajax无刷新排序
 	Route::post('video/changeorder','VideoController@changeOrder');
@@ -121,14 +122,26 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//视频类别管理
 	Route::resource('videotype','VideoTypeController');
 
-
 	//视频类别无刷新排序
 	Route::post('videotype/changeorder','VideoTypeController@changeOrder');
 
 
 	//系统配置管理
 	Route::resource('sysconfig','SysconfigController');
-	Route::post('contentchange','SysconfigController@contentchange');
+
+
+	Route::post('sysconfig/changeorder','SysconfigController@changeOrder');
+
+	Route::post('sysconfig/putfile','SysconfigController@putFile');
+
+	Route::post('sysconfig/contentchange','SysconfigController@contentChange');
+
+	Route::post('sysconfig/status/ajax/update','SysconfigController@config_status_ajax_update');
+
+	Route::post('sysconfig/content/ajax/update','SysconfigController@config_content_ajax_update');
+
+	Route::post('sysconfig/delmore','SysconfigController@delmore');
+
 
 	//友情链接管理
 	Route::resource('link','LinkController');
@@ -184,3 +197,9 @@ Route::post('home/doreset','Home\RegisterController@doReset');
 Route::resource('home/userinfo','Home\UserinfoController');
 
 
+//前台
+Route::group(['prefix'=>'home','namespace'=>'Home'],function (){
+	Route::resource('video','VideoController');
+    Route::post('video/type/ajax','VideoController@type_ajax');
+    Route::post('video/type/detail','VideoController@detail');
+});

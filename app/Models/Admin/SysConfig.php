@@ -10,7 +10,7 @@ class SysConfig extends Model
    	public $table = 'system';
 
    	//声明数据表的主键
-   	public $primaryKey = 'sid';
+   	public $primaryKey = 'conf_id';
 
    	//过滤默认的字段
    	public $timestamps = false;

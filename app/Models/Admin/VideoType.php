@@ -19,6 +19,11 @@ class VideoType extends Model
  
     public $guarded = [];
 
+    public function video()
+    {
+        return $this->hasMany('App\Models\Admin\Video', 'typeid');
+    }
+
     public  function tree()
     {
         $cates = $this->orderBy('order_sort','asc')->get();
