@@ -224,7 +224,7 @@
                <li class="person">
                   <a href="#">个人资料</a>
                   <ul>
-                     <li class="active"> <a href="information.html">个人信息</a></li>
+                     <li class="active"> <a href="">个人信息</a></li>
                      <li> <a href="safety.html">安全设置</a></li>
                      <li> <a href="address.html">收货地址</a></li>
                   </ul>
@@ -245,15 +245,7 @@
                   </ul>
                </li>
 
-               <li class="person">
-                  <a href="#">我的小窝</a>
-                  <ul>
-                     <li> <a href="collection.html">收藏</a></li>
-                     <li> <a href="foot.html">足迹</a></li>
-                     <li> <a href="comment.html">评价</a></li>
-                     <li> <a href="news.html">消息</a></li>
-                  </ul>
-               </li>
+               
 
             </ul>
 
