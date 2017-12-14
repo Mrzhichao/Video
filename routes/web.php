@@ -159,4 +159,7 @@ Route::get('home/search','Home\indexController@search');
 //播放页
 Route::get('home/play','Home\PlayController@play');
 
+//上传调试
+Route::post('home/test','Home\UploadController@index');
+
 

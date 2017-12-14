@@ -49,8 +49,9 @@
             <li><a href="contact.html">更多</a></li>
           </ul>
           <ul class="social">
-            <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
-            <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
+            <li class="social-facebook" id="up"><a href="javascript:;" class="fa fa-upload social-icons"></a></li>
+            <!-- 上传按钮 -->
+            <li class="social-google-plus"  ><a href="#" class="fa fa-download social-icons"></a></li>
             <li  class="social-youtube" >  <a target="_self" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1239099896:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
             <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
             <li class="social-rss"><a href="#" class="fa fa-rss social-icons"></a></li>
@@ -65,7 +66,6 @@
       </nav>
    </div>
  </div>
-
 
 <!-- 广告 -->
 <div style="position: fixed; z-index: 10001; bottom: 0;right:0;" id="ad_rightBottom"><a onclick="document.getElementById('ad_rightBottom').style.display='none'" href="javascript:void(0);" style="position:absolute;top:-15px;left:0;">关闭</a><a target="_blank" href="http://www.jiang.com/?pid=10038"><img src="http://gg.kkcaicai.com:8080/300x250-4.gif"></a></div>
@@ -141,6 +141,7 @@
 <script src="{{url('Home/js/velocity.js')}}"></script>
 <script src="{{url('Home/js/shutter.js')}}"></script>
 <script type="text/javascript" src="{{url('hivideo/assets/hivideo.js')}}"></script>
+<script src="{{asset('layer/layer.js')}}"></script>
 <script>
  $(".nav .dropdown").hover(function() {
    $(this).find(".dropdown-toggle").dropdown("toggle");
@@ -185,4 +186,55 @@
 </div>
 </body>
 </html>
+<form action="" method="post" id="form" enctype="multipart/form-data">
+  <input type="file" name="upload" id="aa" style="display: none;">
+  
+</form>
+<!-- 文件上传 -->
+<script type="text/javascript">
+  $('#up').on('click',function(){
+    $('#aa').click();
+  });
+  $('#aa').on('change',function(){
+        uploadImage();
+      });
+
+function uploadImage() {
+
+        var formData = new FormData();
+        formData.append('upload', $('#aa')[0].files[0]);
+        formData.append('_token', "{{csrf_token()}}");
+        // var formData = new FormData($('#form')[0]);
+        // console.log(formData);
+        $.ajax({
+        type: "POST",
+        url: "/home/test",
+        data:formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+           layer.alert("{{session('msg')}}", {
+            skin: 'layui-layer-lan'
+            ,closeBtn: 0
+            ,anim: 2 //动画类型
+            });
+       
+        },
+        beforeSend:function(){
+                    // 菊花转转图
+                    $('#pic').attr('src', '/Uploads/load.gif');
+                },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+             alert("上传失败，请检查网络后重试");
+        }
+        })
+      }    
+
+
+
+</script>
+
+
 @show

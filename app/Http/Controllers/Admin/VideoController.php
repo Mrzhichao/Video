@@ -12,8 +12,20 @@ use Illuminate\Database\Eloquent\Collection;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
+
+use FFMpeg\FFMpeg;
+use FFMpeg\FFProbe;
+use FFMpeg\Coordinate\TimeCode;
+use FFMpeg\Coordinate\Dimension;
+use FFMpeg\Filters\Video\ResizeFilter;
+
 class VideoController extends Controller
 {
+    //视频名字
+     public $filename;
+    //图片名字
+     public $logo;
+
 
     /**
      *  视频首页
@@ -102,7 +114,7 @@ class VideoController extends Controller
                 'publicTime' => 'required',
                 'projectionTime' => 'required',
 
-                'logo'=>'required',
+                //'logo'=>'required',
                 'keywords'=>'required',
                 'resourceSrc'=>'required',
                 'introduction'=>'required',
@@ -116,34 +128,34 @@ class VideoController extends Controller
                 'publicTime.required'=>'视频上映时间为必选项',
                 'projectionTime.required'=>'视频下映时间为必选项',
                 
-                'logo.required'=>'必须上传视频图片',
+                //'logo.required'=>'必须上传视频图片',
                 'keywords.required'=>'视频关键词不能为空',
                 'resourceSrc.required'=>'视频路径不能为空',
                 'introduction.required'=>'视频简介不能为空',
             ]
         );
 
-        //判断是否有上传
-        if($request->hasFile("logo")){
-            //获取上传信息
-            $file = $request->file("logo");
-            //确认上传的文件是否成功
-            if($file->isValid()){
-                //$picname = $file->getClientOriginalName(); //获取上传原文件名
-                $ext = $file->getClientOriginalExtension(); //获取上传文件名的后缀名
-                //执行移动上传文件
-                $filename = time().rand(1000,9999).".".$ext;
-
-                $file->move("./Uploads/Video/",$filename);
+        // //判断是否有上传
+        // if($request->hasFile("resourceSrc")){
+        //     //获取上传信息
+        //     $file = $request->file("resourceSrc");
+        //     //确认上传的文件是否成功
+        //     if($file->isValid()){
+        //         //$picname = $file->getClientOriginalName(); //获取上传原文件名
+        //         $ext = $file->getClientOriginalExtension(); //获取上传文件名的后缀名
+        //         //执行移动上传文件
+        //         $filename = $this->filename;
+        //         //清空
+        //         $this->filename = '';
+        //         $file->move("./Uploads/Video/",$filename);
               
-                $img = Image::make("./Uploads/Video/".$filename)->resize(100,100);
+        //         // $img = Image::make("./Uploads/Video/".$filename)->resize(100,100);
 
-                $img->save("./Uploads/Video/v_".$filename); //另存为
-            }
-        }
+        //         // $img->save("./Uploads/Video/v_".$filename); //另存为
+        //     }
+        // }
     
-        $input = $request->except('_token','art_thumb');
-        
+        $input = $request->except('_token','art_thumb','logo','resourceSrc');
         $input['userid']=Session('user')->aid;
         $input['uname']=Session('user')->aname;
         $input['type_order']=1;
@@ -154,9 +166,11 @@ class VideoController extends Controller
         $input['vscores']=100;
         $input['publicTime']=strtotime($request->publicTime);
         $input['projectionTime']=strtotime($request->projectionTime);
-        $input['logo'] = $filename;
+        $input['resourceSrc'] = \Session::get('filename');
+        $input['logo'] = \Session::get('logo');
+        \Session::put('filename','');
+        \Session::put('logo','');
         $input['type_order']=1;
-
         $res = Video::create($input);
 
         if($res){
@@ -225,7 +239,7 @@ class VideoController extends Controller
      */
     public function update(Request $request, $vid)
     {
-        $input = $request->except('_token','_method','vimg');
+        $input = $request->except('_token','_method','vimg','logo');
         
         //过滤掉空数据
         foreach($input as $k=>&$v){
@@ -239,7 +253,10 @@ class VideoController extends Controller
         if( !empty($request->projectionTime) ){
              $input['projectionTime']=strtotime($request->projectionTime); 
         }
-
+        $input['logo'] = \Session::get('logo');
+        $input['resourceSrc'] = \Session::get('filename');
+        \Session::put('filename');
+        \Session::put('logo');
         $res = Video::find($vid)->update($input);
         if($res){
             return redirect('admin/video');
@@ -272,7 +289,7 @@ class VideoController extends Controller
 
         return $data;
     }
-
+   
 
     /**
      *  ajax排序操作
@@ -348,12 +365,38 @@ class VideoController extends Controller
         if($file->isValid()){
             $entension = $file->getClientOriginalExtension();//上传文件的后缀名
             $newName = time().mt_rand(1000,9999).'.'.$entension;
-            //上传到本地服务器的方法
-            $path = $file->move(public_path().'/Uploads/Video/',$newName);
 
-            //压缩图片
-            $img = Image::make("./Uploads/Video/".$newName)->resize(100,100);
-            $img->save("./Uploads/Video/small_".$newName); //另存为
+
+
+
+            //上传到本地服务器的方法
+          
+
+              // 拼装文件名
+            \Session::put('filename',$newName);
+ 
+
+            \Session::put('logo',strstr(\Session::get('filename'),'.',-1).'.jpg');
+            $ffmpeg = FFMpeg::create(
+                [
+                'ffmpeg.binaries'  => '../vendor/bin/ffmpeg/bin/ffmpeg.exe',
+                'ffprobe.binaries' => '../vendor/bin/ffprobe.exe' ,
+                'timeout'=> 3600, // The timeout for the underlying process
+                'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
+            ],null
+                );
+            //打开视频
+            $video = $ffmpeg->open($file);
+            //截取第10秒的片
+            $video
+                ->frame(TimeCode::fromSeconds(4))
+                ->save(public_path().'/uploads/Video/'.\Session::get('logo'));
+
+
+             $file->move(public_path().'/uploads/Video/',\Session::get('filename'));
+            // //压缩图片
+            // $img = Image::make("./Uploads/Video/".$newName)->resize(100,100);
+            // $img->save("./Uploads/Video/small_".$newName); //另存为
 
             //移动成功后 修改数据库并删除老图片
             $video = Video::find($id);
@@ -361,17 +404,18 @@ class VideoController extends Controller
             if($video){
                 //如果文件存在就删除
                 $oldImge=$video->logo;
-                if(file_exists(public_path().'/Uploads/Video/'.$oldImge)){
+                $oldSP = $video->resourceSrc;
+                if(file_exists(public_path().'/uploads/Video/'.$oldImge)){
                    
-                    if( unlink(public_path().'/Uploads/Video/'.$oldImge) &&  unlink(public_path().'/Uploads/Video/small_'.$oldImge) ){
+                    if( unlink(public_path().'/uploads/Video/'.$oldImge) &&  unlink(public_path().'/Uploads/Video/'.$oldSP) ){
                         //修改数据库
-                        Video::find($id) -> update(['logo'=>$newName]); 
+                        Video::find($id) -> update(['logo'=>\Session::get('logo'),'resourceSrc'=>\Session::get('filename')]); 
                     }  
                 }
             }
            
             //将上传文件的路径返回给浏览器客户端
-            return $newName;
+            return \Session::get('logo');
         }
 
     }
@@ -389,7 +433,7 @@ class VideoController extends Controller
         // $old_img=$require->input('old_img');
         // dd($old_img);
 
-        $file = $request->file('logo');
+        $file = $request->file('resourceSrc');
         // 验证
         $check = $this->checkFile($file);
         if(!$check['status']){
@@ -398,19 +442,38 @@ class VideoController extends Controller
         // 获取文件路径
         $transverse_pic = $file->getRealPath();
         // public路径
-        $path = public_path().'/Uploads/Video/';
+        $path = public_path().'/uploads/Video/';
         // 获取后缀名
         $postfix = $file->getClientOriginalExtension();
         // 拼装文件名
-        $fileName = md5(time().rand(0,10000)).'.'.$postfix;
+        \Session::put('filename',md5(time().rand(0,10000)).'.'.$postfix);
+ 
+
+         \Session::put('logo',strstr(\Session::get('filename'),'.',-1).'.jpg');
+            $ffmpeg = FFMpeg::create(
+                [
+                'ffmpeg.binaries'  => '../vendor/bin/ffmpeg/bin/ffmpeg.exe',
+                'ffprobe.binaries' => '../vendor/bin/ffprobe.exe' ,
+                'timeout'=> 3600, // The timeout for the underlying process
+                'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
+            ],null
+                );
+            //打开视频
+            $video = $ffmpeg->open($file);
+            //截取第10秒的片
+            $video
+                ->frame(TimeCode::fromSeconds(4))
+                ->save($path.\Session::get('logo'));
+
+
         // 移动
-        if(!$file->move($path,$fileName)){
+        if(!$file->move($path,\Session::get('filename'))){
             return response()->json(['ServerStatus' => '400','ResultData' => '文件保存失败']);
         }
         // 删除之前的图片文件
         
         //if(unlink('old_img')){
-            return response()->json(['ServerStatus' => '200','ResultData' => $fileName]);
+            return response()->json(['ServerStatus' => '200','ResultData' => \Session::get('logo')]);
         // }
 
     }
