@@ -759,10 +759,7 @@
 					 @endforeach
 		  </div>
 	   </section>
-	
-	  
+
 <div class="clearfix spacer"></div>
-
-
 
 @stop

@@ -178,8 +178,6 @@ class VideoController extends Controller
     {
         $title='视频详情页';
 
-      
-        
         $video=Video::with('users','types')->find($id);
         //dd($video);
         // 获取推荐的内容

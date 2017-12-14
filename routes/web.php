@@ -196,10 +196,12 @@ Route::post('home/doreset','Home\RegisterController@doReset');
 //个人中心路由
 Route::resource('home/userinfo','Home\UserinfoController');
 
+Route::get('home/video/status','Home\VideoController@status');
 
 //前台
 Route::group(['prefix'=>'home','namespace'=>'Home'],function (){
 	Route::resource('video','VideoController');
+
     Route::post('video/type/ajax','VideoController@type_ajax');
     Route::post('video/type/detail','VideoController@detail');
 });

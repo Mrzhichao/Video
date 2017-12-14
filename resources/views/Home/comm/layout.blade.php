@@ -8,6 +8,10 @@
 <meta name="author" content="OrcasThemes">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>@yield('title')</title>
+
+<link rel="stylesheet" href="{{asset('Home/common/css/style.css')}}">
+<link rel="stylesheet" href="{{asset('Home/common/css/comment.css')}}">
+
 <!-- Bootstrap core CSS -->
 <link href="{{url('Home/css/bootstrap.css')}}" rel="stylesheet">
 <!-- Custom styles for this template -->
@@ -23,6 +27,21 @@
 <link rel="stylesheet" href="/Home/css/ie.css" type="text/css" media="screen, projection">
 <![endif]-->
 <link href="{{url('Home/css/lity.css')}}" rel="stylesheet">
+
+<!-- <link href="{{asset('Home/css/lity.css')}}" rel="stylesheet"> -->
+<link rel="stylesheet" id="main-css" href="http://www.ff6.wang/static/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{{ asset('Home/jd/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('Home/jd/css/reset.css') }}">
+<link rel="stylesheet" href="{{ asset('Home/jd/css/style.css') }}"> 
+
+
+
+<script src="{{ asset('Home/jd/js/jquery.min.js') }}"></script>
+<script src="{{asset('Layer/layer.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('Home/common/js/jquery-1.12.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('Home/common/js/jquery.flexText.js')}}"></script>
+
 </head>
 @show
 
@@ -42,10 +61,11 @@
         </div>
         <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
           <ul class="nav navbar-nav">
-          <li><a href="{{url('home/index')}}">首页</a></li>
+          <li><a href="{{url('/')}}">首页</a></li>
             @foreach($nav as $k=>$v)
-            <li><a href="{{$v->resourceSrc}}/{{$v->pid}}">{{$v->nname}}</a></li>
+            <li><a href="{{$v->resourceSrc}}?pid={{$v->pid}}">{{$v->nname}}</a></li>
             @endforeach
+            <li><a href="{{url('home/video/status')}}">视频搜索页</a></li>
             <li><a href="contact.html">更多</a></li>
           </ul>
           <ul class="social">
