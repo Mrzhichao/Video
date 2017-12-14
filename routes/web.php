@@ -168,7 +168,6 @@ Route::get('home/search','Home\indexController@search');
 Route::get('home/play','Home\PlayController@play');
 
 
-
 //视频推荐管理
 Route::get('home/video/first','Home\VideoRecommendController@first');
 
@@ -197,6 +196,10 @@ Route::post('home/doreset','Home\RegisterController@doReset');
 Route::resource('home/userinfo','Home\UserinfoController');
 
 Route::get('home/video/status','Home\VideoController@status');
+Route::get('home/video/vip','Home\VideoController@vip');
+
+//vip播放页
+Route::get('home/vip_play','Home\PlayController@vip_play');
 
 //前台
 Route::group(['prefix'=>'home','namespace'=>'Home'],function (){

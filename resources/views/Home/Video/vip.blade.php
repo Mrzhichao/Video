@@ -126,26 +126,6 @@
 
                                           <dl class="relative clearfix">
                                              <dt class="floatLeft">
-                                                <a href="/">类型:</a>
-                                             </dt>
-                                             <dd class="floatLeft show-con">
-
-                                                   @foreach($data as $k=>$v)    
-                                                      <a href="/" class="" id='href'>{{$v['vtname']}}</a>
-                                                   @endforeach
-
-                                                   <a href="/" class="" id='href'>其他</a>
-                                              </dd>
-                                              <dd class="floatLeft show-more">
-                                                 <h3 class="pointer clearfix">
-                                                   <span id="href">更多</span>
-                                                   <i class="icon-angle-down"></i>
-                                                 </h3>
-                                              </dd>
-                                          </dl>
-
-                                          <dl class="relative clearfix">
-                                             <dt class="floatLeft">
                                                 <a href="/">年代:</a>
                                              </dt>
                                              <dd class="floatLeft show-con">
@@ -163,7 +143,7 @@
                                                 </h3>
                                              </dd>
                                           </dl>
-
+ 
                                           <dl class="relative clearfix" style="border-bottom:0">
                                              <dt class="floatLeft"><a href="/">地区:</a></dt>
                                              <dd class="floatLeft show-con">
@@ -187,22 +167,20 @@
 
                               <div class="row clear-auto">
                                  @foreach($data as $k=>$v)         
-                                    @foreach($v['video'] as $k=>$vv)  
                                     <div class="col-lg-3 col-md-3 col-sm-3 filter tutorial">
                                        <!-- POST L size -->
                                        <div class="post post-medium">
                                           <div class="thumbr">
-                                             <a class="post-thumb" href="/home/play?vid={{$vv['vid']}}" data-lity>
+                                             <a class="post-thumb" href="/home/vip_play?vid={{$v['vid']}}" data-lity>
                                                 <span class="play-btn-border" title="Play">
                                                    <i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
                                                 </span>
                                                 <div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-      <img class="img-responsive" src="{{ asset('/Uploads/Video/'.$vv['logo']) }}" alt="#" />
+      <img class="img-responsive" src="{{ asset('/Uploads/Video/'.$v['logo']) }}" alt="#" />
                                              <a>
                                           </div>
                                        </div>
                                     </div>
-                                    @endforeach
                                  @endforeach      
                               </div>   
                             </div>

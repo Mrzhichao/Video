@@ -19,4 +19,17 @@ class PlayController extends Controller
 
     	return view('Home.play',compact('data'));
     }
+
+    public function vip_play()
+    {
+    	$vid=$_GET['vid'];
+    	$rid=Session('HomeUser')->rid;
+
+    	if($rid == 4){
+    		return redirect("/home/play?vid=$vid");  
+    	}else{
+    		return redirect('/');
+    	}
+
+    }
 }
