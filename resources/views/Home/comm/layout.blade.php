@@ -142,6 +142,8 @@
 <script src="{{url('Home/js/shutter.js')}}"></script>
 <script type="text/javascript" src="{{url('hivideo/assets/hivideo.js')}}"></script>
 <script src="{{asset('layer/layer.js')}}"></script>
+
+
 <script>
  $(".nav .dropdown").hover(function() {
    $(this).find(".dropdown-toggle").dropdown("toggle");

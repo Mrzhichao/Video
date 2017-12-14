@@ -49,7 +49,7 @@
                                     <div class="am-form-group">
                                         <label class="am-u-sm-12 am-form-label am-text-left" for="user-email">投放时间 <span class="tpl-form-line-small-title">time</span></label>
                                         <div class="am-u-sm-12">
-                                            <select style="color:#aaa; name="vtime" id="vtime" class="form-control">
+                                            <select name="vtime" id="vtime" class="form-control">
                                               <option value="5">5秒</option>
                                               <option selected="" value="10">10秒</option>
                                               <option value="20">20秒</option>
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     
-
+    <input type="hidden" name="videoid" value="{{$data['vid']}}">
 
                                     
                                  
