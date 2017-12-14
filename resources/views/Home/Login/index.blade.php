@@ -162,40 +162,40 @@
                </section>
             </div>
            <script>
-            // function ok(){
-            //    if($('#user').val().trim()==''||$('#password').val().trim()=='')
-            //    {
-            //       // alert("用户名或密码不能为空");
-            //       return false;
-            //    }
-            //    if($('#remember').prop('checked')&&$('#user').val().trim()!=''&&$('#password').val().trim()!='')
-            //    {
-            //       var myDate = new Date();
-            //       var time=myDate.getYear()*365*24+myDate.getMonth()*30*24+myDate.getDate()*24+myDate.getHours()+3*24;
-            //       window.localStorage['time']=time;
-            //       window.localStorage['user']=$('#user').val();
-            //       window.localStorage['password']=$('#password').val();
-            //    }else{
-            //       window.localStorage.removeItem('user');
-            //       window.localStorage.removeItem('password');
-            //    }
-            // }
-            // $(function(){
-            //    var myDate = new Date();
-            //    var timeNow=myDate.getYear()*365*24+myDate.getMonth()*30*24+myDate.getDate()*24+myDate.getHours();
-            //    var time=window.localStorage['time'];
-            //    var user=window.localStorage['user'];
-            //    var password=window.localStorage['password'];
-            //    if(user!=null&&password!=null&&time>=timeNow){
-            //       // alert('过期时间:'+time+'现在时间:'+timeNow);
-            //       $('#user').val(user);
-            //       $('#password').val(password);
-            //       $('#remember').attr('checked','true');
-            //    }
-            // });
-            // function qingkong(){
-            //    $('#pwd').val('');
-            // }
+            function ok(){
+               if($('#user').val().trim()==''||$('#password').val().trim()=='')
+               {
+                  // alert("用户名或密码不能为空");
+                  return false;
+               }
+               if($('#remember').prop('checked')&&$('#user').val().trim()!=''&&$('#password').val().trim()!='')
+               {
+                  var myDate = new Date();
+                  var time=myDate.getYear()*365*24+myDate.getMonth()*30*24+myDate.getDate()*24+myDate.getHours()+3*24;
+                  window.localStorage['time']=time;
+                  window.localStorage['user']=$('#user').val();
+                  window.localStorage['password']=$('#password').val();
+               }else{
+                  window.localStorage.removeItem('user');
+                  window.localStorage.removeItem('password');
+               }
+            }
+            $(function(){
+               var myDate = new Date();
+               var timeNow=myDate.getYear()*365*24+myDate.getMonth()*30*24+myDate.getDate()*24+myDate.getHours();
+               var time=window.localStorage['time'];
+               var user=window.localStorage['user'];
+               var password=window.localStorage['password'];
+               if(user!=null&&password!=null&&time>=timeNow){
+                  // alert('过期时间:'+time+'现在时间:'+timeNow);
+                  $('#user').val(user);
+                  $('#password').val(password);
+                  $('#remember').attr('checked','true');
+               }
+            });
+            function qingkong(){
+               $('#pwd').val('');
+            }
 
 
         //提示信息消失

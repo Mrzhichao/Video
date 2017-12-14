@@ -250,7 +250,17 @@
             </div>
          </div>
       </div>
-      
+
+@if(session('HomeUser')->roleid != 4)
+  <script type="text/javascript">
+    layer.open({
+      type: 1,
+      skin: 'layui-layer-rim', //加上边框
+      area: ['560px', '560px'], //宽高
+      content: "<img src='img/banners/1513051009.png'>"
+    });
+  </script>
+@endif
 
 <!--textarea高度自适应-->
 <script type="text/javascript">
@@ -406,4 +416,4 @@
         }
     })
 </script>
-      @stop
+@stop

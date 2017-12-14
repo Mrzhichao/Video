@@ -35,7 +35,7 @@
     <script src="{{asset('Amaze/js/amazeui.datatables.min.js')}}"></script>
     <script src="{{asset('Amaze/datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
     
-    <script src="{{asset('Layer/layer.js')}}"></script>
+    <script src="{{asset('layer/layer.js')}}"></script>
     
 </head>
 
@@ -68,7 +68,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span>{{ session('user')->aname}}</span> </a>
+                           
                         </li>
 
                         <!-- 新邮件 -->
