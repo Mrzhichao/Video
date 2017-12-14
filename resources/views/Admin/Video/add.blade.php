@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
 
-                                     <div class="am-form-group">
+                                     <!-- <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">视频路径
                                              <span class="tpl-form-line-small-title">Title</span>
                                         </label>
@@ -56,7 +56,7 @@
                                             <input type="text" name='resourceSrc' value="{{ old('resourceSrc') }}" class="tpl-form-input" id="user-name" placeholder="请输入标题文字">
                                             <small>请填写视频路径。</small>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="am-form-group">
                                         <label for="publicTime" class="am-u-sm-3 am-form-label">上映时间
@@ -96,10 +96,10 @@
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">海报</label>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">上传</label>
                                         <div class="am-u-sm-9">
                                            <img src="{{ asset('Admin/img/file.png') }}" id="pic" style="width:80px;cursor: pointer;"/>
-                                           <input type="file" name="logo" id="photo_upload" style="display: none;" />
+                                           <input type="file" name="resourceSrc" id="photo_upload" style="display: none;" />
                                         </div>
                                     </div>
 

@@ -149,7 +149,7 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 });
 
-/*-----------------------------------Mrlu-----------------------------------*/
+
 
 //报错路由  权限不足
 Route::get('admin/error/auth','ErrorController@auth');
@@ -166,6 +166,8 @@ Route::get('home/search','Home\indexController@search');
 
 //播放页
 Route::get('home/play','Home\PlayController@play');
+
+
 
 
 
@@ -197,6 +199,11 @@ Route::post('home/doreset','Home\RegisterController@doReset');
 Route::resource('home/userinfo','Home\UserinfoController');
 //播放记录
 Route::resource('home/uservideo','Home\UservideoController');
+
+//上传显示页
+Route::get('home/video/add','Home\UploadController@add');
+//上传视频
+Route::post('home/video/doadd','Home\UploadController@doadd');
 
 
 //前台
