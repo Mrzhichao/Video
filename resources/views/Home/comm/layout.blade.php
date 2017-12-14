@@ -34,8 +34,6 @@
 <link rel="stylesheet" href="{{ asset('Home/jd/css/reset.css') }}">
 <link rel="stylesheet" href="{{ asset('Home/jd/css/style.css') }}"> 
 
-
-
 <script src="{{ asset('Home/jd/js/jquery.min.js') }}"></script>
 <script src="{{asset('Layer/layer.js')}}"></script>
 

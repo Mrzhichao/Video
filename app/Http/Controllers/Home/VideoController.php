@@ -70,7 +70,7 @@ class VideoController extends Controller
 
 
     /**
-     *  前台多条件搜索页面
+     *  前台多条件搜索方法
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -117,5 +117,17 @@ class VideoController extends Controller
         return $res;
     }
 
+
+    /**
+     *  视频评论页面
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function common()
+    {
+        $data='';
+    }
 
 }
