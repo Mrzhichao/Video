@@ -93,7 +93,6 @@ class UserinfoController extends Controller
         $this->validate($request,[
             'nickname' => 'required|min:5|max:18',
             'realname'=>'required|min:2|max:6',
-            // 'email' => ['email',User::unique('users')->ignore($id,'uid')],
             'email' => 'unique:users,email,'.$id.',uid',
             'sex'=>'required',
 

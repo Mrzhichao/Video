@@ -87,10 +87,10 @@ class LoginController extends Controller
                  return redirect('home/login')->with('errors','密码不正确');
              }
               //判断是不是记住密码
-              if(array_key_exists('remember', $input)){
-                  // dd(111);
-                  Session::put('remember',$input);
-              }
+              // if(array_key_exists('remember', $input)){
+              //     // dd(111);
+              //     Session::put('remember',$input);
+              // }
              // 4.登录成功，将用户信息保存到session中，用于判断用户是否登录以及获取登录用户信息
              Session::put('HomeUser',$user);
 

@@ -195,6 +195,8 @@ Route::post('home/doreset','Home\RegisterController@doReset');
 
 //个人中心路由
 Route::resource('home/userinfo','Home\UserinfoController');
+//播放记录
+Route::resource('home/uservideo','Home\UservideoController');
 
 
 //前台
