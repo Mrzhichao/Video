@@ -125,6 +125,7 @@ class IndexController extends Controller
 
         //VIP精选
         $oneVip = Video::where('isVip','1')-> orderBy('numOfViewed','desc')->first();
+        // dd($oneVip);
         $Vip = Video::where('isVip','1')-> orderBy('numOfViewed','desc')->take(4)->get();
 
         //本站统计

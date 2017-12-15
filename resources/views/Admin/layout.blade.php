@@ -68,7 +68,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span>{{ session('user')->aname}}</span> </a>
+                           
                         </li>
 
                         <!-- 新邮件 -->

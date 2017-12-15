@@ -13,7 +13,6 @@
 */
 /*-------------------------------------------后台---------------------------------------------*/
 
-
 	/*-----------------------------------Wang-----------------------------------*/
 	//后台登录
 	//验证码路由
@@ -29,7 +28,9 @@
 Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespace'=>'Admin'],function (){
 
 
+
 	/*-----------------------------------Wang-----------------------------------*/
+
 
 	//后台主页
 	Route::get('index','IndexController@index');	
@@ -150,6 +151,7 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 /*-----------------------------------------------前台-----------------------------------------------*/
 
+
 	/*-----------------------------------MrLu-----------------------------------*/
 	//报错路由  权限不足
 	Route::get('admin/error/auth','ErrorController@auth');
@@ -168,6 +170,9 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//播放页
 	Route::get('home/play','Home\PlayController@play');
 
+
+	//播放页
+	Route::get('home/play','Home\PlayController@play');
 
 	//视频推荐管理
 	Route::get('home/video/first','Home\VideoRecommendController@first');
@@ -204,19 +209,29 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//上传显示页
 	Route::get('home/video/add','Home\UploadController@add');
 
+	//用户个人信息AJAX
+	Route::post('home/userinfo/eidt','Home\UploadController@Uploads');
+
 	//上传视频
 	Route::post('home/video/doadd','Home\UploadController@doadd');
 
 
 	/*-----------------------------------SunnyHan-----------------------------------*/
 
+
 	//vip视频
 	Route::get('home/video/vip','Home\VideoController@vip');
 	
+
 	//vip播放
 	Route::get('home/vip_play','Home\PlayController@vip_play');
 	
 		
+
+	//vip播放 播放记录
+	Route::get('home/vip_play','Home\PlayController@vip_play');
+	
+
 	//销毁Session
 	Route::get('home/video/status','Home\VideoController@status');
 

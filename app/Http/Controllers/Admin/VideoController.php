@@ -192,8 +192,6 @@ class VideoController extends Controller
     {
         $title='视频详情页';
 
-      
-        
         $video=Video::with('users','types')->find($id);
         //dd($video);
         // 获取推荐的内容
@@ -255,8 +253,10 @@ class VideoController extends Controller
         }
 
 
+
         // $video=Video::find($vid);
         // $res = $video->update($input);
+
 
 
         $input['logo'] = \Session::get('logo');
@@ -417,9 +417,11 @@ class VideoController extends Controller
                     if( unlink(public_path().'/uploads/Video/'.$oldImge) &&  unlink(public_path().'/Uploads/Video/'.$oldSP) ){
                         //修改数据库
 
+
                         // $video -> update(['logo'=>$newName]); 
 
                         Video::find($id) -> update(['logo'=>\Session::get('logo'),'resourceSrc'=>\Session::get('filename')]); 
+
 
                     }  
                 }

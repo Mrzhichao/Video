@@ -40,28 +40,32 @@
           <span class="icon-bar"></span>
           </button>
         </div>
-        <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
-          <ul class="nav navbar-nav">
-          <li><a href="{{url('home/index')}}">首页</a></li>
-            @foreach($nav as $k=>$v)
-            <li><a href="{{$v->resourceSrc}}/{{$v->pid}}">{{$v->nname}}</a></li>
-            @endforeach
-            <li><a href="contact.html">更多</a></li>
-          </ul>
-          <ul class="social">
-
-            <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
-            <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
-            <li  class="social-youtube" >  <a target="_self" class="fa fa-qq social-icons"  href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
-
-            <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
-            <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
-          </ul>
-          <div class="search-block">
-            <form action="{{url('home/search')}}" method="get">
-               <input type="search" name="wordskey" placeholder="Search">
-            </form>
-          </div>
+         <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
+            <ul class="nav navbar-nav">
+            <li><a href="{{url('/')}}">首页</a></li>
+                @foreach($nav as $k=>$v)
+                  @if($v->nname == 'Vip')
+                    <li><a href="{{$v->resourceSrc}}">{{$v->nname}}</a></li>
+                  @else
+                    <li><a href="{{$v->resourceSrc}}?pid={{$v->pid}}">{{$v->nname}}</a></li>
+                  @endif
+                @endforeach
+              <li><a href="{{url('home/video/status')}}">视频搜索页</a></li>
+              <li><a href="contact.html">更多</a></li>
+            </ul>
+            <ul class="social">
+              <li class="social-facebook" id="up"><a href="javascript:;" class="fa fa-upload social-icons"></a></li>
+              <!-- 上传按钮 -->
+              <li class="social-google-plus"  ><a href="#" class="fa fa-download social-icons"></a></li>
+              <li  class="social-youtube" >  <a target="_self" class="fa fa-qq social-icons" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
+              <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
+              <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
+            </ul>
+            <div class="search-block">
+              <form action="{{url('home/search')}}" method="get">
+                 <input type="search" name="wordskey" placeholder="Search">
+              </form>
+            </div>
         </div>
         <!-- /.nav-collapse -->
       </nav>

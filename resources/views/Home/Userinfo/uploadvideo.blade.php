@@ -47,26 +47,33 @@
           </button>
         </div>
         <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
-          <ul class="nav navbar-nav">
-          <li><a href="{{url('home/index')}}">首页</a></li>
-            @foreach($nav as $k=>$v)
-            <li><a href="{{$v->resourceSrc}}/{{$v->pid}}">{{$v->nname}}</a></li>
-            @endforeach
-            <li><a href="contact.html">更多</a></li>
-          </ul>
+                      <ul class="nav navbar-nav">
+            <li><a href="{{url('/')}}">首页</a></li>
+                @foreach($nav as $k=>$v)
+                  @if($v->nname == 'Vip')
+                    <li><a href="{{$v->resourceSrc}}">{{$v->nname}}</a></li>
+                  @else
+                    <li><a href="{{$v->resourceSrc}}?pid={{$v->pid}}">{{$v->nname}}</a></li>
+                  @endif
+                @endforeach
+              <li><a href="contact.html">更多</a></li>
+            </ul>
           <ul class="social">
             <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
             <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
+
             <li  class="social-youtube" >  <a target="_self"  class="fa fa-qq social-icons" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
             <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
             <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
           </ul>
           
+
         </div>
         <!-- /.nav-collapse -->
       </nav>
    </div>
  </div>
+
       <div class="center">
          <div class="col-main">
             <div class="main-wrap">
@@ -82,11 +89,13 @@
                   <form class="am-form am-form-horizontal" action="" id="form" method="post" enctype="multipart/form-data">
                   <!--个人信息 -->
                   <div class="info-main">
+
                     <div style="width:800px;height:400px;border:1px blue dashed; position:relative;">
                              <div class="login-btn-box" style="position: absolute; left:270px;top:180px">
                                       <input  type="file" name="upload" id="aa"  class="inputPic">
-                                      <button id='up' type="button" class="access-btn">上传视频</button>
+                                      <button id='up'  type="button" class="access-btn">上传视频</button>
                              </div>
+
                     </div>
                      </form>
                   </div>
@@ -108,10 +117,11 @@
                      <li class="active"> <a href="{{url('home/userinfo')}}">个人信息</a></li>
                      <li> <a href="{{url('home/video/add')}}">上传视频</a></li>
                      <li> <a href="{{url('home/uservideo')}}">播放记录</a></li>
-                     <li> <a href="address.html">订阅</a></li>
-                     <li> <a href="address.html">我的消息 </a></li>
+                     <li> <a href="javascript:;">订阅</a></li>
+                     <li> <a href="javascript:;">我的消息 </a></li>
                   </ul>
                </li>
+
             </ul>
 
          </aside>
@@ -125,6 +135,7 @@
               uploadImage();
           });
      
+
       function uploadImage() {
 
               var formData = new FormData();
@@ -143,8 +154,8 @@
               success: function(data) {
 
                  layer.alert(data.msg, {
-                  skin: 'layui-layer-lan'
-                  ,closeBtn: 0
+                  skin: 'layui-layer-lan',
+                  closeBtn: 0
                   ,anim: 2 //动画类型
                   });
               },
@@ -158,10 +169,10 @@
               })
             }    
 
-
          //提示信息消失
         
         $("#msg").fadeOut(3000, 'linear' ,function(){
+
   
         });
 

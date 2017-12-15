@@ -37,13 +37,17 @@
           </button>
         </div>
         <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
-          <ul class="nav navbar-nav">
-          <li><a href="{{url('home/index')}}">首页</a></li>
-            @foreach($nav as $k=>$v)
-            <li><a href="{{$v->resourceSrc}}/{{$v->pid}}">{{$v->nname}}</a></li>
-            @endforeach
-            <li><a href="contact.html">更多</a></li>
-          </ul>
+                      <ul class="nav navbar-nav">
+            <li><a href="{{url('/')}}">首页</a></li>
+                @foreach($nav as $k=>$v)
+                  @if($v->nname == 'Vip')
+                    <li><a href="{{$v->resourceSrc}}">{{$v->nname}}</a></li>
+                  @else
+                    <li><a href="{{$v->resourceSrc}}?pid={{$v->pid}}">{{$v->nname}}</a></li>
+                  @endif
+                @endforeach
+              <li><a href="contact.html">更多</a></li>
+            </ul>
           <ul class="social">
             <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
             <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
@@ -68,17 +72,24 @@
                      <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">播放记录</strong> </div>
                   </div>
                   <hr/>
-
-                  <!--头像 -->
-                  <form class="am-form am-form-horizontal" action="" method="post" enctype="multipart/form-data">
-
-                   
-                     
                   <!--个人信息 -->
                   <div class="info-main">
-                     
-
-                     </form>
+                    @foreach($users as $v)            
+                      <div class="col-lg-3 col-md-3 col-sm-3 filter tutorial">
+                                       <!-- POST L size -->
+                                       <div class="post post-medium">
+                                          <div class="thumbr">
+                                             <a class="post-thumb" href="/home/vip_play?vid={{$v->vid}}" data-lity>
+                                                <span class="play-btn-border" title="Play">
+                                                   <i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+                                                </span>
+                                                <div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
+                                                <img class="img-responsive" style="width:200px;height:150px" src="{{ asset('/Uploads/Video/'.$v->logo) }}" alt="#" />
+                                             <a>
+                                          </div>
+                                       </div>
+                         </div>
+                    @endforeach
                   </div>
 
                </div>

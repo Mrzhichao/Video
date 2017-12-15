@@ -135,11 +135,11 @@
 
                                        <div class="input-group">
                                           <span class="fa fa-user login-inputicon"></span>
-                                          <input id="user" type="text" name="user" onkeydown="qingkong()"  placeholder="用户名|手机号|邮箱"  required>
+                                          <input id="user" type="text" name="user" onkeydown="qingkong()" style="color:black"  placeholder="用户名|手机号|邮箱"  required>
                                        </div>
                                        <div class="input-group">
                                           <span class="fa fa-lock login-inputicon"></span>
-                                          <input type="password" name = 'upwd' id="password" placeholder="密码"   required> 
+                                          <input type="password" name = 'upwd' id="password" placeholder="密码"  style="color:black"  required> 
                                        </div>
                                        <div class="checkbox">
                                           <input id="remember" type="checkbox" name="remember">

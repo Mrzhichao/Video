@@ -91,8 +91,8 @@ class AdminController extends Controller
 
         $data = Admin::where('aname','like',"%".$keywords."%")->Paginate(5);
 
-        $aid=Session('user')->aid;
-        $admin=Admin::find($aid);
+        // $aid=Session('user')->aid;
+        // $admin=Admin::find($aid);
         // dd($admin);
 
         return view('Admin.Admin.index',['title'=>$title,'data'=>$data,'where'=>['keyword'=>$keywords]]);

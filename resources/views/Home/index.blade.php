@@ -92,7 +92,7 @@
 					  <div class="flag flag1"><i class="fa fa-star"></i></div>
 					  <a class="post-thumb" href="{{url('home/play')}}?vid={{$oneVip['vid']}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
-					  <img class="img-responsive" src="{{ url('/uploads/Video') }}/{{$oneVip['logo'] }}" alt="加载失败">
+					  <img class="img-responsive"  src="{{ url('/uploads/Video') }}/{{$oneVip['logo'] }}" alt="加载失败">
 					  </a>
 					  <div class="infor">
 						 <h4>

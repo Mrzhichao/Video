@@ -23,6 +23,7 @@
       <link rel="stylesheet" type="text/css" href="{{url('hivideo/assets/hivideo.css')}}">
       <link rel="stylesheet" href="{{url('Home/css/font-awesome.css')}}">
       <link href="{{url('Home/css/lity.css')}}" rel="stylesheet">
+      <script src="{{asset('layer/layer.js')}}"></script>
    </head>
 
    <body>
@@ -38,13 +39,17 @@
           </button>
         </div>
         <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
-          <ul class="nav navbar-nav">
-          <li><a href="{{url('home/index')}}">首页</a></li>
-            @foreach($nav as $k=>$v)
-            <li><a href="{{$v->resourceSrc}}/{{$v->pid}}">{{$v->nname}}</a></li>
-            @endforeach
-            <li><a href="contact.html">更多</a></li>
-          </ul>
+         <ul class="nav navbar-nav">
+            <li><a href="{{url('/')}}">首页</a></li>
+                @foreach($nav as $k=>$v)
+                  @if($v->nname == 'Vip')
+                    <li><a href="{{$v->resourceSrc}}">{{$v->nname}}</a></li>
+                  @else
+                    <li><a href="{{$v->resourceSrc}}?pid={{$v->pid}}">{{$v->nname}}</a></li>
+                  @endif
+                @endforeach
+              <li><a href="contact.html">更多</a></li>
+            </ul>
           <ul class="social">
             <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
             <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
@@ -92,15 +97,19 @@
          
 
                   <div class="user-infoPic">
-                     <div class="filePic">
+                  
+                  <input  type="file" name="avatar"  id="upload"  class="inputPic">
 
-                        <input type="file" name="avatar"  class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
-                        @if($data ->avatar == 'default.jpg' || !empty($data -> avater))
-                           <img src="{{ asset('./uploads/user/default.jpg') }}"  class="tpl-table-line-img" alt="">
+                     <div class="filePic" class='avatar'>
+
+                        @if($data ->avatar == 'default.jpg' || !empty($data -> avater) )
+                           <img id="img1" src="{{ asset('./uploads/user/default.jpg') }}"  class="tpl-table-line-img" alt="">
                         @else
-                           <img src="{{ asset('./uploads/user/s_') }}{{ $data->avatar }}"  class="tpl-table-line-img" alt="">
+                           <img id="img1" src="{{ asset('./uploads/user/s_') }}{{ $data->avatar }}"  class="tpl-table-line-img" alt="">
                         @endif
                      </div>
+
+
 
                      <p class="am-form-help">头像</p>
 
@@ -179,7 +188,7 @@
                         <div class="info-btn">
                            <button class="am-btn am-btn-danger">保存修改</button>
                         </div>
-
+                        <input class='id' type='hidden' value='{{ $data -> uid }}' >
                      </form>
                   </div>
 
@@ -211,15 +220,61 @@
 
          </aside>
       </div>
+ 
+<!--单击修改图片-->
+<script type="text/javascript">
 
-      <script type="text/javascript">
 
-         //提示信息消失
-        
-        $("#msg").fadeOut(3000, 'linear' ,function(){
-  
+
+  $(function () {
+            $("#upload").change(function () {
+                $('#img1').show();
+                uploadImage();
+            });
         });
 
+
+        function uploadImage() {
+            // 判断是否有选择上传文件
+            var imgPath = $("#upload").val();
+            if (imgPath == "") {
+                alert("请选择上传图片！");
+                return;
+            }
+            //判断上传文件的后缀名
+            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+            if (strExtension != 'jpg' && strExtension != 'gif'
+                && strExtension != 'png' && strExtension != 'bmp') {
+                alert("请选择图片文件");
+                return;
+            }
+            //  var formData = new FormData($('#art_form')[0]);
+            var formData = new FormData();
+            formData.append('id',"{{$data->uid}}");
+            formData.append('upload', $('#upload')[0].files[0]);
+            formData.append('_token', "{{csrf_token()}}");
+            $.ajax({
+                type: "POST",
+                url: "userinfo/eidt",
+                data: formData,
+                async: true,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                   // console.log(data);
+                  layer.alert(data.msg, {
+                  skin: 'layui-layer-lan',
+                  closeBtn: 0,
+                  anim: 2 //动画类型
+                  });
+                   window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("上传失败，请检查网络后重试");
+                }
+            });
+        }
       </script>
 
    </body>
