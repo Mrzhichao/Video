@@ -12,8 +12,9 @@
 
       <link href="{{ asset('/userinfo/css/personal.css')}}" rel="stylesheet" type="text/css">
       <link href="{{ asset('/userinfo/css/infstyle.css')}}" rel="stylesheet" type="text/css">
-      <script src="{{ asset('userinfo/AmazeUI-2.4.2/assets/js/jquery.min.js') }}" type="text/javascript'"></script>
-      <script src="{{ asset('userinfo/AmazeUI-2.4.2/assets/js/amazeui.js') }}" type="text/javascript"></script>
+      <script src="{{url('Home/js/jquery-1.12.1.min.js')}}"></script>
+      <!-- <script src="{{ asset('userinfo/AmazeUI-2.4.2/assets/js/jquery.min.js') }}" type="text/javascript'"></script>
+ -->      <script src="{{ asset('userinfo/AmazeUI-2.4.2/assets/js/amazeui.js') }}" type="text/javascript"></script>
 
       <link href="{{url('Home/css/bootstrap.css')}}" rel="stylesheet">
       
@@ -47,15 +48,10 @@
           <ul class="social">
             <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
             <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
-            <li  class="social-youtube" >  <a target="_self" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1239099896:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
+            <li  class="social-youtube" >  <a target="_self"  class="fa fa-qq social-icons" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
             <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
             <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
           </ul>
-          <div class="search-block">
-            <form action="{{url('home/search')}}" method="get">
-               <input type="search" name="wordskey" placeholder="Search">
-            </form>
-          </div>
         </div>
         <!-- /.nav-collapse -->
       </nav>
@@ -202,7 +198,7 @@
                   <a href="javascript:;">个人资料</a>
                   <ul>
                      <li class="active"> <a href="{{url('home/userinfo')}}">个人信息</a></li>
-                     <li> <a href="safety.html">上传视频</a></li>
+                     <li> <a href="{{url('home/video/add')}}">上传视频</a></li>
                      <li> <a href="{{url('home/uservideo')}}">播放记录</a></li>
                      <li> <a href="address.html">订阅</a></li>
                      <li> <a href="address.html">我的消息 </a></li>
@@ -220,7 +216,7 @@
 
          //提示信息消失
         
-        $("#msg").fadeOut(6000, 'linear' ,function(){
+        $("#msg").fadeOut(3000, 'linear' ,function(){
   
         });
 

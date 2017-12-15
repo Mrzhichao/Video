@@ -51,7 +51,7 @@
           <ul class="social">
             <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
             <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
-            <li  class="social-youtube" >  <a target="_self" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1239099896:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
+            <li  class="social-youtube" >  <a target="_self" class="fa fa-qq social-icons"  href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
             <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
             <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
           </ul>

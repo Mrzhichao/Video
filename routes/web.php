@@ -11,8 +11,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*-------------------------------------------后台---------------------------------------------*/
 
-//后台登录
+
+	/*-----------------------------------Wang-----------------------------------*/
+	//后台登录
 	//验证码路由
 	Route::get('admin/yzm','Admin\LoginController@yzm');
 
@@ -23,16 +26,10 @@
 	Route::post('admin/dologin','Admin\LoginController@dologin');
 
 
-	// Route::get('/',function(){
-	// 	return view('Admin.index',['title'=>'后台首页']);
-	// });
-	
-
-
 Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespace'=>'Admin'],function (){
 
-	/*-----------------------------------Wang-----------------------------------*/
 
+	/*-----------------------------------Wang-----------------------------------*/
 
 	//后台主页
 	Route::get('index','IndexController@index');	
@@ -61,6 +58,7 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 	//评论回复路由
 	Route::resource('videoreply','ReplyController');
+
 
 	/*-----------------------------------Mrlu-----------------------------------*/
 
@@ -103,6 +101,7 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 
 	/*-----------------------------------SunnyHan-----------------------------------*/
+	
 	//视频管理
 	Route::resource('video','VideoController');
 
@@ -129,7 +128,6 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//系统配置管理
 	Route::resource('sysconfig','SysconfigController');
 
-
 	Route::post('sysconfig/changeorder','SysconfigController@changeOrder');
 
 	Route::post('sysconfig/putfile','SysconfigController@putFile');
@@ -149,59 +147,81 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 });
 
-/*-----------------------------------Mrlu-----------------------------------*/
 
-//报错路由  权限不足
-Route::get('admin/error/auth','ErrorController@auth');
+/*-----------------------------------------------前台-----------------------------------------------*/
 
-//视频推荐
-Route::post('home/video/tj','Home\VideoRecommendController@tj');
-//取消视频推荐
-Route::post('home/video/qx','Home\VideoRecommendController@qx');
+	/*-----------------------------------MrLu-----------------------------------*/
+	//报错路由  权限不足
+	Route::get('admin/error/auth','ErrorController@auth');
 
-//前台首页
-Route::get('/','Home\indexController@index');
-//前台首页搜索
-Route::get('home/search','Home\indexController@search');
+	//视频推荐
+	Route::post('home/video/tj','Home\VideoRecommendController@tj');
+	//取消视频推荐
+	Route::post('home/video/qx','Home\VideoRecommendController@qx');
 
-//播放页
-Route::get('home/play','Home\PlayController@play');
+	//前台首页
+	Route::get('/','Home\indexController@index');
 
+	//前台首页搜索
+	Route::get('home/search','Home\indexController@search');
 
+	//播放页
+	Route::get('home/play','Home\PlayController@play');
 
-//视频推荐管理
-Route::get('home/video/first','Home\VideoRecommendController@first');
-
-//前台登录页面
-Route::get('home/login','Home\LoginController@Login');
-Route::post('home/dologin','Home\LoginController@doLogin');
-
-//前台手机邮箱注册路由
-Route::get('home/phoneregister','Home\RegisterController@PhoneRegister');
-//执行注册
-Route::post('home/dophoneregister','Home\RegisterController@doPhoneRegister');
-//发送验证码路由ajax
-Route::post('home/sendcode','Home\RegisterController@Sendcode');
-//邮箱激活
-Route::get('home/active','Home\RegisterController@Email');
-//忘记密码
-Route::get('home/forget','Home\RegisterController@Forget');
-//发送忘记密码邮件
-Route::post('home/doforget','Home\RegisterController@doForget');
-//重置密码
-Route::get('home/reset','Home\RegisterController@Reset');
-//修改密码
-Route::post('home/doreset','Home\RegisterController@doReset');
-
-//个人中心路由
-Route::resource('home/userinfo','Home\UserinfoController');
-//播放记录
-Route::resource('home/uservideo','Home\UservideoController');
+	//视频推荐管理
+	Route::get('home/video/first','Home\VideoRecommendController@first');
 
 
-//前台
-Route::group(['prefix'=>'home','namespace'=>'Home'],function (){
-	Route::resource('video','VideoController');
-    Route::post('video/type/ajax','VideoController@type_ajax');
-    Route::post('video/type/detail','VideoController@detail');
-});
+	/*-----------------------------------Wang-----------------------------------*/
+	
+	//前台登录页面
+	Route::get('home/login','Home\LoginController@Login');
+	Route::post('home/dologin','Home\LoginController@doLogin');
+
+	//前台手机邮箱注册路由
+	Route::get('home/phoneregister','Home\RegisterController@PhoneRegister');
+	//执行注册
+	Route::post('home/dophoneregister','Home\RegisterController@doPhoneRegister');
+	//发送验证码路由ajax
+	Route::post('home/sendcode','Home\RegisterController@Sendcode');
+	//邮箱激活
+	Route::get('home/active','Home\RegisterController@Email');
+	//忘记密码
+	Route::get('home/forget','Home\RegisterController@Forget');
+	//发送忘记密码邮件
+	Route::post('home/doforget','Home\RegisterController@doForget');
+	//重置密码
+	Route::get('home/reset','Home\RegisterController@Reset');
+	//修改密码
+	Route::post('home/doreset','Home\RegisterController@doReset');
+
+	//个人中心路由
+	Route::resource('home/userinfo','Home\UserinfoController');
+	//播放记录
+	Route::resource('home/uservideo','Home\UservideoController');
+
+	//上传显示页
+	Route::get('home/video/add','Home\UploadController@add');
+
+	//上传视频
+	Route::post('home/video/doadd','Home\UploadController@doadd');
+
+
+	/*-----------------------------------SunnyHan-----------------------------------*/
+
+	//vip视频
+	Route::get('home/video/vip','Home\VideoController@vip');
+	
+	//vip播放
+	Route::get('home/vip_play','Home\PlayController@vip_play');
+	
+		
+	//销毁Session
+	Route::get('home/video/status','Home\VideoController@status');
+
+	//视频页面
+	Route::group(['prefix'=>'home','namespace'=>'Home'],function (){
+		Route::resource('video','VideoController');
+	    Route::post('video/type/ajax','VideoController@type_ajax');
+	    Route::post('video/type/detail','VideoController@detail');
+	});
