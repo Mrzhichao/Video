@@ -51,7 +51,7 @@ class UploadController extends Controller
 	      // echo $res;
 
 	        // //上传到本地服务器的方法
-	        $path = $file->move(public_path().'/uploads/Uploadvideo/',$newName);
+	        $path = $file->move(public_path().'/uploads/Video/',$newName);
 	      //上传数据库
 	       // $aa =  new Video;
 	       $video = new Video;

@@ -1,3 +1,4 @@
+
 @extends('Home.comm.layout')
 @section('title')
  @parent
@@ -37,13 +38,42 @@
                         <div class="video-info">
                            <!-- 16:9 aspect ratio -->
                            
-                     <div class="main-wrap ">
+                    <!--  <div class="main-wrap ">
                        <video ishivideo="true" autoplay="false" isrotate="false" autoHide="true">
-                           <source src="{{url('uploads/Video/')}}/{{$data['resourceSrc']}}" type="video/mp4">
+                           <source src="{{url('/uploads/Video/')}}/{{$data['resourceSrc']}}" type="video/mp4">
                        </video>
-                   </div>
-                           
+                   </div> -->
+                   
+
                          
+<script type="text/javascript" src="{{url('ckplayer/ckplayer/ckplayer.js')}}" charset="utf-8"></script>
+
+                         <div id="video" style="width: 700px; height: 500px;"></div>
+
+                        <script type="text/javascript">
+                        var videoObject = {
+                        container: '#video', //容器的ID或className
+                        variable: 'player',//播放函数名称
+                        //是否自动播放
+                        autoplay: true,
+                        flashplayer: false,
+                        
+                        // adfront: "{{ url('uploads/Video') }}/{{ $vad['vpath'] }}", //前置广告
+                        // adfronttime: "{{$vad['vtime']}}",
+                        // adfrontlink: "{{$vad['vredirect']}}",
+                      adfront: '/uploads/Video/V15132577064043', //前置广告
+        adfronttime: '15',
+        adfrontlink: '',
+                        
+                        video: [//视频地址列表形式
+                          ["{{url('uploads/Video')}}/{{$data['resourceSrc']}}", 'video/mp4', '中文标清', 0],
+                          ],
+
+
+                      };
+                    var player = new ckplayer(videoObject);
+                  </script>
+
                            <h2 class="title main-head-title">{{$data['vname']}}</h2>
                            <div class="metabox">
                               <span class="meta-i">

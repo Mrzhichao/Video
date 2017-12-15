@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
 
-                                     <div class="am-form-group">
+                                     <!-- <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">视频路径
                                              <span class="tpl-form-line-small-title">Title</span>
                                         </label>
@@ -76,7 +76,7 @@
                                             <input type="text" name='resourceSrc' value="" class="tpl-form-input" id="user-name" placeholder="{{ $video['resourceSrc'] }}">
                                             <small>请填写完整的视频路径</small>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="am-form-group">
                                         <label for="user-email" class="am-u-sm-3 am-form-label">上映时间
@@ -111,7 +111,7 @@
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">海报</label>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">视频</label>
                                         <div class="am-u-sm-9 vimg">
                                             <img name='logo' src="{{ asset('/Uploads/Video/'.$video->logo) }}" style="width:80px;cursor: pointer;"/>
                                         </div>

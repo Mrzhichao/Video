@@ -168,6 +168,7 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//播放页
 	Route::get('home/play','Home\PlayController@play');
 
+
 	//视频推荐管理
 	Route::get('home/video/first','Home\VideoRecommendController@first');
 

@@ -177,11 +177,13 @@
         time = time/1000;
         //进行比较
         if(time > startstamp){
+            // $('#startTime').val('');
             layer.alert("选择的时间不能成为历史", {
             skin: 'layui-layer-lan'
             ,closeBtn: 0
             ,anim: 2 //动画类型
             });
+
         }
         
 
@@ -204,6 +206,7 @@
             ,closeBtn: 0
             ,anim: 2 //动画类型
             });
+
         }
         
 

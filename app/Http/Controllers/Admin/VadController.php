@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\VideoAd;
+use App\Models\Admin\Video;
 
 class VadController extends Controller
 {
@@ -41,9 +42,12 @@ class VadController extends Controller
         //获取视频的id
         $id = $_GET['vid'];
         //获取视频的信息
-        $data =  VideoAd::find($id)->video;
+
+      //  $data =  VideoAd::find($id)->video;
         // dd($id);
-        
+
+        $data =  Video::find($id);
+
         return view('Admin.Vad.create',['title'=>'视频广告添加','data'=>$data]);
       
 
@@ -73,6 +77,7 @@ class VadController extends Controller
             'vprice.required' => '请重新选择时间哦'
         ]);
 
+      
         //获取提交数据
         $data = $request -> except('_token','method','aname');
 
