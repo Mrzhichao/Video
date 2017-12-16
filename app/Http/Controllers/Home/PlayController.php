@@ -20,7 +20,7 @@ class PlayController extends Controller
     	//查找视频广告
     	$vad = VideoAd::where('videoid',$id)->first();
 
-
+        
     	return view('Home.play',compact('data','vad'));
     }
 }

@@ -43,7 +43,6 @@
                            <source src="{{url('/uploads/Video/')}}/{{$data['resourceSrc']}}" type="video/mp4">
                        </video>
                    </div> -->
-                   
 
                          
 <script type="text/javascript" src="{{url('ckplayer/ckplayer/ckplayer.js')}}" charset="utf-8"></script>
@@ -56,15 +55,15 @@
                         variable: 'player',//播放函数名称
                         //是否自动播放
                         autoplay: true,
-                        flashplayer: false,
+                        flashplayer: true,
                         
-                        // adfront: "{{ url('uploads/Video') }}/{{ $vad['vpath'] }}", //前置广告
-                        // adfronttime: "{{$vad['vtime']}}",
-                        // adfrontlink: "{{$vad['vredirect']}}",
-                      adfront: '/uploads/Video/V15132577064043', //前置广告
-        adfronttime: '15',
-        adfrontlink: '',
+                        adfront: "{{ url('uploads/Video') }}/{{ $vad->vpath }}", //前置广告
+                        adfronttime: "{{$vad->vtime}}",
+                        adfrontlink: "{{$vad->vredirect}}",
+                   
                         
+                       
+
                         video: [//视频地址列表形式
                           ["{{url('uploads/Video')}}/{{$data['resourceSrc']}}", 'video/mp4', '中文标清', 0],
                           ],

@@ -7,245 +7,300 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页 <small>Amaze UI</small></div>
-                        <p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 后台首页 <small>Active Video</small></div>
+                        <p class="page-header-description"></p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
                         <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="row-content am-cf">
-                <div class="row  am-cf">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">月度财务收支计划</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body am-fr">
-                                <div class="am-fl">
-                                    <div class="widget-fluctuation-period-text">
-                                        ￥61746.45
-                                        <button class="widget-fluctuation-tpl-btn">
-                        <i class="am-icon-calendar"></i>
-                        更多月份
-                      </button>
-                                    </div>
-                                </div>
-                                <div class="am-fr am-cf">
-                                    <div class="widget-fluctuation-description-amount text-success" am-cf>
-                                        +￥30420.56
-
-                                    </div>
-                                    <div class="widget-fluctuation-description-text am-text-right">
-                                        8月份收入
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-primary am-cf">
-                            <div class="widget-statistic-header">
-                                本季度利润
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    ￥27,294
-                                </div>
-                                <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
-                                </div>
-                                <span class="widget-statistic-icon am-icon-credit-card-alt"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-purple am-cf">
-                            <div class="widget-statistic-header">
-                                本季度利润
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    ￥27,294
-                                </div>
-                                <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
-                                </div>
-                                <span class="widget-statistic-icon am-icon-support"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    
+       
 
-                <div class="row am-cf">
-                    <div class="am-u-sm-12 am-u-md-8">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">月度财务收支计划</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body-md widget-body tpl-amendment-echarts am-fr" id="tpl-echarts">
+    <canvas style="cursor: crosshair;width:1100px; height:800px; display: block;" id="canvas">Canvas is not supported in your browser.</canvas>
+    <div style="width: 500px;height: 150px;background-image: url('/welcome.png'); position: absolute; top: 230px; left: 320px; z-index: -1;"></div>
 
-                            </div>
-                        </div>
-                    </div>
+    <script type="text/javascript">
 
-                    <div class="am-u-sm-12 am-u-md-4">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">专用服务器负载</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body widget-body-md am-fr">
+        window.requestAnimFrame = ( function() {
+    return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function( callback ) {
+                    window.setTimeout( callback, 1000 / 100 );
+                };
+})();
 
-                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
-                                <div class="am-progress">
-                                    <div class="am-progress-bar" style="width: 15%"></div>
-                                </div>
-                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
-                                <div class="am-progress">
-                                    <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
-                                </div>
-                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
-                                <div class="am-progress">
-                                    <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+// now we will setup our basic variables for the demo
+var canvas = document.getElementById( 'canvas' ),
+        ctx = canvas.getContext( '2d' ),
+        // full screen dimensions
+        cw = window.innerWidth,
+        ch = window.innerHeight,
+        // firework collection
+        fireworks = [],
+        // particle collection
+        particles = [],
+        // starting hue
+        hue = 1000,
+        // when launching fireworks with a click, too many get launched at once without a limiter, one launch per 5 loop ticks
+        limiterTotal = 1,
+        limiterTick = 0,
+        // this will time the auto launches of fireworks, one launch per 80 loop ticks
+        timerTotal = 21,
+        timerTick = 100,
+        mousedown = false,
+        // mouse x coordinate,
+        mx,
+        // mouse y coordinate
+        my;
+        
+// set canvas dimensions
+canvas.width = cw;
+canvas.height = ch;
+
+// now we are going to setup our function placeholders for the entire demo
+
+// get a random number within a range
+function random( min, max ) {
+    return Math.random() * ( max - min ) + min;
+}
+
+// calculate the distance between two points
+function calculateDistance( p1x, p1y, p2x, p2y ) {
+    var xDistance = p1x - p2x,
+            yDistance = p1y - p2y;
+    return Math.sqrt( Math.pow( xDistance, 2 ) + Math.pow( yDistance, 2 ) );
+}
+
+// create firework
+function Firework( sx, sy, tx, ty ) {
+    // actual coordinates
+    this.x = sx;
+    this.y = sy;
+    // starting coordinates
+    this.sx = sx;
+    this.sy = sy;
+    // target coordinates
+    this.tx = tx;
+    this.ty = ty;
+    // distance from starting point to target
+    this.distanceToTarget = calculateDistance( sx, sy, tx, ty );
+    this.distanceTraveled = 0;
+    // track the past coordinates of each firework to create a trail effect, increase the coordinate count to create more prominent trails
+    this.coordinates = [];
+    this.coordinateCount = 3;
+    // populate initial coordinate collection with the current coordinates
+    while( this.coordinateCount-- ) {
+        this.coordinates.push( [ this.x, this.y ] );
+    }
+    this.angle = Math.atan2( ty - sy, tx - sx );
+    this.speed = 2;
+    this.acceleration = 1.05;
+    this.brightness = random( 50, 70 );
+    // circle target indicator radius
+    this.targetRadius = 1;
+}
+
+// update firework
+Firework.prototype.update = function( index ) {
+    // remove last item in coordinates array
+    this.coordinates.pop();
+    // add current coordinates to the start of the array
+    this.coordinates.unshift( [ this.x, this.y ] );
+    
+    // cycle the circle target indicator radius
+    if( this.targetRadius < 8 ) {
+        this.targetRadius += 0.3;
+    } else {
+        this.targetRadius = 1;
+    }
+    
+    // speed up the firework
+    this.speed *= this.acceleration;
+    
+    // get the current velocities based on angle and speed
+    var vx = Math.cos( this.angle ) * this.speed,
+            vy = Math.sin( this.angle ) * this.speed;
+    // how far will the firework have traveled with velocities applied?
+    this.distanceTraveled = calculateDistance( this.sx, this.sy, this.x + vx, this.y + vy );
+    
+    // if the distance traveled, including velocities, is greater than the initial distance to the target, then the target has been reached
+    if( this.distanceTraveled >= this.distanceToTarget ) {
+        createParticles( this.tx, this.ty );
+        // remove the firework, use the index passed into the update function to determine which to remove
+        fireworks.splice( index, 1 );
+    } else {
+        // target not reached, keep traveling
+        this.x += vx;
+        this.y += vy;
+    }
+}
+
+// draw firework
+Firework.prototype.draw = function() {
+    ctx.beginPath();
+    // move to the last tracked coordinate in the set, then draw a line to the current x and y
+    ctx.moveTo( this.coordinates[ this.coordinates.length - 1][ 0 ], this.coordinates[ this.coordinates.length - 1][ 1 ] );
+    ctx.lineTo( this.x, this.y );
+    ctx.strokeStyle = 'hsl(' + hue + ', 100%, ' + this.brightness + '%)';
+    ctx.stroke();
+    
+    ctx.beginPath();
+    // draw the target for this firework with a pulsing circle
+    ctx.arc( this.tx, this.ty, this.targetRadius, 0, Math.PI * 2 );
+    ctx.stroke();
+}
+
+// create particle
+function Particle( x, y ) {
+    this.x = x;
+    this.y = y;
+    // track the past coordinates of each particle to create a trail effect, increase the coordinate count to create more prominent trails
+    this.coordinates = [];
+    this.coordinateCount = 5;
+    while( this.coordinateCount-- ) {
+        this.coordinates.push( [ this.x, this.y ] );
+    }
+    // set a random angle in all possible directions, in radians
+    this.angle = random( 0, Math.PI * 2 );
+    this.speed = random( 1, 10 );
+    // friction will slow the particle down
+    this.friction = 0.95;
+    // gravity will be applied and pull the particle down
+    this.gravity = 1;
+    // set the hue to a random number +-20 of the overall hue variable
+    this.hue = random( hue - 20, hue + 20 );
+    this.brightness = random( 50, 80 );
+    this.alpha = 1;
+    // set how fast the particle fades out
+    this.decay = random( 0.015, 0.03 );
+}
+
+// update particle
+Particle.prototype.update = function( index ) {
+    // remove last item in coordinates array
+    this.coordinates.pop();
+    // add current coordinates to the start of the array
+    this.coordinates.unshift( [ this.x, this.y ] );
+    // slow down the particle
+    this.speed *= this.friction;
+    // apply velocity
+    this.x += Math.cos( this.angle ) * this.speed;
+    this.y += Math.sin( this.angle ) * this.speed + this.gravity;
+    // fade out the particle
+    this.alpha -= this.decay;
+    
+    // remove the particle once the alpha is low enough, based on the passed in index
+    if( this.alpha <= this.decay ) {
+        particles.splice( index, 1 );
+    }
+}
+
+// draw particle
+Particle.prototype.draw = function() {
+    ctx. beginPath();
+    // move to the last tracked coordinates in the set, then draw a line to the current x and y
+    ctx.moveTo( this.coordinates[ this.coordinates.length - 1 ][ 0 ], this.coordinates[ this.coordinates.length - 1 ][ 1 ] );
+    ctx.lineTo( this.x, this.y );
+    ctx.strokeStyle = 'hsla(' + this.hue + ', 100%, ' + this.brightness + '%, ' + this.alpha + ')';
+    ctx.stroke();
+}
+
+// create particle group/explosion
+function createParticles( x, y ) {
+    // increase the particle count for a bigger explosion, beware of the canvas performance hit with the increased particles though
+    var particleCount = 30;
+    while( particleCount-- ) {
+        particles.push( new Particle( x, y ) );
+    }
+}
+
+// main demo loop
+function loop() {
+    // this function will run endlessly with requestAnimationFrame
+    requestAnimFrame( loop );
+    
+    // increase the hue to get different colored fireworks over time
+    hue += 0.5;
+    
+    // normally, clearRect() would be used to clear the canvas
+    // we want to create a trailing effect though
+    // setting the composite operation to destination-out will allow us to clear the canvas at a specific opacity, rather than wiping it entirely
+    ctx.globalCompositeOperation = 'destination-out';
+    // decrease the alpha property to create more prominent trails
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect( 0, 0, cw, ch );
+    // change the composite operation back to our main mode
+    // lighter creates bright highlight points as the fireworks and particles overlap each other
+    ctx.globalCompositeOperation = 'lighter';
+    
+    // loop over each firework, draw it, update it
+    var i = fireworks.length;
+    while( i-- ) {
+        fireworks[ i ].draw();
+        fireworks[ i ].update( i );
+    }
+    
+    // loop over each particle, draw it, update it
+    var i = particles.length;
+    while( i-- ) {
+        particles[ i ].draw();
+        particles[ i ].update( i );
+    }
+    
+    // launch fireworks automatically to random coordinates, when the mouse isn't down
+    if( timerTick >= timerTotal ) {
+        if( !mousedown ) {
+            // start the firework at the bottom middle of the screen, then set the random target coordinates, the random y coordinates will be set within the range of the top half of the screen
+            fireworks.push( new Firework( cw / 2, ch, random( 0, cw ), random( 0, ch / 2 ) ) );
+            timerTick = 0;
+        }
+    } else {
+        timerTick++;
+    }
+    
+    // limit the rate at which fireworks get launched when mouse is down
+    if( limiterTick >= limiterTotal ) {
+        if( mousedown ) {
+            // start the firework at the bottom middle of the screen, then set the current mouse coordinates as the target
+            fireworks.push( new Firework( cw / 2, ch, mx, my ) );
+            limiterTick = 0;
+        }
+    } else {
+        limiterTick++;
+    }
+}
+
+// mouse event bindings
+// update the mouse coordinates on mousemove
+canvas.addEventListener( 'mousemove', function( e ) {
+    mx = e.pageX - canvas.offsetLeft;
+    my = e.pageY - canvas.offsetTop;
+});
+
+// toggle mousedown state and prevent canvas from being selected
+canvas.addEventListener( 'mousedown', function( e ) {
+    e.preventDefault();
+    mousedown = true;
+});
+
+canvas.addEventListener( 'mouseup', function( e ) {
+    e.preventDefault();
+    mousedown = false;
+});
+
+// once the window loads, we are ready for some fireworks!
+window.onload = loop;
+
+</script>
 
 
-                <div class="row am-cf">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4 widget-margin-bottom-lg ">
-                        <div class="tpl-user-card am-text-center widget-body-lg">
-                            <div class="tpl-user-card-title">
-                                禁言小张
-                            </div>
-                            <div class="achievement-subheading">
-                                月度最佳员工
-                            </div>
-                            <img class="achievement-image" src="Admin/assets/img/user07.png" alt="">
-                            <div class="achievement-description">
-                                禁言小张在
-                                <strong>30天内</strong> 禁言了
-                                <strong>200多</strong>人。
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-8 widget-margin-bottom-lg">
-
-                        <div class="widget am-cf widget-body-lg">
-
-                            <div class="widget-body  am-fr">
-                                <div class="am-scrollable-horizontal ">
-                                    <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
-                                        <thead>
-                                            <tr>
-                                                <th>文章标题</th>
-                                                <th>作者</th>
-                                                <th>时间</th>
-                                                <th>操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="gradeX">
-                                                <td>新加坡大数据初创公司 Latize 获 150 万美元风险融资</td>
-                                                <td>张鹏飞</td>
-                                                <td>2016-09-26</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>自拍的“政治角色”：观众背对希拉里自拍合影表示“支持”</td>
-                                                <td>天纵之人</td>
-                                                <td>2016-09-26</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="gradeX">
-                                                <td>关于创新管理，我想和你当面聊聊。</td>
-                                                <td>王宽师</td>
-                                                <td>2016-09-26</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>究竟是趋势带动投资，还是投资引领趋势？</td>
-                                                <td>着迷</td>
-                                                <td>2016-09-26</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Docker领域再添一员，网易云发布“蜂巢”，加入云计算之争</td>
-                                                <td>醉里挑灯看键</td>
-                                                <td>2016-09-26</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
 
 
-                                            <!-- more data -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
+
                 </div>
             </div>
         </div>
