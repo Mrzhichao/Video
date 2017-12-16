@@ -8,25 +8,25 @@
       <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
       <title></title>
       <!-- Bootstrap core CSS -->
-      <link href="{{url('Home/css/bootstrap.css')}}" rel="stylesheet">
+      <link href="{{asset('Home/css/bootstrap.css')}}" rel="stylesheet">
       <!-- Custom styles for this template -->
-      <link rel="stylesheet" href="{{url('Home/css/screen.css')}}">
-      <link rel="stylesheet" href="{{url('Home/css/animation.css')}}">
+      <link rel="stylesheet" href="{{asset('Home/css/screen.css')}}">
+      <link rel="stylesheet" href="{{asset('Home/css/animation.css')}}">
       <!--[if IE 7]>
       
       <![endif]-->
-      <link rel="stylesheet" href="{{url('Home/css/font-awesome.css')}}">
+      <link rel="stylesheet" href="{{asset('Home/css/font-awesome.css')}}">
       <!--[if lt IE 8]>
       <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection">
       <![endif]-->
 
-    <!-- <link href="{{url('Home/css/lity.css')}}" rel="stylesheet"> -->
+    <!-- <link href="{{asset('Home/css/lity.css')}}" rel="stylesheet"> -->
 	  <link rel="stylesheet" id="main-css" href="http://www.ff6.wang/static/style.css" type="text/css" media="all">
 
-  <link rel="stylesheet" href="{{ url('Home/jd/css/font-awesome.min.css') }}">
-  <link rel="stylesheet" href="{{ url('Home/jd/css/reset.css') }}">
-  <link rel="stylesheet" href="{{ url('Home/jd/css/style.css') }}"> 
-  <script src="{{ url('Home/jd/js/jquery.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('Home/jd/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('Home/jd/css/reset.css') }}">
+  <link rel="stylesheet" href="{{ asset('Home/jd/css/style.css') }}"> 
+  <script src="{{ asset('Home/jd/js/jquery.min.js') }}"></script>
 
 	  <style> 
 	  
@@ -67,14 +67,13 @@
               @endforeach
             <li><a href="contact.html">更多</a></li>
           </ul>
-           <ul class="social">
-              <li class="social-facebook" id="up"><a href="javascript:;" class="fa fa-upload social-icons"></a></li>
-              <!-- 上传按钮 -->
-              <li class="social-google-plus"  ><a href="#" class="fa fa-download social-icons"></a></li>
-              <li  class="social-youtube" >  <a target="_self" class="fa fa-qq social-icons" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
-              <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
-              <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
-            </ul>
+          <ul class="social">
+            <li class="social-facebook"><a href="#" class="fa fa-upload social-icons"></a></li>
+            <li class="social-google-plus"><a href="#" class="fa fa-download social-icons"></a></li>
+            <li  class="social-youtube" >  <a target="_self" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1239099896:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
+            <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
+            <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
+          </ul>
           <div class="search-block">
             <form action="{{url('home/search')}}" method="get">
                <input type="search" name="wordskey" placeholder="Search">
@@ -177,7 +176,7 @@
                                                    <i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
                                                 </span>
                                                 <div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-                                               <img style="width:265px;height:300px" class="img-responsive" src="{{ url('/Uploads/Video/'.$v['logo']) }}" alt="#" />
+      <img style="width:265px;height:300px" class="img-responsive" src="{{ asset('/Uploads/Video/'.$v['logo']) }}" alt="#" />
                                              <a>
                                           </div>
                                        </div>
@@ -240,7 +239,7 @@
 
 
 
-<script src="{{url('Layer/layer.js')}}"></script>
+<script src="{{asset('Layer/layer.js')}}"></script>
 
 <script>
     $(function(){

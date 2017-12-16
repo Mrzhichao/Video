@@ -112,11 +112,18 @@
               </div>
               <!-- TAGS -->
               
-              <div class="col-lg-6 col-md-3 col-sm-12 col-xs-12">
+           <div class="col-lg-6 col-md-3 col-sm-12 col-xs-12">
                 <h2 class="">友情链接</h2>
                 <ul class="footer-tags">
                 @foreach($link as $v)
-                  <li><a title="{{$v->title}}" href="{{$v->link_url}}">{{ $v->link_name }}</a></li>
+                  <li>
+                      <a title="{{$v->link_name}}" href="{{$v->link_title}}">
+                          {{ $v->link_name }}
+                          <img style='width:60px;' src="{{ asset('/Uploads/link/'.$v->link_url.'.png') }}" alt="">
+                      </a>
+
+
+                  </li>
                 @endforeach
                 </ul>
               </div>
