@@ -46,7 +46,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;"><img src="{{asset('Admin/img/logo.png')}}" alt=""></a>
+                <a href="javascript:;"><img style="width: 179px;height: 40px;" src="{{asset('Admin/img/logo.png')}}" alt=""></a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -218,7 +218,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-heading"> Active  Video </li>
                 <li class="sidebar-nav-link">
-                    <a href="{{url('/')}}" class="active">
+                    <a href="{{url('admin/index')}}" class="active">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                     </a>
                 </li>
