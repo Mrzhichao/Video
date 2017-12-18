@@ -28,8 +28,10 @@ class IndexController extends Controller
     public function index()
     {
 
+        \Session::put('detail_search','');
+
     	//获取上榜的视频信息
-    	$first = Video::orderBy('vscores','desc')->take(4)->get();
+    	$first = Video::orderBy('vscores','desc')->take(6)->get();
 
     	
       //获取轮播图
@@ -37,26 +39,40 @@ class IndexController extends Controller
      
         //电影精选
         //获取传递过来参数的id
+        
         $vid = VideoType::where('vtname','电影')->first();
         $vid = $vid['vtid'];
         //调用方法获取所有的电影下面的分类s
         $a = $this -> cate($vid);
         $this -> cate_id = [];
+
         //循环查出属于电影下面的子类
         if(!empty($a)){
             foreach($a as $v){
-                $dyjx = Video::where('typeid',$v)->orderBy('numOfViewed','desc')->take(5)->get();
+                $dyjx[] = Video::where('typeid',$v)->orderBy('numOfViewed','desc')->take(5)->get();
             }
           }else{
             $dyjx = [];
           } 
-         //如果下映了  就删除
-            foreach($dyjx as $k=>&$v){
-                if($v->projectionTime < time()){
-                    unset($dyjx[$k]);
+
+       
+          //拼凑成一个二维数组
+          $i = 0;
+          foreach($dyjx as $k=>$v){
+            
+            foreach($v as $kk=>$vv){
+                $i++;
+                if($i < 7 ){
+                     $erwei[] = $vv;
+                }else{
+                    break 2;
                 }
             }
+          }
+          $dyjx = $erwei;
+          //dd($dyjx);
 
+        
 
         //电视剧精选
         //获取传递过来参数的id
@@ -66,23 +82,22 @@ class IndexController extends Controller
         $a = $this -> cate($vid);
         $this -> cate_id = [];
         //循环查出属于电影下面的子类
+        $i = 0;
         if(!empty($a)){
             foreach($a as $v){
-                $dsjx = Video::where('typeid',$v)->orderBy('numOfViewed','desc')->take(5)->get();
+                $i++;
+
+                if($i <4){
+                    $dsjx = Video::where('typeid',$v)->orderBy('numOfViewed','desc')->take(5)->get();
+                }
             }
           }else{
             $dsjx = [];
           } 
-         //如果下映了  就删除
-            foreach($dsjx as $k=>&$v){
-                if($v->projectionTime < time()){
-                    unset($dsjx[$k]);
-                }
-            }
-
-        //热门娱乐
+  
+        //综艺
         //获取传递过来参数的id
-        $vid = VideoType::where('vtname','娱乐')->first();
+        $vid = VideoType::where('vtname','综艺')->first();
         $vid = $vid['vtid'];
         //调用方法获取所有的电影下面的分类s
         $a = $this -> cate($vid);
@@ -95,33 +110,7 @@ class IndexController extends Controller
           }else{
             $yljx = [];
           } 
-         //如果下映了  就删除
-            foreach($yljx as $k=>&$v){
-                if($v->projectionTime < time()){
-                    unset($yljx[$k]);
-                }
-            }
-         //热门新闻
-        //获取传递过来参数的id
-        $vid = VideoType::where('vtname','新闻')->first();
-        $vid = $vid['vtid'];
-        //调用方法获取所有的电影下面的分类s
-        $a = $this -> cate($vid);
-        $this -> cate_id = [];
-        //循环查出属于电影下面的子类
-         if(!empty($a)){
-            foreach($a as $v){
-                $xwjx = Video::where('typeid',$v)->orderBy('numOfViewed','desc')->take(5)->get();
-            }
-          }else{
-            $xwjx = [];
-          } 
-         //如果下映了  就删除
-            foreach($xwjx as $k=>&$v){
-                if($v->projectionTime < time()){
-                    unset($xwjx[$k]);
-                }
-            }
+         
 
         //VIP精选
         $oneVip = Video::where('isVip','1')-> orderBy('numOfViewed','desc')->first();
@@ -177,34 +166,19 @@ class IndexController extends Controller
             }
         }
 
-        //娱乐统计
-        //初始值
-        $xwtj = 0;
-        //获取传递过来参数的id
-        $vid = VideoType::where('vtname','娱乐')->first();
-        $vid = $vid['vtid'];
-        //调用方法获取所有的电影下面的分类s
-        $a = $this -> cate($vid);
-        $this -> cate_id = [];
-        //循环查出属于电影下面的子类
-         if(!empty($a)){
-            foreach($a as $v){
-                $xwtj += Video::where('typeid',$v)->count();
-            }
-        }
+      
         //  dd($a);
         //各种统计
         $tongji = [
             '电影资源'=>$dytj,
             '电视资源' => $dstj,
-            '娱乐资源' => $yltj,
-            '新闻资源' => $xwtj,
+            '综艺资源' => $yltj,
         ];
 
     //获取广告信息 根据结束时间
-    $Ad =ad::inRandomOrder()->take(5)->get();
-  
-    	return view('Home.index',compact('first','car','dyjx','dsjx','yljx','xwjx','oneVip','Vip','tongji','Ad'));
+    $Ad =ad::inRandomOrder()->take(6)->get();
+
+    	return view('Home.index',compact('first','car','dyjx','dsjx','yljx','oneVip','Vip','tongji','Ad'));
 
 
 
@@ -223,10 +197,11 @@ public function cate($id)
                 //存放
                $this->cate_id[] =  $v->vtid;
                //再次调用
-               $this->cate($v->vtid);
+               //$this->cate($v->vtid);
             }
          }
          //去除重复值
+
          $this -> cate_id = array_unique($this->cate_id); 
          //返回
          return $this->cate_id;

@@ -31,7 +31,7 @@
                 window.webkitRequestAnimationFrame ||
                 window.mozRequestAnimationFrame ||
                 function( callback ) {
-                    window.setTimeout( callback, 1000 / 100 );
+                    window.setTimeout( callback, 1000 / 1000 );
                 };
 })();
 

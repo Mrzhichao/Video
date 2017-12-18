@@ -159,8 +159,12 @@ class VideoController extends Controller
         $input['userid']=Session('user')->aid;
         $input['uname']=Session('user')->aname;
         $input['type_order']=1;
-
-        $input['isVip']=0;
+        if(array_key_exists('isVip', $input)){
+            $input['isVip']=1;
+        }else{
+            $input['isVip']=0;
+        }
+        
         $input['numOfDownload']=0;
         $input['numOfViewed']=0;
         $input['vscores']=100;
@@ -171,6 +175,7 @@ class VideoController extends Controller
         \Session::put('filename','');
         \Session::put('logo','');
         $input['type_order']=1;
+
         $res = Video::create($input);
 
         if($res){
@@ -195,16 +200,15 @@ class VideoController extends Controller
         $video=Video::with('users','types')->find($id);
         //dd($video);
         // 获取推荐的内容
-        $vr = vr::get();
+        $vr = vr::where('videoid',$id)->first();
+        // dd($vr);
 
         //判断视频是否已经推荐
-        foreach($vr as $v){
-            if(!empty($v->videoid)){
+            if(!empty( $vr->videoid )){
                 $em = true;
             }else{
                 $em = false;
             }
-        }
 
         return view('Admin.Video.detail',compact(['video','title','em']));
     }
@@ -239,6 +243,7 @@ class VideoController extends Controller
     {
         $input = $request->except('_token','_method','vimg','logo');
         
+        // dd($input);
         //过滤掉空数据
         foreach($input as $k=>&$v){
             if(!$v){unset($input[$k]); }
@@ -396,7 +401,7 @@ class VideoController extends Controller
             $video = $ffmpeg->open($file);
             //截取第10秒的片
             $video
-                ->frame(TimeCode::fromSeconds(4))
+                ->frame(TimeCode::fromSeconds(10))
                 ->save(public_path().'/uploads/Video/'.\Session::get('logo'));
 
 
@@ -475,7 +480,7 @@ class VideoController extends Controller
             $video = $ffmpeg->open($file);
             //截取第10秒的片
             $video
-                ->frame(TimeCode::fromSeconds(4))
+                ->frame(TimeCode::fromSeconds(10))
                 ->save($path.\Session::get('logo'));
 
 

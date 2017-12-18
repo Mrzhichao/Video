@@ -321,7 +321,7 @@
 
     })
 
-    function sou($id){
+      function sou($id){
        // 搜索的值    
       // var type=$(".crumb-select-item").first().find("b").html(); 
       // alert(type);

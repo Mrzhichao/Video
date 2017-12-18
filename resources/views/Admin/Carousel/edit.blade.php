@@ -39,18 +39,6 @@
                                         </div>
                                     </div>
 
-                                
-                                   <div class="am-form-group">
-                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">跳转路径<span class="tpl-form-line-small-title" ></span></label>
-                                        <div class="am-u-sm-12">
-                                            <input type="text"     id="user-name" name="credirect" value="{{ $data->credirect }}"  placeholder="请输入跳转路径" class="tpl-form-input am-margin-top-xs">
-                                            
-                                        </div>
-                                    </div>
-
-           
-
-                       
                         <input type="hidden" name="vid" value="{{$data->cid}}">
                                                
                                     

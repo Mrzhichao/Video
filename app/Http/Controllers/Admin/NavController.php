@@ -49,7 +49,7 @@ class NavController extends Controller
                 $res = '';
             }else{
                 //如果数据库里面没有 就添加
-                 $res = nav::create(['nname'=>$v->vtname,'pid'=>$v->vtid]);
+                 $res = nav::create(['nname'=>$v->vtname,'pid'=>$v->vtid,'resourceSrc'=>'/home/video']);
             }
          
         }

@@ -47,7 +47,6 @@
                                             <th>视频编号</th>
                                             <th>轮播名称</th>
                                             <th>预览图</th>
-                                            <th>跳转地址</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
@@ -57,9 +56,7 @@
                                         	<td class="id">{{ $v -> cid }}</td>
                                             <td>{{ $v -> vid }}</td>
                                             <td class="cname">{{ $v -> cname }}</td>
-                                            <td><img width="60" height="40" src="{{ asset('uploads/Video/s_') }}{{ $v->vlogo }}" /></td>
-                                            <td class="credirect">{{ $v -> credirect }}</td>
-                                            
+                                            <td><img width="60" height="40" src="{{ asset('uploads/Video/') }}/{{ $v->vlogo }}" /></td>
                                             <td>
                                                 <div class="tpl-table-black-operation">
                                                     <a id="edit"  href="{{ url('admin/carousel') }}/{{$v->cid}}/edit">

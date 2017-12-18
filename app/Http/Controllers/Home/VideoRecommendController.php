@@ -62,10 +62,11 @@ class VideoRecommendController extends Controller
      {  
         //获取视频的编号
         $vid = $request->vid;
-        $rid = vr::find($vid);
+        $rid = vr::where('videoid',$vid)->first();
+
         if($rid){
             //添加到数据库
-           $res = vr::find($vid)->delete();
+           $res = vr::where('videoid',$vid)->delete();
             if($res){
                 echo '已取消';
             }else{

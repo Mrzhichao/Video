@@ -46,19 +46,12 @@
                                             
                                         </div>
                                     </div>
-                                   <div class="am-form-group">
-                                        <label class="am-u-sm-12 am-form-label am-text-left" for="user-name">跳转路径<span class="tpl-form-line-small-title" ></span></label>
-                                        <div class="am-u-sm-12">
-                                            <input type="text"     id="user-name" name="credirect" value=""  placeholder="请输入跳转路径" class="tpl-form-input am-margin-top-xs">
-                                            
-                                        </div>
-                                    </div>
-
+                                  
            
 
                         <input type="hidden" name="vlogo" value="{{$data->logo}}">
                         <input type="hidden" name="vid" value="{{$data->vid}}">
-                                                视频截图:<img src="{{asset('uploads/Video')}}/s_{{$data->logo}}">
+                                                视频截图:<img style="width:300px" src="{{asset('uploads/Video')}}/{{$data->logo}}">
                                            
                                 <br><br>
                                     

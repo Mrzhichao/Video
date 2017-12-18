@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Carousel;
+use App\Models\Admin\Video;
 
 class CarouselController extends Controller
 {
@@ -43,7 +44,7 @@ class CarouselController extends Controller
         //通过编号获取视频的名称
         $id = $_GET['vid']; 
         // dd($id);
-        $data = Carousel::find($id)->video;
+        $data = Video::find($id);
          // dd($data);
         //返回
         return view('Admin.Carousel.create',['title'=>$title,'data'=>$data]);
@@ -62,17 +63,16 @@ class CarouselController extends Controller
         //表单验证
          $this->validate($request, [
             'cname' => 'required|max:50',
-            'credirect' => 'required|url',
+
         ],[
             'cname.required' => '请填写轮播名称',
             'canme.max' => '名称不得大于50字',
-            'redirect.required' => '请填写跳转的路径',
-            'redirect.url' => '请输入有效的地址',
 
         ]);
 
          //获取数据
          $data = $request -> except('_token');
+         // dd($data);
          
          //写入数据库
         $res =  Carousel::create($data);
@@ -129,10 +129,8 @@ class CarouselController extends Controller
         //表单验证
          $this->validate($request, [
             'cname' => 'max:50',
-            'credirect' => 'url',
         ],[
             'canme.max' => '名称不得大于50字',
-            'redirect.url' => '请输入有效的地址',
         ]);
 
          $data = $request -> except('_token','method');

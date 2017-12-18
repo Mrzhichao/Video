@@ -23,9 +23,9 @@ class AppServiceProvider extends ServiceProvider
         $link = Link::get();
 
         //评分最高的视频
-        $Vfirst = Video::orderBy('vscores','desc')->take(8)->get();
+        $Vfirst = Video::orderBy('vscores','desc')->take(6)->get();
         //热门推荐
-        $rmtj = Video::inRandomOrder()->take(5)->get();
+        $rmtj = Video::inRandomOrder()->take(6)->get();
 
         //随机广告
         $oneAd = ad ::inRandomOrder()->first();
@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
          //今日推荐
         $tj = \DB::table('videos')
             ->join('videorecommend', 'videos.vid', '=', 'videorecommend.videoid')
-            ->get();
+            ->take(6)->get();
 
             //如果下映了  就删除
             foreach($tj as $k=>&$v){

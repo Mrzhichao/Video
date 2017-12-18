@@ -56,9 +56,9 @@
             <ul class="social">
               <li class="social-facebook" id="up"><a href="javascript:;" class="fa fa-upload social-icons"></a></li>
               <!-- 上传按钮 -->
-              <li class="social-google-plus"  ><a href="#" class="fa fa-download social-icons"></a></li>
+              <li class="social-google-plus"  ><a href="javascript:;" class="fa fa-download social-icons"></a></li>
               <li  class="social-youtube" >  <a target="_self" class="fa fa-qq social-icons" href="http://wpa.qq.com/msgrd?v=3&uin=1239099896&site=qq&menu=yes"></a></li>
-              <li class="social-youtube"><a href="#" class="fa fa-youtube social-icons"></a></li>
+              <li class="social-youtube"><a href="javascript:;" class="fa fa-youtube social-icons"></a></li>
               <li class="social-rss"><a href="{{url('home/userinfo')}}" class="fa fa-user social-icons"></a></li>
             </ul>
             <div class="search-block">

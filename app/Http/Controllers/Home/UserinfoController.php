@@ -30,7 +30,7 @@ class UserinfoController extends Controller
         // }else{
         //     return 222;
         // }
-        // dd($data->avatar);
+        // dd($data);
         return view('Home.Userinfo.userinfo',['data'=>$data]);
     }
 
@@ -149,9 +149,18 @@ class UserinfoController extends Controller
                 // dd($users);
             }
 
-            //修改详情表
-            $userinfo = Userinfo::where('userid',$id)->update(['nickname' =>$data['nickname'],'realname' =>$data['realname']]);
-            // dd($userinfo);
+            $res = Userinfo::where('userid',$id) -> first();
+            // dd($res);
+            // 判断
+            if($res){
+                //修改详情表
+                $userinfo = Userinfo::where('userid',$id)->update(['nickname' =>$data['nickname'],'realname' =>$data['realname']]);
+            }else{
+                //添加
+                $userinfo = Userinfo::create(['userid'=>$id,'nickname' =>$data['nickname'],'realname' =>$data['realname']]);
+            }
+            
+        
           
        //判断是否修改成功
        if($users || $userinfo){

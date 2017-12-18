@@ -58,10 +58,18 @@
         <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd " >
           <ul class="nav navbar-nav">
           <li><a href="{{url('/')}}">首页</a></li>
-            @foreach($nav as $k=>$v)
-            <li><a href="{{$v->resourceSrc}}/{{$v->pid}}">{{$v->nname}}</a></li>
-            @endforeach
-            <li><a href="{{url('home/video/status')}}">返回</a></li>
+               @foreach($nav as $k=>$v)
+                @if($v->nname == 'Vip')
+                  <li><a href="{{$v->resourceSrc}}">{{$v->nname}}</a></li>
+                @else
+                  @if(!empty($pid))
+                    <li><a href="{{url('home/video/destroy_session')}}?pid={{$v->pid}}">{{$v->nname}}</a></li>
+                  @endif
+                @endif
+              @endforeach
+              @if(!empty($pid))
+                <li><a href="{{url('home/video/destroy_session?pid='.$pid)}}">返回</a></li>
+              @endif
             <li><a href="contact.html">更多</a></li>
           </ul>
           <ul class="social">
@@ -111,7 +119,7 @@
                                        <!-- POST L size -->
                                        <div class="post post-medium">
                                           <div class="thumbr">
-                                             <a class="post-thumb" href="" data-lity>
+                                             <a class="post-thumb" href="/home/play?vid={{$vv['vid']}}" data-lity>
                                                 <span class="play-btn-border" title="Play">
                                                    <i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
                                                 </span>

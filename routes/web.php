@@ -28,9 +28,7 @@
 Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespace'=>'Admin'],function (){
 
 
-
 	/*-----------------------------------Wang-----------------------------------*/
-
 
 	//后台主页
 	Route::get('index','IndexController@index');	
@@ -44,7 +42,6 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//后台用户模块
 	Route::resource('user','UserController');
 	
-
 	//用户详情路由
 	Route::resource('userinfo','UserinfoController');
 
@@ -65,17 +62,16 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 	//广告路由AJAX
 	Route::post('ad/ajax','AdController@ajax');
-	 //广告路由
+	//广告路由
  	Route::resource('ad','AdController');
 
 	//视频广告
-	 Route::resource('vad','VadController');
-	 //视频广告路由AJAX
-	 Route::post('vad/ajax','VadController@ajax');
+	Route::resource('vad','VadController');
+	//视频广告路由AJAX
+	Route::post('vad/ajax','VadController@ajax');
 
 	//轮播视频管理
 	Route::resource('carousel','CarouselController');
-
 	//轮播管理 AJAX
 	Route::post('carousel/ajaxName','CarouselController@ajax');
 
@@ -85,11 +81,11 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	Route::get('role/auth/{id}','RoleController@auth');
 	Route::post('role/auth','RoleController@doauth');
 	
-	//后台授权路由
-	Route::get('admin/auth/{id}','AdminController@auth');
-	Route::post('admin/auth','AdminController@doauth');
 	//权限管理
 	Route::resource('auth','AuthController');
+	//授权路由
+	Route::get('admin/auth/{id}','AdminController@auth');
+	Route::post('admin/auth','AdminController@doauth');
 
 	//导航管理
 	Route::resource('nav','NavController');
@@ -105,40 +101,27 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	
 	//视频管理
 	Route::resource('video','VideoController');
-
 	//视频ajax无刷新排序
 	Route::post('video/changeorder','VideoController@changeOrder');
-	
 	//视频ajax无刷新修改
 	Route::post('video/img/ajax/edit','VideoController@img_ajax_edit');
-	
 	//视频ajax无刷新上传
 	Route::post('video/img/ajax/upload','VideoController@img_ajax_upload');
-	
-	//视频ajax无刷新时间判断
-	Route::post('video/time','VideoController@time');
 
 
-	//视频类别管理
+	//类别管理
 	Route::resource('videotype','VideoTypeController');
-
-	//视频类别无刷新排序
+	//类别ajax无刷新排序
 	Route::post('videotype/changeorder','VideoTypeController@changeOrder');
 
 
 	//系统配置管理
 	Route::resource('sysconfig','SysconfigController');
-
 	Route::post('sysconfig/changeorder','SysconfigController@changeOrder');
-
 	Route::post('sysconfig/putfile','SysconfigController@putFile');
-
 	Route::post('sysconfig/contentchange','SysconfigController@contentChange');
-
 	Route::post('sysconfig/status/ajax/update','SysconfigController@config_status_ajax_update');
-
 	Route::post('sysconfig/content/ajax/update','SysconfigController@config_content_ajax_update');
-
 	Route::post('sysconfig/delmore','SysconfigController@delmore');
 
 
@@ -151,8 +134,14 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 
 /*-----------------------------------------------前台-----------------------------------------------*/
 
-
 	/*-----------------------------------MrLu-----------------------------------*/
+	
+	//前台首页
+	Route::get('/','Home\indexController@index');
+	
+	//前台首页搜索
+	Route::get('home/search','Home\indexController@search');
+	
 	//报错路由  权限不足
 	Route::get('admin/error/auth','ErrorController@auth');
 
@@ -160,22 +149,12 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	Route::post('home/video/tj','Home\VideoRecommendController@tj');
 	//取消视频推荐
 	Route::post('home/video/qx','Home\VideoRecommendController@qx');
-
-	//前台首页
-	Route::get('/','Home\indexController@index');
-
-	//前台首页搜索
-	Route::get('home/search','Home\indexController@search');
-
-	//播放页
-	Route::get('home/play','Home\PlayController@play');
-
-
-	//播放页
-	Route::get('home/play','Home\PlayController@play');
-
-	//视频推荐管理
+	//推荐管理
 	Route::get('home/video/first','Home\VideoRecommendController@first');
+
+
+	//下载视频
+	Route::get('home/down/{id}','Home\playController@down')->middleware('Cors');
 
 
 	/*-----------------------------------Wang-----------------------------------*/
@@ -201,43 +180,41 @@ Route::group(['middleware'=>['CheckLogin','hasrole'],'prefix'=>'admin','namespac
 	//修改密码
 	Route::post('home/doreset','Home\RegisterController@doReset');
 
-	//个人中心路由
-	Route::resource('home/userinfo','Home\UserinfoController');
-	//播放记录
-	Route::resource('home/uservideo','Home\UservideoController');
 
-	//上传显示页
-	Route::get('home/video/add','Home\UploadController@add');
+	Route::group(['middleware'=>'HomeLogin','prefix'=>'home','namespace'=>'Home'],function (){
+		//个人中心路由
+		Route::resource('userinfo','UserinfoController');
+		//播放记录
+		Route::resource('uservideo','UservideoController');
 
-	//用户个人信息AJAX
-	Route::post('home/userinfo/eidt','Home\UploadController@Uploads');
+		//上传显示页
+		Route::get('video/add','UploadController@add');
 
-	//上传视频
-	Route::post('home/video/doadd','Home\UploadController@doadd');
+		//用户个人信息AJAX
+		Route::post('userinfo/eidt','UploadController@Uploads');
+
+		//上传视频
+		Route::post('video/doadd','UploadController@doadd');
+	});
 
 
 	/*-----------------------------------SunnyHan-----------------------------------*/
 
+	//销毁Session
+	Route::get('home/video/destroy_session','Home\VideoController@destroy_session');
+
 
 	//vip视频
-	Route::get('home/video/vip','Home\VideoController@vip');
-	
+	Route::get('home/video/vip','Home\VideoController@vip');	
+Route::group(['prefix'=>'home','namespace'=>'Home'],function (){
+	//普通视频
+	Route::resource('video','VideoController');
+	//多条件搜索
+	Route::post('video/type/ajax','VideoController@type_ajax');
+});
 
-	//vip播放
-	Route::get('home/vip_play','Home\PlayController@vip_play');
-	
-		
 
-	//vip播放 播放记录
-	Route::get('home/vip_play','Home\PlayController@vip_play');
-	
-
-	//销毁Session
-	Route::get('home/video/status','Home\VideoController@status');
-
-	//视频页面
-	Route::group(['prefix'=>'home','namespace'=>'Home'],function (){
-		Route::resource('video','VideoController');
-	    Route::post('video/type/ajax','VideoController@type_ajax');
-	    Route::post('video/type/detail','VideoController@detail');
-	});
+	//普通视频播放
+	Route::get('home/play','Home\PlayController@play');
+	//vip 视频播放    播放记录
+	Route::get('home/vip_play','Home\PlayController@vip');

@@ -12,9 +12,6 @@
       <!-- Custom styles for this template -->
       <link rel="stylesheet" href="{{asset('Home/css/screen.css')}}">
       <link rel="stylesheet" href="{{asset('Home/css/animation.css')}}">
-
-<link rel="stylesheet" href="{{asset('Amaze/css/amazeui.min.css')}}"/> 
-<link rel="stylesheet" href="{{asset('Amaze/css/amazeui.datatables.min.css')}}" />
       <!--[if IE 7]>
       
       <![endif]-->
@@ -24,30 +21,25 @@
       <![endif]-->
 
     <!-- <link href="{{asset('Home/css/lity.css')}}" rel="stylesheet"> -->
-	  <link rel="stylesheet" id="main-css" href="http://www.ff6.wang/static/style.css" type="text/css" media="all">
+    <link rel="stylesheet" id="main-css" href="http://www.ff6.wang/static/style.css" type="text/css" media="all">
 
-    <link rel="stylesheet" href="{{ asset('Home/jd/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('Home/jd/css/reset.css') }}">
-    <link rel="stylesheet" href="{{ asset('Home/jd/css/style.css') }}"> 
-
-<script src="{{asset('Amaze/js/amazeui.min.js')}}"></script>
-<script src="{{asset('Amaze/js/amazeui.datatables.min.js')}}"></script>
-<script src="{{asset('Amaze/datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
-
+  <link rel="stylesheet" href="{{ asset('Home/jd/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('Home/jd/css/reset.css') }}">
+  <link rel="stylesheet" href="{{ asset('Home/jd/css/style.css') }}"> 
   <script src="{{ asset('Home/jd/js/jquery.min.js') }}"></script>
 
-	  <style> 
-	  
-		
-		#href{
-				color: white;
-		}
-		
-		#href:hover{
-				color:orange;
-		}
-		
-	  </style>
+    <style> 
+    
+    
+    #href{
+        color: white;
+    }
+    
+    #href:hover{
+        color:orange;
+    }
+    
+    </style>
    </head>
    <body>
 
@@ -100,12 +92,12 @@
       <!-- GALLERY VIDEO GRID BOXED -->
       <div id="single-video-right-sidebar" class="container-fluid standard-bg">
          <!-- HEADER -->
-		 
+     
          <!-- GALLERY VIDEO GRID BOXED -->
           <div class="row">
             <div class="container">
               <div class="row">
-                  <!-- VIDEO POSTS -->	
+                  <!-- VIDEO POSTS -->  
                   <div class="col-lg-12 col-md-12">
                      <!-- GALLERY VIDEO GRID SECTION -->
                       <section id="gallery-video-section">
@@ -199,36 +191,14 @@
                                     <div class="col-lg-3 col-md-3 col-sm-3 filter tutorial">
                                        <!-- POST L size -->
                                        <div class="post post-medium">
-
                                           <div class="thumbr">
                                              <a class="post-thumb" href="/home/play?vid={{$vv['vid']}}" data-lity>
                                                 <span class="play-btn-border" title="Play">
                                                    <i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
                                                 </span>
                                                 <div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-      <img style="width:265px;height:300px" class="img-responsive" src="{{ asset('/Uploads/Video/'.$vv['logo']) }}" alt="#" />
-
-
-<form data-am-rating>
-  <input type="hidden" name="score">
-  <a class="am-padding-lg" data-am-icons="heart-o,heart" data-am-score="2" role="button">
-    <i class="am-icon-heart"></i>
-    <i class="am-icon-heart"></i>
-    <i class="am-icon-heart-o"></i>
-    <i class="am-icon-heart-o"></i>
-    <i class="am-icon-heart-o"></i>
- </a>
-</form>
-
-<script>
-  $(function() {
-    $('#rating').rating({
-      icons: ['star-o', 'star-half-empty', 'star'],
-      score: 3.6
-    });
-  });
-</script>
-                                             </a>
+      <img class="img-responsive" src="{{ asset('/Uploads/Video/'.$vv['logo']) }}" alt="#" />
+                                             <a>
                                           </div>
                                        </div>
                                     </div>

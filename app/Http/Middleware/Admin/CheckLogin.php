@@ -17,6 +17,9 @@ class CheckLogin
     public function handle($request, Closure $next)
     {
          //如果用户登录了就放行，如果没有登录就拦住返回到登录页面
+         //
+        // $res = $request->session() -> get('user');
+        // dd($res);
         if(Session::get('user')){
             return $next($request);
         }else{

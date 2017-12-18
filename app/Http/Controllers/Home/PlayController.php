@@ -11,49 +11,79 @@ use App\Models\Home\User_Video;
 
 class PlayController extends Controller
 {
-    //播放页
+    //视频播放页
     public function play()
     {
-    	$id = empty($_GET['vid']) ? '7':$_GET['vid'];
+        $id = empty($_GET['vid']) ? '7':$_GET['vid'];
 
-    	//根据id查询数据库里面的视频并返回页面
-    	$data = Video::find($id);
+        //根据id查询数据库里面的视频并返回页面
+        $data = Video::find($id);
 
+        //浏览量
+        static $numOfViewed=1;
+        //和原来的浏览量相加
+        $liulan =  $data['numOfViewed'] + $numOfViewed;
 
-    	//查找视频广告
-    	$vad = VideoAd::where('videoid',$id)->first();
+        //修改到数据库
+        Video::find($id)->update(['numOfViewed'=>$liulan]);
 
-        
-    	return view('Home.play',compact('data','vad'));
+        //查找视频广告
+        $vad = VideoAd::where('videoid',$id)->first();
 
-    	// return view('Home.play',compact('data'));
-
+        return view('Home.play',compact('data','vad'));
     }
 
-    public function vip_play()
+
+    //vip视频         播放记录
+    public function vip()
     {
     	$vid=$_GET['vid'];
 
-        $uid=Session('HomeUser')->uid;
+        if(!empty(Session('HomeUser'))){
 
-        $record['uid']=$uid;
-        $record['vid']=$vid;
+            $uid=Session('HomeUser')->uid;
 
-        $record_exists=User_Video::where('uid',$uid)->where('vid',$vid)->first();
+            $record['uid']=$uid;
+            $record['vid']=$vid;
 
-        if(!$record_exists){
+            $record_exists=User_Video::where('uid',$uid)->where('vid',$vid)->first();
 
-            //判断当前用户是否是vip用户
-            if(Session('HomeUser')->roleid == 4){
+            if(!$record_exists){
                 User_Video::create($record);
-                return redirect("/home/play?vid=$vid");  
-            }else{
-                return redirect("/home/play?vid=$vid");  
             }
-
-        }else{
-            return redirect("/home/play?vid=$vid");  
         }
+        return redirect("/home/play?vid=$vid");  
+
+    }
+
+
+    //这个写在PlayController里
+    public function down($id)
+    {
+        //定义下载量
+        static $down = 1;
+       
+        //查询数据库
+        $video = Video::find($id);
+        if(empty( $video )){
+            return rediretc('404');
+        }
+         //获取原下载量
+        $xiazai =  $down + $video['numOfDownload'];
+
+        //修改
+        Video::find($id)->update(['numOfDownload'=>$xiazai]);
+        //视频地址
+        $pathFile = public_path().'/uploads/Video'.'/'.$video['resourceSrc'];
+        
+        //视频名字
+        $name = $video['vname'];
+        //响应内容
+        $headers = ['Content-Type'=>'video/mp4'];
+        // response()->headers->set('Content-type' , 'application/octet-stream');
+        // response()->headers->set('Accept-Ranges', 'bytes');
+        // response()->headers->set('Content-Disposition', 'attachment');
+        return response()->download($pathFile,$name,$headers);
     }
 
 

@@ -68,7 +68,7 @@
                                                         <a id="tj" href="javascript:;" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 推荐
                                                         </a>
-                                                        <a id="hidden" style="display: none;" href="javascript:;"class="tpl-table-black-operation-del">
+                                                        <a id="hidden" style="display: none;" href="javascript:;" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 取消
                                                         </a>
                                                         @else
@@ -77,7 +77,7 @@
                                                          href="javascript:;" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 推荐
                                                         </a>
-                                                        <a id="hidden" href="javascript:;"class="tpl-table-black-operation-del">
+                                                        <a id="hidden" href="javascript:;" class="tpl-table-black-operation-del">
                                                             <i class="am-icon-pencil"></i> 取消
                                                         </a>
                                                         @endif

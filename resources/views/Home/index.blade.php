@@ -92,7 +92,7 @@
 					  <div class="flag flag1"><i class="fa fa-star"></i></div>
 					  <a class="post-thumb" href="{{url('home/play')}}?vid={{$oneVip['vid']}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
-					  <img class="img-responsive"  src="{{ url('/uploads/Video') }}/{{$oneVip['logo'] }}" alt="加载失败">
+					  <img  class="img-responsive"  src="{{ url('/uploads/Video') }}/{{$oneVip['logo'] }}" alt="加载失败">
 					  </a>
 					  <div class="infor">
 						 <h4>
@@ -161,7 +161,7 @@
 						 <div class="flag flag1"><i class="fa fa-star"></i></div>
 						 <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity >
 						 <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
-						 <img class="img-responsive" src="{{ url('/uploads/Video') }}/{{$v->logo}}" alt="加载失败">
+						 <img style="width:438.25px;height:246.52px" class="img-responsive" src="{{ url('/uploads/Video') }}/{{$v->logo}}" alt="加载失败">
 						 </a>
 						 <div class="infor">
 							<h4>
@@ -458,7 +458,7 @@
 				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
-					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
+					  <img style="width:400px;height:200px" class="img-responsive"  src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
 				   </a>
 				</div>
 				<div class="infor">
@@ -530,7 +530,7 @@
 				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
-					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
+					  <img class="img-responsive" style="width:400px;height:200px" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
 				   </a>
 				</div>
 				<div class="infor">
@@ -602,7 +602,7 @@
 				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
 					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
 					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
-					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
+					  <img class="img-responsive" style="width:400px;height:200px" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
 				   </a>
 				</div>
 				<div class="infor">
@@ -662,78 +662,7 @@
 		  </div>
 	   </section>
 	   <div class="clearfix spacer"></div>
-	    <!-- 新闻精选 -->
-	   <section id="cur-view">
-	    <a name="新闻资源" id="新闻资源">
-		  <h2 class="icon"><i class="fa fa-trophy" aria-hidden="true"></i>热门新闻</h2>
-		  <div class="row auto-clear">
-			 <!-- POST L size -->
-			 @foreach($xwjx as $v)
-			 <article class="col-lg-2 col-md-4 col-sm-6 post post-medium">
-				<div class="thumbr">
-				   <a class="post-thumb" href="{{url('home/play')}}?vid={{$v->vid}}" data-lity>
-					  <span class="play-btn-border" title="Play"><i class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
-					  <div class="cactus-note ct-time font-size-1"><span>{{$v->vscores}}</span></div>
-					  <img class="img-responsive" style="width: 180px; height: 200px;" src="{{url('/uploads/Video')}}/{{$v->logo}}" alt="#">
-				   </a>
-				</div>
-				<div class="infor">
-				   <h4>
-					  <a class="title" href="{{url('home/play')}}?vid={{$v->vid}}">{{$v->vname}}</a>
-				   </h4>
-				   <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{$v->numOfViewed}}</span>
-				   <div class="ratings">
-					  @if($v->vscores < 2 )
-							   <div class="ratings">
-
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								 	<i class="fa fa-star-o"></i>
-								 	<i class="fa fa-star-o"></i>
-								   <i class="fa fa-star-o"></i>
-								  
-							   </div>
-							   @elseif($v->vscores >=2 && $v->vscores < 5)
-							    <div class="ratings">
-
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								   <i class="fa fa-star-o"></i>
-								  <i class="fa fa-star-o"></i>
-								 
-							   </div>
-							   @elseif($v->vscores >=5 && $v->vscores < 7)
-							    <div class="ratings">
-
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star-half-o" aria-hidden="true"></i>
-								  <i class="fa fa-star-o"></i>
-							   </div>
-							    @elseif($v->vscores >=7 && $v->vscores < 9)
-							    <div class="ratings">
-
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star-half-o" aria-hidden="true"></i>
-								  <i class="fa fa-star-half"></i>
-							   </div>
-							    @elseif($v->vscores > 9 )
-							    <div class="ratings">
-
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star" aria-hidden="true"></i>
-								  <i class="fa fa-star-half-o" aria-hidden="true"></i>
-								  <i class="fa fa-star-half-o" aria-hidden="true"></i>
-								  <i class="fa fa-star-half-o" aria-hidden="true"></i>
-							   </div>
-							   @endif
-				   </div>
-				</div>
-			 </article>
-			 @endforeach
-		  </div>
-	   </section>
-	
+	   
 
 	<!-- 广告欣赏 -->
   <section id="cur-view">

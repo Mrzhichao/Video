@@ -82,10 +82,10 @@
                                                 <th class="am-text-middle">{{ $ob->keywords }}</th>
                                                 <th class="am-text-middle">{{ $ob->resourceSrc }}</th>
                                                 <th class="am-text-middle">
-                                                @if($ob->isvip == 0)
-                                                是
-                                                @else
+                                                @if($ob->isVip == 0)
                                                 否
+                                                @else
+                                                是
                                                 @endif
                                                 </th>
                                                 <th class="am-text-middle">

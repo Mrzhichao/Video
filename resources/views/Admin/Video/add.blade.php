@@ -131,7 +131,7 @@
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">是否是Vip</label>
                                         <div class="am-u-sm-9">
                                             <div class="tpl-switch">
-                                                <input type="checkbox" name='isVip' class="ios-switch bigswitch tpl-switch-btn" value="0">
+                                                <input type="checkbox" name='isVip' class="ios-switch bigswitch tpl-switch-btn" >
                                                 <div class="tpl-switch-btn-view">
                                                 <div></div>
                                                 </div>
